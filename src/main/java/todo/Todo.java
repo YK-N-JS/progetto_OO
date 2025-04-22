@@ -1,9 +1,11 @@
 package todo;
 
+import java.time.LocalDate;
+
 public class Todo {
     public String titolo;
-    //per ora stringa. eventualmente tipo migliore per data
-    //public String data_scadenza;
+    //TODO capire come formattare bene le date
+    public LocalDate data_scadenza;
     public String URL_attivita;
     public String descrizione;
     public boolean completato;
@@ -15,8 +17,8 @@ public class Todo {
     //PROTOTIPI DI COSTRUTTORE
     //eventualmente andrebbero presi da input uno per volta tutti
     //i paramentri e messi a default quelli lasciati bianchi
-    public Todo(){
-        this.titolo = "";
+    public Todo(String titolo){
+        this.titolo = titolo;
         this.URL_attivita = "";
         this.descrizione = "";
         this.completato = false;
@@ -25,6 +27,7 @@ public class Todo {
         //this.data_scadenza = NULL;
         //this.immagine = NULL;
         //this.colore = (255, 255, 255);
+        //TODO aggiungere al database il todo
     }
     public void changetitle(String newtitle)
     {

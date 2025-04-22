@@ -1,5 +1,7 @@
 package todo;
 
+import java.util.Scanner;
+
 public class Utente {
     public String nome_utente;
     private String password;
@@ -9,55 +11,49 @@ public class Utente {
             //TODO aggiungi un modo per chiedere di cambiare utente da input
         }
         this.nome_utente = nome_utente;
-        if (!password.equals(password_repeat))
+        while (!password.equals(password_repeat))
         {
-            System.out.println("le password non matchano");
-            //TODO aggiungi modo per reinserire password_repeat
+            //TODO da interfaccia grafica, blocca tutto finché le password non matchano
+            System.out.println("le password non matchano, riprova");
+            Scanner s = new Scanner(System.in);
+            password_repeat = s.nextLine();
         }
         this.password = password;
-        //aggiunge il nuovo utente alla lista di utenti
-        Utenti.u.add(this);
+        //TODO aggiunge il nuovo utente alla lista di utenti al database
     }
     public void changepasswd(String oldpass, String newpass)
     {
-        if(oldpass.equals(this.password))
+        while(!oldpass.equals(this.password))
         {
-            this.password = newpass;
-        } else {
             System.out.println("vecchia password errata");
-            //TODO aggiungi un modo di richiedere la vecchia password
+            Scanner s = new Scanner(System.in);
+            oldpass = s.nextLine();
         }
+        this.password = newpass;
     }
 
-    public boolean checkname(String nome)
-            //restituisce true se il nome esiste tra gli utenti, false se non esiste
+   /* public boolean checkname(String nome)
+            //TODO interroga il database per vedere se esiste già il nome utente
     {
-        for (Utente u : Utenti.u)
-        {
-            if (u.nome_utente.equals(nome_utente))
+            if (esiste già)
             {
-                System.out.println("utente già esistente");
-                // probabilmente da aggiungere qui la funzione che richiede il nuovo nome utente se quello vecchio esiste e richiama checkname()
-                return true;
+                System.out.println("utente già esistente, try again");
             }
-        }
-        return false;
-    }
+    } */
 
     public void changeusernm(String newuser, String password)
     {
-        if(password.equals(this.password))
+        while(!password.equals(this.password))
         {
-            this.nome_utente = newuser;
-        } else {
             System.out.println("vecchia password errata");
-            //TODO aggiungi un modo di richiedere la vecchia password
+            Scanner s = new Scanner(System.in);
+            password = s.nextLine();
         }
+        this.nome_utente = newuser;
     }
-    //decidere come funzioneranno le bacheche
-    public void creaToDo(Bacheca b)
-    {
-        Todo e = new Todo();
-        b.td.add(e);
+
+    public void creabacheca(String titolo) {
+        Bacheca b= new Bacheca(titolo);
+        b.proprietario = this;
     }
 }
