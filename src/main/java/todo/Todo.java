@@ -1,4 +1,4 @@
-package todo;
+/*package todo;
 
 import java.time.LocalDate;
 
@@ -45,10 +45,10 @@ public class Todo {
     {
         this.completato = true;
     }
-    public void setScaduto(/* eventualmente data*/)
+    public void setScaduto(/* eventualmente data)
     {
         this.scaduto = true;
         // TODO controlla la data e setta a true se è passata
     }
     //TODO aggiungere metodi per immagine e colore eventualmente
-}
+} */

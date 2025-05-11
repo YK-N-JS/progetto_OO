@@ -1,4 +1,4 @@
-package todo;
+/*package todo;
 
 import java.util.ArrayList;
 
@@ -12,3 +12,4 @@ public class Bacheca {
 
  //TODO aggiungere quel che serve
 }
+*/

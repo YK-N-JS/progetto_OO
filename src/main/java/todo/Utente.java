@@ -1,4 +1,4 @@
-package todo;
+/* package todo;
 
 import java.util.Scanner;
 
@@ -32,14 +32,14 @@ public class Utente {
         this.password = newpass;
     }
 
-   /* public boolean checkname(String nome)
+     public boolean checkname(String nome)
             //TODO interroga il database per vedere se esiste già il nome utente
     {
             if (esiste già)
             {
                 System.out.println("utente già esistente, try again");
             }
-    } */
+    }
 
     public void changeusernm(String newuser, String password)
     {
@@ -57,3 +57,4 @@ public class Utente {
         b.proprietario = this;
     }
 }
+ */
