@@ -1,35 +1,35 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
-public class createAccount extends JDialog {
+public class CreateUser extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
+    private JButton createButton;
+    public JFrame frame1;
 
-    public createAccount() {
-        setContentPane(contentPane);
+    public CreateUser(JFrame frame) {
+        frame1 = new JFrame("Create User");
+        frame1.setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        frame1.setMinimumSize(new Dimension(400, 300));
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                frame.setVisible(true);
+                frame1.dispose();
             }
         });
 
         // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
@@ -42,23 +42,16 @@ public class createAccount extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            //TODO create and add user to userlist
+            }
+        });
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
-    }
-
-    public static void main(String[] args) {
-        createAccount dialog = new createAccount();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-
     }
 }
