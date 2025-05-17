@@ -4,21 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="gui iniziata, enorme fallimento">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/CreateUser.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Todo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed ui, reformatted the code. Actually compiles">
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/homePage.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/CreateUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/CreateUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/createAccount.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/createAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/CreateUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/login.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/todo/Bacheca.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/todo/Todo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/todo/Utente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +37,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -48,29 +52,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.Login.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Login.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
+    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gui.Login" />
+      <module name="Applicativo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -80,6 +97,11 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Login" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -106,7 +128,8 @@
       <workItem from="1745315035871" duration="171000" />
       <workItem from="1745501428999" duration="67000" />
       <workItem from="1746951675035" duration="6290000" />
-      <workItem from="1747467746077" duration="5850000" />
+      <workItem from="1747467746077" duration="6306000" />
+      <workItem from="1747489230633" duration="8460000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -132,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746956787102</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixed ui, reformatted the code. Actually compiles">
+      <option name="closed" value="true" />
+      <created>1747473988378</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747473988378</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +173,7 @@
     <MESSAGE value="first commit" />
     <MESSAGE value="aggiunte le classi, da finire" />
     <MESSAGE value="gui iniziata, enorme fallimento" />
-    <option name="LAST_COMMIT_MESSAGE" value="gui iniziata, enorme fallimento" />
+    <MESSAGE value="fixed ui, reformatted the code. Actually compiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed ui, reformatted the code. Actually compiles" />
   </component>
 </project>

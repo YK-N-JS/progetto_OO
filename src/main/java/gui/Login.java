@@ -1,5 +1,7 @@
 package gui;
 
+import controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,18 +14,30 @@ public class Login {
     private JButton loginButton;
     private JButton createOneButton;
     protected static JFrame frame;
+    private Controller controller = new Controller();
 
     public Login() {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (controller.login(textField1.getText(), passwordField1.getText()) == 0) {
+                    //MAGARI FA QUALCOSA DI PIÙ INTERESSANTE...
+                    //JOptionPane.showMessageDialog(frame, "Login Successful");
+                    HomePage homePage = new HomePage(controller.getUser(textField1.getText()), controller);
+                    homePage.frame.setVisible(true);
+                    frame.dispose();
 
+                } else if (controller.login(textField1.getText(), passwordField1.getText()) == -1) {
+                    JOptionPane.showMessageDialog(frame, "wrong password");
+                } else if (controller.login(textField1.getText(), passwordField1.getText()) == -2) {
+                    JOptionPane.showMessageDialog(frame, "invalid user");
+                }
             }
         });
         createOneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            CreateUser createUser = new CreateUser(frame);
+            CreateUser createUser = new CreateUser(frame, controller);
             frame.setVisible(false);
             createUser.frame1.setVisible(true);
             }

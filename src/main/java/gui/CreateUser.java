@@ -1,10 +1,14 @@
 package gui;
 
+import controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class CreateUser extends JDialog {
+    //frame IS PARENT
+    //frame1 IS CHILD
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -14,7 +18,7 @@ public class CreateUser extends JDialog {
     private JButton createButton;
     public JFrame frame1;
 
-    public CreateUser(JFrame frame) {
+    public CreateUser(JFrame frame, Controller controller) {
         frame1 = new JFrame("Create User");
         frame1.setContentPane(contentPane);
         setModal(true);
@@ -46,6 +50,17 @@ public class CreateUser extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
             //TODO create and add user to userlist
+                if (!passwordField1.getText().equals(passwordField2.getText())) {
+                    JOptionPane.showMessageDialog(null, "Passwords do not match");
+                } else if (passwordField1.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Password must be entered");
+                }else if (controller.checkNewUser(textField1.getText())) {
+                    controller.addUser(textField1.getText(), passwordField1.getText());
+                    frame.setVisible(true);
+                    frame1.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username already exists");
+                }
             }
         });
     }
