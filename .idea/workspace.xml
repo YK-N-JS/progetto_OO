@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed ui, reformatted the code. Actually compiles">
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/homePage.form" afterDir="false" />
+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="added some windows, creating users and bacheche">
+      <change afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/CreateUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/CreateUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Todo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,7 +123,9 @@
       <workItem from="1745501428999" duration="67000" />
       <workItem from="1746951675035" duration="6290000" />
       <workItem from="1747467746077" duration="6306000" />
-      <workItem from="1747489230633" duration="8460000" />
+      <workItem from="1747489230633" duration="8905000" />
+      <workItem from="1748013034865" duration="828000" />
+      <workItem from="1748095282325" duration="1838000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -163,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747473988378</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added some windows, creating users and bacheche">
+      <option name="closed" value="true" />
+      <created>1747498059421</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747498059421</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +178,7 @@
     <MESSAGE value="aggiunte le classi, da finire" />
     <MESSAGE value="gui iniziata, enorme fallimento" />
     <MESSAGE value="fixed ui, reformatted the code. Actually compiles" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed ui, reformatted the code. Actually compiles" />
+    <MESSAGE value="added some windows, creating users and bacheche" />
+    <option name="LAST_COMMIT_MESSAGE" value="added some windows, creating users and bacheche" />
   </component>
 </project>
