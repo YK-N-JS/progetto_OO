@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Bacheca {
     private String title;
     private User owner;
-    private String description;
+    private String description = "- - -";
     private ArrayList<Todo> todoInBacheca = new ArrayList<>();
     private ArrayList<User> usersSharingBacheca = new ArrayList<>();
 

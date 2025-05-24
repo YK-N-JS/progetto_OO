@@ -9,9 +9,10 @@ public class User {
     private ArrayList<Bacheca> bacheche = new ArrayList<>();
     private String username;
     private String password;
+    private int num_max_bacheche = 10;
 
     /**
-     * Instantiates a new User.
+     * Instantiates a new User.and creates default bacheche and their description
      *
      * @param username the username of the user
      * @param password the password
@@ -19,6 +20,22 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+
+        this.addBacheca(new Bacheca());
+        bacheche.get(0).setTitle("Default");
+        bacheche.get(0).setDescription("Your default Bachec");
+
+        this.addBacheca(new Bacheca());
+        bacheche.get(1).setTitle("Università");
+        bacheche.get(1).setDescription("University's Bachec");
+
+        this.addBacheca(new Bacheca());
+        bacheche.get(2).setTitle("Lavoro");
+        bacheche.get(2).setDescription("Lavoro's Bachec");
+
+        this.addBacheca(new Bacheca());
+        bacheche.get(3).setTitle("Tempo libero");
+        bacheche.get(3).setDescription("Tempo libero's Bachec");
     }
 
     /**
@@ -57,6 +74,12 @@ public class User {
         this.password = password;
     }
 
+    public Bacheca getBacheca(int index) {
+        return bacheche.get(index);
+    }
+
+
+
     /**
      * Gets bacheche.
      *
@@ -76,11 +99,17 @@ public class User {
     }
 
     /**
-     * Add bacheca.
+     * Adds a bacheca if the number of bacheche is less than num_max_bacheche and returns true
+     * otherwise it does nothing and returns false
      *
      * @param bacheca the bacheca
+     * @return boolean success
      */
-    public void addBacheca(Bacheca bacheca) {
-        this.bacheche.add(bacheca);
+    public boolean addBacheca(Bacheca bacheca) {
+        if(bacheche.size()<num_max_bacheche ) {
+            this.bacheche.add(bacheca);
+            return true;
+        }
+        else return false;
     }
 }
