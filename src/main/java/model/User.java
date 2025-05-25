@@ -112,4 +112,8 @@ public class User {
         }
         else return false;
     }
+
+    public void removeBacheca(Bacheca bacheca) {
+        this.bacheche.remove(bacheca);
+    }
 }

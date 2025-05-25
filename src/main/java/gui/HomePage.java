@@ -2,6 +2,7 @@ package gui;
 
 import controller.Controller;
 import model.Bacheca;
+import model.Todo;
 import model.User;
 
 import javax.swing.*;
@@ -16,8 +17,7 @@ public class HomePage {
     private JLabel welcomeLable;
     private JPanel HomePage;
     private JButton addBachecaButton;
-    private JButton editBachecaButton;
-    //private JButton deleteBachecaButton;
+    private JButton deleteBachecaButton;
     private JTabbedPane tab_bacheche;
 
     public HomePage(User user, Controller controller) {
@@ -34,6 +34,7 @@ public class HomePage {
                 JLabel descrizione = new JLabel("Descrizione: " + bacheca.getDescription());
                 bachecaPanel.add(descrizione);
                 JButton editBachecaButton = new JButton("Edita Bacheca");
+                JButton deleteBachecaButton = new JButton("Deleta Bacheca");
                 editBachecaButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -42,7 +43,16 @@ public class HomePage {
                     }
 
                 });
+                deleteBachecaButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        tab_bacheche.remove(tab_bacheche.getSelectedIndex());
+                        user.removeBacheca(user.getBacheca(tab_bacheche.getSelectedIndex()));
+                    }
+
+                });
                 bachecaPanel.add(editBachecaButton);
+                bachecaPanel.add(deleteBachecaButton);
             }
         });
 
@@ -60,6 +70,16 @@ public class HomePage {
             JLabel descrizione = new JLabel(bacheca.getDescription());
             bachecaPanel.add(descrizione);
             JButton editBachecaButton = new JButton("Edit Bacheca");
+            JButton deleteBachecaButton = new JButton("Delete Bacheca");
+            JButton addTodoButton = new JButton("Add Todo");
+            deleteBachecaButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    tab_bacheche.remove(tab_bacheche.getSelectedIndex());
+                    user.removeBacheca(user.getBacheca(tab_bacheche.getSelectedIndex()));
+                }
+
+            });
             editBachecaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -68,7 +88,21 @@ public class HomePage {
                 }
 
             });
+            addTodoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //TODO
+                }
+
+            });
             bachecaPanel.add(editBachecaButton);
+            bachecaPanel.add(deleteBachecaButton);
+            //TODO
+            for(Todo todo : user.getBacheca(tab_bacheche.getSelectedIndex()).getTodoInBacheca()) {
+                JPanel todoPanel = new JPanel();
+                tab_bacheche.add(todo.getTitle(), todoPanel);
+
+            }
         }
         //TODO va finito, da ggiungere le viste per le bahceche, la documentazione, e i todo
 

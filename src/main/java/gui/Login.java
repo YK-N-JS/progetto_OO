@@ -14,7 +14,7 @@ public class Login {
     private JButton loginButton;
     private JButton createOneButton;
     protected static JFrame frame;
-    private Controller controller = new Controller();
+    private static Controller controller = new Controller();
 
     public Login() {
         loginButton.addActionListener(new ActionListener() {
@@ -57,6 +57,8 @@ public class Login {
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }*/
+        //FAKE USER FOR DEBUGGING PURPOSES
+        controller.addUser("0", "0");
 
         frame = new JFrame("Login");
 
