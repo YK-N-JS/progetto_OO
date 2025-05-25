@@ -134,4 +134,13 @@ public class Bacheca {
     public void shareBacheca(User user){
         usersSharingBacheca.add(user);
     }
+
+    public void removeLastTodo()
+    {
+        todoInBacheca.remove(todoInBacheca.size()-1);
+    }
+    public void removeATodo(Todo toremove)
+    {
+        todoInBacheca.remove(toremove);
+    }
 }

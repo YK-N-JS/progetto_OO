@@ -35,6 +35,7 @@ public class HomePage {
                 bachecaPanel.add(descrizione);
                 JButton editBachecaButton = new JButton("Edita Bacheca");
                 JButton deleteBachecaButton = new JButton("Deleta Bacheca");
+                JButton addTodoButton = new JButton("Add Todo");
                 editBachecaButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -51,8 +52,20 @@ public class HomePage {
                     }
 
                 });
+                addTodoButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Todo nuovo = new Todo();
+                        AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo);
+                        todoPage.frame.setVisible(true);
+                        JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
+                        bachecaPanel.add(todoCompletedBox);
+                    }
+
+                });
                 bachecaPanel.add(editBachecaButton);
                 bachecaPanel.add(deleteBachecaButton);
+                bachecaPanel.add(addTodoButton);
             }
         });
 
@@ -91,21 +104,24 @@ public class HomePage {
             addTodoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO
+                    Todo nuovo = new Todo();
+                    AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo);
+                    todoPage.frame.setVisible(true);
+                    JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
+                    bachecaPanel.add(todoCompletedBox);
+                    //TODO fare cancel in AddTodo page still creates a checkbox
+                    //TODO add text to the checkbox
+                    //TODO position the checkboxes one under the other
                 }
 
             });
             bachecaPanel.add(editBachecaButton);
             bachecaPanel.add(deleteBachecaButton);
-            //TODO
+            bachecaPanel.add(addTodoButton);
             for(Todo todo : user.getBacheca(tab_bacheche.getSelectedIndex()).getTodoInBacheca()) {
-                JPanel todoPanel = new JPanel();
-                tab_bacheche.add(todo.getTitle(), todoPanel);
-
+                JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
+                bachecaPanel.add(todoCompletedBox);
             }
         }
-        //TODO va finito, da ggiungere le viste per le bahceche, la documentazione, e i todo
-
-
     }
 }
