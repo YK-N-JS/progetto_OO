@@ -8,35 +8,55 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Edit_Bacheca extends JDialog {
-    public JPanel contentPane;
+    public JFrame frame;
+    private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JLabel nome;
     private JLabel descrizione;
     private JTextField nome_textfield;
     private JTextField descrizione_textfield;
+    private JRadioButton pinkRadioButton;
+    private JRadioButton redRadioButton;
+    private JRadioButton whiteRadioButton;
+    private JRadioButton yellowRadioButton;
+    private JRadioButton greenRadioButton;
+    private JRadioButton blueRadioButton;
+    private ButtonGroup buttonGroup;
 
-    public Edit_Bacheca(Controller controller, Bacheca bacheca) {
-        setContentPane(contentPane);
+    public Edit_Bacheca(Controller controller, Bacheca bacheca, JLabel descrizione_label, JTabbedPane tabbedPane, JPanel panel) {
+        frame = new JFrame("Edit Bacheca");
+        frame.setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        contentPane.setMinimumSize(new Dimension(800, 500));
+        frame.setMinimumSize(new Dimension(450, 200));
 
         nome_textfield.setText(bacheca.getTitle());
         descrizione_textfield.setText(bacheca.getDescription());
+
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(pinkRadioButton);
+        buttonGroup.add(redRadioButton);
+        buttonGroup.add(whiteRadioButton);
+        buttonGroup.add(yellowRadioButton);
+        buttonGroup.add(greenRadioButton);
+        buttonGroup.add(blueRadioButton);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 bacheca.setTitle(nome_textfield.getText());
                 bacheca.setDescription(descrizione_textfield.getText());
-                dispose();
+                descrizione_label.setText(bacheca.getDescription());
+                tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), bacheca.getTitle());
+                setColor(panel);
+                frame.dispose();
             }
 
         });
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                frame.dispose();
             }
         });
 
@@ -44,15 +64,35 @@ public class Edit_Bacheca extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                dispose();
+                frame.dispose();
             }
         });
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                frame.dispose();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
+
+    public void setColor(JPanel panel)
+    {
+        if(pinkRadioButton.isSelected()){
+            panel.setBackground(Color.pink);
+        } else if (redRadioButton.isSelected()){
+            panel.setBackground(Color.red);
+        } else if (whiteRadioButton.isSelected()){
+            panel.setBackground(Color.white);
+        } else if (yellowRadioButton.isSelected()){
+            panel.setBackground(Color.yellow);
+        } else if (greenRadioButton.isSelected()){
+            panel.setBackground(Color.green);
+        } else if (blueRadioButton.isSelected()){
+            panel.setBackground(Color.blue);
+        } else {
+            panel.setBackground(Color.white);
+        }
+    }
+
 }

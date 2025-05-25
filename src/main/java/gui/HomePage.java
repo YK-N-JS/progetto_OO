@@ -16,7 +16,7 @@ public class HomePage {
     private JLabel welcomeLable;
     private JPanel HomePage;
     private JButton addBachecaButton;
-    private JButton editBachecaButton = new JButton("Edit Bacheca");
+    private JButton editBachecaButton;
     //private JButton deleteBachecaButton;
     private JTabbedPane tab_bacheche;
 
@@ -33,16 +33,20 @@ public class HomePage {
                 tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
                 JLabel descrizione = new JLabel("Descrizione: " + bacheca.getDescription());
                 bachecaPanel.add(descrizione);
-            }
-        });
-        editBachecaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()));
-                tab.contentPane.setVisible(true);
-            }
+                JButton editBachecaButton = new JButton("Edita Bacheca");
+                editBachecaButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), descrizione, tab_bacheche, bachecaPanel);
+                        tab.frame.setVisible(true);
+                    }
 
+                });
+                bachecaPanel.add(editBachecaButton);
+            }
         });
+
+
         frame = new JFrame("Kalen Dario di " + user.getUsername()); // è il nome della mia applicazione non prenderlo in giro
         frame.setContentPane(this.HomePage);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +59,15 @@ public class HomePage {
             tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
             JLabel descrizione = new JLabel(bacheca.getDescription());
             bachecaPanel.add(descrizione);
+            JButton editBachecaButton = new JButton("Edit Bacheca");
+            editBachecaButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), descrizione, tab_bacheche, bachecaPanel);
+                    tab.frame.setVisible(true);
+                }
+
+            });
             bachecaPanel.add(editBachecaButton);
         }
         //TODO va finito, da ggiungere le viste per le bahceche, la documentazione, e i todo

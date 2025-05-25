@@ -46,7 +46,7 @@ public class Login {
 
     public static void main(String[] args) {
         //handles the look and feel of the application, set it to GTK+, looks better
-        /*try {
+       /* try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -56,8 +56,8 @@ public class Login {
             throw new RuntimeException(e);
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
-        }
-         */
+        }*/
+
         frame = new JFrame("Login");
 
         frame.setContentPane(new Login().panel1);

@@ -5,39 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="added some windows, creating users and bacheche">
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Applicativo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/homePage.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/homePage.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Bacheca.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Todo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/User.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +52,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "415",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "416",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -87,8 +61,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
@@ -122,14 +96,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -151,6 +117,8 @@
       <workItem from="1747489230633" duration="8905000" />
       <workItem from="1748013034865" duration="828000" />
       <workItem from="1748095282325" duration="1838000" />
+      <workItem from="1748162445362" duration="266000" />
+      <workItem from="1748162719802" duration="4848000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
