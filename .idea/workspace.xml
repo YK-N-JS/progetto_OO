@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed issues, added color selection for bacheche">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/model/Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Bacheca.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
-    </list>
+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="modifiche del 24/05" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

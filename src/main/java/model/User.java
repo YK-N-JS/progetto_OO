@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**
- * The type User.
+ * The data type User.
  */
 public class User {
     private ArrayList<Bacheca> bacheche = new ArrayList<>();
@@ -15,7 +15,7 @@ public class User {
      * Instantiates a new User.and creates default bacheche and their description
      *
      * @param username the username of the user
-     * @param password the password
+     * @param password the password of the user
      */
     public User(String username, String password) {
         this.username = username;
@@ -74,6 +74,12 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Given as parameter the index of a user's bacheca, it returns said bacheca as an element
+     *
+     * @param index the index of the bacheca inside the array list "bacheche"
+     * @return the desired bacheca object
+     */
     public Bacheca getBacheca(int index) {
         return bacheche.get(index);
     }
@@ -113,6 +119,11 @@ public class User {
         else return false;
     }
 
+    /**
+     * Takes a bacheca as parameter and deletes it from its array list
+     *
+     * @param bacheca the bacheca that will be deleted
+     */
     public void removeBacheca(Bacheca bacheca) {
         this.bacheche.remove(bacheca);
     }

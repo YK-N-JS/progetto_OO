@@ -135,10 +135,19 @@ public class Bacheca {
         usersSharingBacheca.add(user);
     }
 
+    /**
+     * Removes the todo in last position
+     */
     public void removeLastTodo()
     {
         todoInBacheca.remove(todoInBacheca.size()-1);
     }
+
+    /**
+      Removes the todo passed as parameter
+
+     @param toremove the todo that will be deleted
+     */
     public void removeATodo(Todo toremove)
     {
         todoInBacheca.remove(toremove);
