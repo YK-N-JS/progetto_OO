@@ -144,9 +144,9 @@ public class Bacheca {
     }
 
     /**
-      Removes the todo passed as parameter
-
-     @param toremove the todo that will be deleted
+     *Removes the todo passed as parameter
+     *
+     *@param toremove the todo that will be deleted
      */
     public void removeATodo(Todo toremove)
     {

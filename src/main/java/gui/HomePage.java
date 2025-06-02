@@ -30,6 +30,7 @@ public class HomePage {
                 user.addBacheca(bacheca);
                 bacheca.setTitle(JOptionPane.showInputDialog("Enter title: "));
                 JPanel bachecaPanel = new JPanel();
+                bachecaPanel.setLayout(new GridLayout(-1, 4));
                 tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
                 JLabel descrizione = new JLabel("Descrizione: " + bacheca.getDescription());
                 bachecaPanel.add(descrizione);
@@ -56,10 +57,8 @@ public class HomePage {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Todo nuovo = new Todo();
-                        AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo);
+                        AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo, bachecaPanel);
                         todoPage.frame.setVisible(true);
-                        JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
-                        bachecaPanel.add(todoCompletedBox);
                     }
 
                 });
@@ -79,6 +78,7 @@ public class HomePage {
         welcomeLable.setText("Welcome " + user.getUsername());
         for(Bacheca bacheca: user.getBacheche()){
             JPanel bachecaPanel = new JPanel();
+            bachecaPanel.setLayout(new GridLayout(-1, 4));
             tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
             JLabel descrizione = new JLabel(bacheca.getDescription());
             bachecaPanel.add(descrizione);
@@ -105,13 +105,8 @@ public class HomePage {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Todo nuovo = new Todo();
-                    AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo);
+                    AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo, bachecaPanel);
                     todoPage.frame.setVisible(true);
-                    JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
-                    bachecaPanel.add(todoCompletedBox);
-                    //TODO fare cancel in AddTodo page still creates a checkbox
-                    //TODO add text to the checkbox
-                    //TODO position the checkboxes one under the other
                 }
 
             });
@@ -119,9 +114,38 @@ public class HomePage {
             bachecaPanel.add(deleteBachecaButton);
             bachecaPanel.add(addTodoButton);
             for(Todo todo : user.getBacheca(tab_bacheche.getSelectedIndex()).getTodoInBacheca()) {
+                JPanel todoPanel = new JPanel();
+                todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
                 JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
-                bachecaPanel.add(todoCompletedBox);
+                bachecaPanel.add(todoPanel);
+                todoPanel.add(todoCompletedBox);
+                JButton removeTodoButton = new JButton("Remove");
+                todoPanel.add(removeTodoButton);
+                removeTodoButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        bacheca.removeATodo(todo);
+                        bachecaPanel.remove(todoPanel);
+                        bachecaPanel.revalidate();
+                        bachecaPanel.repaint();
+                    }
+                });
+                JButton editTodoButton = new JButton("Edit");
+                todoPanel.add(editTodoButton);
+                editTodoButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo);
+                        editTodoPage.frame.setVisible(true);
+                    }
+                });
             }
         }
     }
+    //TODO sharing todos between bachecas and users
+    //TODO change position of todos in bacheca using DB
+    //TODO checks if todo is expired and expires it
+    //TODO sets todos to complete if box is checked
+    //TODO figure out a way to add pics
+    //TODO make todo COMPLETELY customizable
 }

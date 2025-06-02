@@ -132,7 +132,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value=""/>
+              <text value="2000"/>
             </properties>
           </component>
           <component id="c6793" class="javax.swing.JComboBox" binding="monthComboBox">

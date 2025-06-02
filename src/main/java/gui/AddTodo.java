@@ -23,7 +23,7 @@ public class AddTodo extends JDialog {
     private JComboBox dayComboBox;
     public JFrame frame = new JFrame();
 
-    public AddTodo(Controller controller, Bacheca bacheca, Todo nuovo_todo) {
+    public AddTodo(Controller controller, Bacheca bacheca, Todo nuovo_todo, JPanel bachecaPanel) {
         nuovo = nuovo_todo;
         frame.setContentPane(contentPane);
         frame.pack();
@@ -54,6 +54,34 @@ public class AddTodo extends JDialog {
                     nuovo.setUrl_activity(urlTextield.getText());
                     nuovo.setComplete_by_date(LocalDate.of(year, month, day));
                     bacheca.addTodo(nuovo);
+                    JPanel todoPanel = new JPanel();
+                    todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
+                    JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
+                    bachecaPanel.add(todoPanel);
+                    todoPanel.add(todoCompletedBox);
+                    bachecaPanel.revalidate();
+                    bachecaPanel.repaint();
+                    //funziona, ma non sono sicuro perché
+                    JButton removeTodoButton = new JButton("Remove");
+                    todoPanel.add(removeTodoButton);
+                    removeTodoButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                         bacheca.removeATodo(nuovo);
+                         bachecaPanel.remove(todoPanel);
+                         bachecaPanel.revalidate();
+                         bachecaPanel.repaint();
+                        }
+                    });
+                    JButton editTodoButton = new JButton("Edit");
+                    todoPanel.add(editTodoButton);
+                    editTodoButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovo_todo);
+                            editTodoPage.frame.setVisible(true);
+                        }
+                    });
                     frame.dispose();
                 }
             }
