@@ -20,7 +20,7 @@ public class Edit_Bacheca extends JDialog {
     private JRadioButton redRadioButton;
     private JRadioButton whiteRadioButton;
     private JRadioButton yellowRadioButton;
-    private JRadioButton greenRadioButton;
+    private JRadioButton cyanRadioButton;
     private JRadioButton blueRadioButton;
     private ButtonGroup buttonGroup;
 
@@ -39,7 +39,7 @@ public class Edit_Bacheca extends JDialog {
         buttonGroup.add(redRadioButton);
         buttonGroup.add(whiteRadioButton);
         buttonGroup.add(yellowRadioButton);
-        buttonGroup.add(greenRadioButton);
+        buttonGroup.add(cyanRadioButton);
         buttonGroup.add(blueRadioButton);
 
         buttonOK.addActionListener(new ActionListener() {
@@ -86,8 +86,8 @@ public class Edit_Bacheca extends JDialog {
             panel.setBackground(Color.white);
         } else if (yellowRadioButton.isSelected()){
             panel.setBackground(Color.yellow);
-        } else if (greenRadioButton.isSelected()){
-            panel.setBackground(Color.green);
+        } else if (cyanRadioButton.isSelected()){
+            panel.setBackground(Color.cyan);
         } else if (blueRadioButton.isSelected()){
             panel.setBackground(Color.blue);
         } else {

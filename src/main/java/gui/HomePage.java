@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 public class HomePage {
     private User user;
@@ -113,12 +114,37 @@ public class HomePage {
             bachecaPanel.add(editBachecaButton);
             bachecaPanel.add(deleteBachecaButton);
             bachecaPanel.add(addTodoButton);
-            for(Todo todo : user.getBacheca(tab_bacheche.getSelectedIndex()).getTodoInBacheca()) {
+            for(Todo todo : bacheca.getTodoInBacheca()) {
                 JPanel todoPanel = new JPanel();
+                JLabel iconlabel = new JLabel();
                 todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
                 JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
+                //image management
+                JLabel image = new JLabel();
+
+                //
                 bachecaPanel.add(todoPanel);
                 todoPanel.add(todoCompletedBox);
+               if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus().equals("completed")){
+                    todoPanel.setBackground(Color.red);
+                } else if (todo.getStatus().equals("completed")) {
+                    todoCompletedBox.setSelected(true);
+                }
+                todoCompletedBox.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(todoCompletedBox.isSelected()){
+                            todo.setStatus("completed");
+                            todoPanel.setBackground(Color.green);
+                        } else if (!todoCompletedBox.isSelected()) {
+                            todo.setStatus("to complete");
+                            todoPanel.setBackground(Color.white);
+                            if(LocalDate.now().isAfter(todo.getComplete_by_date())){
+                                todoPanel.setBackground(Color.red);
+                            }
+                        }
+                    }
+                });
                 JButton removeTodoButton = new JButton("Remove");
                 todoPanel.add(removeTodoButton);
                 removeTodoButton.addActionListener(new ActionListener() {
@@ -135,17 +161,16 @@ public class HomePage {
                 editTodoButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo);
+                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, iconlabel);
                         editTodoPage.frame.setVisible(true);
                     }
                 });
             }
         }
     }
+
     //TODO sharing todos between bachecas and users
     //TODO change position of todos in bacheca using DB
-    //TODO checks if todo is expired and expires it
-    //TODO sets todos to complete if box is checked
     //TODO figure out a way to add pics
-    //TODO make todo COMPLETELY customizable
+    //TODO make date in todo customizable
 }

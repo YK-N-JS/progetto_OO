@@ -1,11 +1,16 @@
 package gui;
 
 import controller.Controller;
+import model.Bacheca;
+import model.Todo;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Login {
     private JPanel panel1;
@@ -59,6 +64,13 @@ public class Login {
         }*/
         //FAKE USER FOR DEBUGGING PURPOSES
         controller.addUser("0", "0");
+        Todo zero = new Todo();
+        User a = controller.getUser("0");
+        Bacheca b = a.getBacheca(0);
+        b.addTodo(zero);
+        zero.setComplete_by_date(LocalDate.now());
+        zero.setTitle("ciao");
+        zero.setIcon(10);
 
         frame = new JFrame("Login");
 

@@ -96,7 +96,7 @@ public class Bacheca {
      * @param todo the todo
      */
     public void addTodo(Todo todo){
-        todoInBacheca.add(todo);
+        this.todoInBacheca.add(todo);
     }
 
     /**

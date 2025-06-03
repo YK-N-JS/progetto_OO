@@ -1,5 +1,6 @@
 package gui;
 
+import model.Icons;
 import model.Todo;
 
 import javax.swing.*;
@@ -15,12 +16,14 @@ public class EditTodoPage extends JDialog {
     private JRadioButton pinkRadioButton;
     private JRadioButton yellowRadioButton;
     private JRadioButton whiteRadioButton;
-    private JRadioButton greenRadioButton;
+    private JRadioButton cyanRadioButton;
     private JRadioButton blueRadioButton;
+    private JTextField titleTextField;
     public  JFrame frame;
     private JPanel todoPanel;
 
-    public EditTodoPage(JPanel todoPanel, Todo todo) {
+    public EditTodoPage(JPanel todoPanel, Todo todo, JCheckBox todoCompletedbox, JLabel iconlabel) {
+        Icons icons = new Icons();
         this.todoPanel = todoPanel;
         frame = new JFrame("Edit Todo");
         frame.setContentPane(contentPane);
@@ -30,19 +33,25 @@ public class EditTodoPage extends JDialog {
 
         descriptionTextField.setText(todo.getDescription());
         urlTextField.setText(todo.getUrl_activity());
+        titleTextField.setText(todo.getTitle());
 
         ButtonGroup colorGroup = new ButtonGroup();
         colorGroup.add(pinkRadioButton);
         colorGroup.add(yellowRadioButton);
         colorGroup.add(whiteRadioButton);
-        colorGroup.add(greenRadioButton);
+        colorGroup.add(cyanRadioButton);
         colorGroup.add(blueRadioButton);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 todo.setDescription(descriptionTextField.getText());
                 todo.setUrl_activity(urlTextField.getText());
+                todo.setTitle(titleTextField.getText());
+                todoCompletedbox.setText(todo.getTitle());
                 selectColor();
+
+                iconlabel.setIcon(icons.getIcon(todo));
+
                 frame.dispose();
             }
         });
@@ -77,8 +86,8 @@ public class EditTodoPage extends JDialog {
             todoPanel.setBackground(Color.YELLOW);
         } else if (whiteRadioButton.isSelected()){
             todoPanel.setBackground(Color.WHITE);
-        } else if (greenRadioButton.isSelected()){
-            todoPanel.setBackground(Color.GREEN);
+        } else if (cyanRadioButton.isSelected()){
+            todoPanel.setBackground(Color.CYAN);
         } else if (blueRadioButton.isSelected()){
             todoPanel.setBackground(Color.BLUE);
         } else {

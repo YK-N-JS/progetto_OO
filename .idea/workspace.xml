@@ -4,27 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed issues, added color selection for bacheche">
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" afterDir="false" />
+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed some issues, added edittodos">
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/Icons.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/controller/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/model/Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Bacheca.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/outputs/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/model/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Todo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Todo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +155,7 @@
       <workItem from="1748178938743" duration="2188000" />
       <workItem from="1748181131922" duration="869000" />
       <workItem from="1748182671544" duration="3696000" />
+      <workItem from="1748936101321" duration="9395000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -184,7 +205,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748167833555</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixed some issues, added edittodos">
+      <option name="closed" value="true" />
+      <created>1748858129837</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748858129837</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,6 +237,7 @@
     <MESSAGE value="fixed ui, reformatted the code. Actually compiles" />
     <MESSAGE value="added some windows, creating users and bacheche" />
     <MESSAGE value="fixed issues, added color selection for bacheche" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed issues, added color selection for bacheche" />
+    <MESSAGE value="fixed some issues, added edittodos" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed some issues, added edittodos" />
   </component>
 </project>

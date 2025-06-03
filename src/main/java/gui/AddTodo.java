@@ -2,7 +2,9 @@ package gui;
 
 import controller.Controller;
 import model.Bacheca;
+import model.Icons;
 import model.Todo;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +26,7 @@ public class AddTodo extends JDialog {
     public JFrame frame = new JFrame();
 
     public AddTodo(Controller controller, Bacheca bacheca, Todo nuovo_todo, JPanel bachecaPanel) {
+        Icons icons = new Icons();
         nuovo = nuovo_todo;
         frame.setContentPane(contentPane);
         frame.pack();
@@ -54,11 +57,39 @@ public class AddTodo extends JDialog {
                     nuovo.setUrl_activity(urlTextield.getText());
                     nuovo.setComplete_by_date(LocalDate.of(year, month, day));
                     bacheca.addTodo(nuovo);
+
+                    JLabel iconLabel = new JLabel();
+                    iconLabel.setIcon(icons.getIcon(nuovo));
+
                     JPanel todoPanel = new JPanel();
                     todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
                     JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
                     bachecaPanel.add(todoPanel);
                     todoPanel.add(todoCompletedBox);
+
+                    todoPanel.add(iconLabel);
+
+                    if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))
+                    {
+                        todoPanel.setBackground(Color.red);
+                    }
+                    todoCompletedBox.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if(todoCompletedBox.isSelected()){
+                                nuovo.setStatus("completed");
+                                todoPanel.setBackground(Color.GREEN);
+                            } else if (!todoCompletedBox.isSelected()) {
+                                nuovo.setStatus("to complete");
+                                //non funziona traslucente
+                                todoPanel.setBackground(Color.WHITE);
+                                if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))
+                                {
+                                    todoPanel.setBackground(Color.red);
+                                }
+                            }
+                        }
+                    });
                     bachecaPanel.revalidate();
                     bachecaPanel.repaint();
                     //funziona, ma non sono sicuro perché
@@ -78,7 +109,7 @@ public class AddTodo extends JDialog {
                     editTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovo_todo);
+                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovo_todo, todoCompletedBox, iconLabel);
                             editTodoPage.frame.setVisible(true);
                         }
                     });
@@ -110,4 +141,5 @@ public class AddTodo extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
+
 }

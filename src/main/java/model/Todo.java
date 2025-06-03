@@ -8,9 +8,10 @@ import java.time.LocalDate;
 public class Todo {
     private String title;
     private String description;
-    private String status;
+    private String status = "to complete";
     private String url_activity;
     private LocalDate complete_by_date;
+    private int icon = 0;
 
     /**
      * Instantiates a new Todo.
@@ -106,5 +107,13 @@ public class Todo {
      */
     public void setComplete_by_date(LocalDate complete_by_date) {
         this.complete_by_date = complete_by_date;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

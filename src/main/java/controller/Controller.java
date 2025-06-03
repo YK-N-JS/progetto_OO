@@ -1,7 +1,10 @@
 package controller;
 
+import model.Bacheca;
+import model.Todo;
 import model.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -79,6 +82,24 @@ public class Controller {
             }
         }
         return null;
+    }
+
+    /**
+     * Checks if user has expired {@link Todo}
+     *
+     * @param user whose todos need to be checked
+     */
+    public void reload_bacheche(User user) {
+        for(Bacheca b: user.getBacheche())
+        {
+            for(Todo todo: b.getTodoInBacheca())
+            {
+                if (LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus().equals("completed"))
+                {
+                    todo.setStatus("expired");
+                }
+            }
+        }
     }
 
 }
