@@ -172,5 +172,4 @@ public class HomePage {
     //TODO sharing todos between bachecas and users
     //TODO change position of todos in bacheca using DB
     //TODO figure out a way to add pics
-    //TODO make date in todo customizable
 }

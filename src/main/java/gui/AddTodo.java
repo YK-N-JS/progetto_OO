@@ -40,6 +40,9 @@ public class AddTodo extends JDialog {
         for(int j = 1; j<= 31; j++)
             dayComboBox.addItem(j);
 
+        monthComboBox.setSelectedItem(0);
+        dayComboBox.setSelectedItem(0);
+
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
