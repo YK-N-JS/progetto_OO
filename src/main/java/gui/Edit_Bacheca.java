@@ -42,6 +42,7 @@ public class Edit_Bacheca extends JDialog {
         buttonGroup.add(cyanRadioButton);
         buttonGroup.add(blueRadioButton);
 
+
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 bacheca.setTitle(nome_textfield.getText());
@@ -51,7 +52,6 @@ public class Edit_Bacheca extends JDialog {
                 setColor(panel);
                 frame.dispose();
             }
-
         });
 
         buttonCancel.addActionListener(new ActionListener() {
@@ -76,6 +76,7 @@ public class Edit_Bacheca extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+
     public void setColor(JPanel panel)
     {
         if(pinkRadioButton.isSelected()){
@@ -94,5 +95,4 @@ public class Edit_Bacheca extends JDialog {
             panel.setBackground(Color.white);
         }
     }
-
 }

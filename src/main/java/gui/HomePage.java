@@ -21,6 +21,7 @@ public class HomePage {
     private JButton deleteBachecaButton;
     private JTabbedPane tab_bacheche;
 
+
     public HomePage(User user, Controller controller) {
         this.user = user;
         this.controller = controller;
@@ -33,27 +34,30 @@ public class HomePage {
                 JPanel bachecaPanel = new JPanel();
                 bachecaPanel.setLayout(new GridLayout(-1, 4));
                 tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
+
                 JLabel descrizione = new JLabel("Descrizione: " + bacheca.getDescription());
                 bachecaPanel.add(descrizione);
+
                 JButton editBachecaButton = new JButton("Edita Bacheca");
                 JButton deleteBachecaButton = new JButton("Deleta Bacheca");
                 JButton addTodoButton = new JButton("Add Todo");
+
                 editBachecaButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), descrizione, tab_bacheche, bachecaPanel);
                         tab.frame.setVisible(true);
                     }
-
                 });
+
                 deleteBachecaButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         tab_bacheche.remove(tab_bacheche.getSelectedIndex());
                         user.removeBacheca(user.getBacheca(tab_bacheche.getSelectedIndex()));
                     }
-
                 });
+
                 addTodoButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -61,8 +65,8 @@ public class HomePage {
                         AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo, bachecaPanel);
                         todoPage.frame.setVisible(true);
                     }
-
                 });
+
                 bachecaPanel.add(editBachecaButton);
                 bachecaPanel.add(deleteBachecaButton);
                 bachecaPanel.add(addTodoButton);
@@ -75,8 +79,9 @@ public class HomePage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setMinimumSize(new Dimension(800, 560));
+        frame.setMinimumSize(new Dimension(1500, 599));
         welcomeLable.setText("Welcome " + user.getUsername());
+
         for(Bacheca bacheca: user.getBacheche()){
             JPanel bachecaPanel = new JPanel();
             bachecaPanel.setLayout(new GridLayout(-1, 4));
@@ -86,22 +91,23 @@ public class HomePage {
             JButton editBachecaButton = new JButton("Edit Bacheca");
             JButton deleteBachecaButton = new JButton("Delete Bacheca");
             JButton addTodoButton = new JButton("Add Todo");
+
             deleteBachecaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     tab_bacheche.remove(tab_bacheche.getSelectedIndex());
                     user.removeBacheca(user.getBacheca(tab_bacheche.getSelectedIndex()));
                 }
-
             });
+
             editBachecaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), descrizione, tab_bacheche, bachecaPanel);
                     tab.frame.setVisible(true);
                 }
-
             });
+
             addTodoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -109,27 +115,26 @@ public class HomePage {
                     AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo, bachecaPanel);
                     todoPage.frame.setVisible(true);
                 }
-
             });
+
             bachecaPanel.add(editBachecaButton);
             bachecaPanel.add(deleteBachecaButton);
             bachecaPanel.add(addTodoButton);
+
             for(Todo todo : bacheca.getTodoInBacheca()) {
                 JPanel todoPanel = new JPanel();
-                JLabel iconlabel = new JLabel();
                 todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
                 JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
-                //image management
-                JLabel image = new JLabel();
 
-                //
                 bachecaPanel.add(todoPanel);
                 todoPanel.add(todoCompletedBox);
+
                if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus().equals("completed")){
                     todoPanel.setBackground(Color.red);
                 } else if (todo.getStatus().equals("completed")) {
                     todoCompletedBox.setSelected(true);
                 }
+
                 todoCompletedBox.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -145,6 +150,7 @@ public class HomePage {
                         }
                     }
                 });
+
                 JButton removeTodoButton = new JButton("Remove");
                 todoPanel.add(removeTodoButton);
                 removeTodoButton.addActionListener(new ActionListener() {
@@ -156,12 +162,14 @@ public class HomePage {
                         bachecaPanel.repaint();
                     }
                 });
+
                 JButton editTodoButton = new JButton("Edit");
                 todoPanel.add(editTodoButton);
+
                 editTodoButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, iconlabel);
+                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox);
                         editTodoPage.frame.setVisible(true);
                     }
                 });

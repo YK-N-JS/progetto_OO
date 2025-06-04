@@ -2,15 +2,12 @@ package gui;
 
 import controller.Controller;
 import model.Bacheca;
-import model.Icons;
 import model.Todo;
-import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 
 public class AddTodo extends JDialog {
     private JPanel contentPane;
@@ -26,17 +23,17 @@ public class AddTodo extends JDialog {
     public JFrame frame = new JFrame();
 
     public AddTodo(Controller controller, Bacheca bacheca, Todo nuovo_todo, JPanel bachecaPanel) {
-        Icons icons = new Icons();
-        nuovo = nuovo_todo;
         frame.setContentPane(contentPane);
         frame.pack();
-        frame.setMinimumSize(new Dimension(600, 400));
+        frame.setMinimumSize(new Dimension(900, 600));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        nuovo = nuovo_todo;
+
+
         for(int i = 1; i<= 12; i++)
             monthComboBox.addItem(i);
-
         for(int j = 1; j<= 31; j++)
             dayComboBox.addItem(j);
 
@@ -49,6 +46,7 @@ public class AddTodo extends JDialog {
                 int year = Integer.parseInt(yearTextfield.getText());
                 int month = monthComboBox.getSelectedIndex()+1;
                 int day = dayComboBox.getSelectedIndex()+1;
+
                 if((day > 30 && (month == 2 || month == 4 || month == 6 || month == 9 || month == 11)) || //giorno selezionato non è nel mese
                         (month == 2 && day > 28 && year%4 != 0) || //selezionato il 29 feb per anno non bisestile
                         (month == 2 && day > 29) //selezionato giorno maggiore del 29 per feb
@@ -61,16 +59,11 @@ public class AddTodo extends JDialog {
                     nuovo.setComplete_by_date(LocalDate.of(year, month, day));
                     bacheca.addTodo(nuovo);
 
-                    JLabel iconLabel = new JLabel();
-                    iconLabel.setIcon(icons.getIcon(nuovo));
-
                     JPanel todoPanel = new JPanel();
                     todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
                     JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
                     bachecaPanel.add(todoPanel);
                     todoPanel.add(todoCompletedBox);
-
-                    todoPanel.add(iconLabel);
 
                     if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))
                     {
@@ -84,7 +77,6 @@ public class AddTodo extends JDialog {
                                 todoPanel.setBackground(Color.GREEN);
                             } else if (!todoCompletedBox.isSelected()) {
                                 nuovo.setStatus("to complete");
-                                //non funziona traslucente
                                 todoPanel.setBackground(Color.WHITE);
                                 if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))
                                 {
@@ -93,11 +85,13 @@ public class AddTodo extends JDialog {
                             }
                         }
                     });
+
                     bachecaPanel.revalidate();
                     bachecaPanel.repaint();
-                    //funziona, ma non sono sicuro perché
+
                     JButton removeTodoButton = new JButton("Remove");
                     todoPanel.add(removeTodoButton);
+
                     removeTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -107,12 +101,13 @@ public class AddTodo extends JDialog {
                          bachecaPanel.repaint();
                         }
                     });
+
                     JButton editTodoButton = new JButton("Edit");
                     todoPanel.add(editTodoButton);
                     editTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovo_todo, todoCompletedBox, iconLabel);
+                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovo_todo, todoCompletedBox);
                             editTodoPage.frame.setVisible(true);
                         }
                     });

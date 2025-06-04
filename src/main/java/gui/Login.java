@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Login {
     private JPanel panel1;
@@ -39,12 +38,13 @@ public class Login {
                 }
             }
         });
+
         createOneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             CreateUser createUser = new CreateUser(frame, controller);
             frame.setVisible(false);
-            createUser.frame1.setVisible(true);
+            createUser.childFrame.setVisible(true);
             }
         });
     }
@@ -62,6 +62,7 @@ public class Login {
         } catch (UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }*/
+
         //FAKE USER FOR DEBUGGING PURPOSES
         controller.addUser("0", "0");
         Todo zero = new Todo();
@@ -70,15 +71,13 @@ public class Login {
         b.addTodo(zero);
         zero.setComplete_by_date(LocalDate.now());
         zero.setTitle("ciao");
-        zero.setIcon(10);
+        //
 
         frame = new JFrame("Login");
-
         frame.setContentPane(new Login().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(400, 350));
         frame.pack();
         frame.setVisible(true);
-
     }
 }
