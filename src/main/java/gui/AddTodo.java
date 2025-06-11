@@ -22,14 +22,14 @@ public class AddTodo extends JDialog {
     private JComboBox dayComboBox;
     public JFrame frame = new JFrame();
 
-    public AddTodo(Controller controller, Bacheca bacheca, Todo nuovo_todo, JPanel bachecaPanel) {
+    public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel) {
         frame.setContentPane(contentPane);
         frame.pack();
         frame.setMinimumSize(new Dimension(900, 600));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        nuovo = nuovo_todo;
+        nuovo = nuovoTodo;
 
 
         for(int i = 1; i<= 12; i++)
@@ -107,7 +107,7 @@ public class AddTodo extends JDialog {
                     editTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovo_todo, todoCompletedBox);
+                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox);
                             editTodoPage.frame.setVisible(true);
                         }
                     });

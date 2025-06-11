@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -30,19 +31,20 @@ public class Icon {
      * @throws Exception
      */
     public Icon() {
-        try{
-        icon0 = ImageIO.read(new File("../../icons/edit.png"));
-        icon1 = ImageIO.read(new File("../../icons/home.png"));
-        icon2 = ImageIO.read(new File("../../icons/like.png"));
-        icon3 = ImageIO.read(new File("../../icons/map.png"));
-        icon4 = ImageIO.read(new File("../../icons/music.png"));
-        icon5 = ImageIO.read(new File("../../icons/muted.png"));
-        icon6 = ImageIO.read(new File("../../icons/smartphone.png"));
-        icon7 = ImageIO.read(new File("../../icons/stopwatch.png"));
-        icon8 = ImageIO.read(new File("../../icons/user.png"));
-        icon9 = ImageIO.read(new File("../../icons/users.png"));
-    }
-        catch(Exception e){
+        String a = File.separator;
+        try {
+            icon0 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"edit.png"));
+            icon1 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"home.png"));
+            icon2 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"like.png"));
+            icon3 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"map.png"));
+            icon4 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"music.png"));
+            icon5 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"muted.png"));
+            icon6 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"smartphone.png"));
+            icon7 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"stopwatch.png"));
+            icon8 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"user.png"));
+            icon9 = ImageIO.read(new File(".."+a+".."+a+"icons"+a+"users.png"));
+        }
+        catch(IOException e) {
         System.out.println("No images found");}
     }
 

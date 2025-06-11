@@ -16,10 +16,9 @@ public class HomePage {
     private Controller controller;
     public JFrame frame;
     private JLabel welcomeLable;
-    private JPanel HomePage;
+    private JPanel homePagePanel;
     private JButton addBachecaButton;
-    private JButton deleteBachecaButton;
-    private JTabbedPane tab_bacheche;
+    private JTabbedPane tabBacheche;
 
 
     public HomePage(User user, Controller controller) {
@@ -33,7 +32,7 @@ public class HomePage {
                 bacheca.setTitle(JOptionPane.showInputDialog("Enter title: "));
                 JPanel bachecaPanel = new JPanel();
                 bachecaPanel.setLayout(new GridLayout(-1, 4));
-                tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
+                tabBacheche.add(bacheca.getTitle(), bachecaPanel);
 
                 JLabel descrizione = new JLabel("Descrizione: " + bacheca.getDescription());
                 bachecaPanel.add(descrizione);
@@ -45,7 +44,7 @@ public class HomePage {
                 editBachecaButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), descrizione, tab_bacheche, bachecaPanel);
+                        Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tabBacheche.getSelectedIndex()), descrizione, tabBacheche, bachecaPanel);
                         tab.frame.setVisible(true);
                     }
                 });
@@ -53,8 +52,8 @@ public class HomePage {
                 deleteBachecaButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        tab_bacheche.remove(tab_bacheche.getSelectedIndex());
-                        user.removeBacheca(user.getBacheca(tab_bacheche.getSelectedIndex()));
+                        tabBacheche.remove(tabBacheche.getSelectedIndex());
+                        user.removeBacheca(user.getBacheca(tabBacheche.getSelectedIndex()));
                     }
                 });
 
@@ -62,7 +61,7 @@ public class HomePage {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Todo nuovo = new Todo();
-                        AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo, bachecaPanel);
+                        AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel);
                         todoPage.frame.setVisible(true);
                     }
                 });
@@ -75,7 +74,7 @@ public class HomePage {
 
 
         frame = new JFrame("Kalen Dario di " + user.getUsername()); // è il nome della mia applicazione non prenderlo in giro
-        frame.setContentPane(this.HomePage);
+        frame.setContentPane(this.homePagePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -85,7 +84,7 @@ public class HomePage {
         for(Bacheca bacheca: user.getBacheche()){
             JPanel bachecaPanel = new JPanel();
             bachecaPanel.setLayout(new GridLayout(-1, 4));
-            tab_bacheche.add(bacheca.getTitle(), bachecaPanel);
+            tabBacheche.add(bacheca.getTitle(), bachecaPanel);
             JLabel descrizione = new JLabel(bacheca.getDescription());
             bachecaPanel.add(descrizione);
             JButton editBachecaButton = new JButton("Edit Bacheca");
@@ -95,15 +94,15 @@ public class HomePage {
             deleteBachecaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    tab_bacheche.remove(tab_bacheche.getSelectedIndex());
-                    user.removeBacheca(user.getBacheca(tab_bacheche.getSelectedIndex()));
+                    tabBacheche.remove(tabBacheche.getSelectedIndex());
+                    user.removeBacheca(user.getBacheca(tabBacheche.getSelectedIndex()));
                 }
             });
 
             editBachecaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), descrizione, tab_bacheche, bachecaPanel);
+                    Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tabBacheche.getSelectedIndex()), descrizione, tabBacheche, bachecaPanel);
                     tab.frame.setVisible(true);
                 }
             });
@@ -112,7 +111,7 @@ public class HomePage {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Todo nuovo = new Todo();
-                    AddTodo todoPage = new AddTodo(controller, user.getBacheca(tab_bacheche.getSelectedIndex()), nuovo, bachecaPanel);
+                    AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel);
                     todoPage.frame.setVisible(true);
                 }
             });
@@ -128,7 +127,7 @@ public class HomePage {
 
                 bachecaPanel.add(todoPanel);
                 todoPanel.add(todoCompletedBox);
-
+                
                if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus().equals("completed")){
                     todoPanel.setBackground(Color.red);
                 } else if (todo.getStatus().equals("completed")) {
