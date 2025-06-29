@@ -20,22 +20,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-
-        this.addBacheca(new Bacheca());
-        bacheche.get(0).setTitle("Default");
-        bacheche.get(0).setDescription("Your default Bachec");
-
-        this.addBacheca(new Bacheca());
-        bacheche.get(1).setTitle("Università");
-        bacheche.get(1).setDescription("University's Bachec");
-
-        this.addBacheca(new Bacheca());
-        bacheche.get(2).setTitle("Lavoro");
-        bacheche.get(2).setDescription("Lavoro's Bachec");
-
-        this.addBacheca(new Bacheca());
-        bacheche.get(3).setTitle("Tempo libero");
-        bacheche.get(3).setDescription("Tempo libero's Bachec");
     }
 
     /**

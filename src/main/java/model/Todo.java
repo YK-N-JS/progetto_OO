@@ -6,18 +6,53 @@ import java.time.LocalDate;
  * The type Todo.
  */
 public class Todo {
+    private int id;
     private String title;
     private String description;
     private String status = "to complete";
     private String url_activity;
     private LocalDate complete_by_date;
-    private int icon = 0;
+    private boolean completed;
+    private int icon;
+    private int color;
+    private User owner;
 
     /**
-     * Instantiates a new Todo.
+     * Instantiates a new todo. (without parameters)
      */
-// needed a way to handle background colour for todos and add images...
     public Todo(){}
+
+    /**
+     * Instantiates a new todo. (with parameters)
+     * @param id the todo's identifier
+     * @param title the todo's title
+     * @param url_activity the url associated with the todo
+     * @param description the todo's description
+     * @param owner the todo's creator
+     * @param icon the todo's icon index
+     * @param color the todo's color index
+     * @param complete_by_date the todo's expiration date
+     * @param completed a boolean that indicates whether the todo has been completed
+     */
+    public Todo(int id, String title, String url_activity, String description, User owner, int icon, int color, LocalDate complete_by_date, boolean completed){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.url_activity = url_activity;
+        this.owner = owner;
+        this.icon = icon;
+        this.color = color;
+        this.complete_by_date = complete_by_date;
+        this.completed = completed;
+    }
+
+    /**
+     * Returns the todo's identifier
+     * @return int
+     */
+    public int getID(){
+        return id;
+    }
 
     /**
      * Gets title.
@@ -115,5 +150,9 @@ public class Todo {
 
     public void setIcon(int icon) {
         this.icon = icon;
+    }
+
+    public User getOwner (){
+        return owner;
     }
 }

@@ -6,17 +6,43 @@ import java.util.ArrayList;
  * The type Bacheca.
  */
 public class Bacheca {
+    private int id;
     private String title;
     private User owner;
     private String description = "- - -";
+    private boolean isDefault;
     private ArrayList<Todo> todoInBacheca = new ArrayList<>();
     private ArrayList<User> usersSharingBacheca = new ArrayList<>();
 
 
     /**
-     * Instantiates a new Bacheca.
+     * Instantiates a new bacheca (no parameters).
      */
     public Bacheca(){}
+
+    /**
+     * Instantiates a new bacheca (with parameters).
+     * @param id The bacheca's identifier
+     * @param title The bacheca's title
+     * @param owner The bacheca's owner
+     * @param description The bacheca's description
+     * @param isDefault A boolean that indicates whether the bacheca is a default
+     */
+    public Bacheca(int id, String title, User owner, String description, boolean isDefault) {
+        this.id = id;
+        this.title = title;
+        this.owner = owner;
+        this.description = description;
+        this.isDefault = isDefault;
+    }
+
+    /**
+     * Returns the bacheca's identifier
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
      * Gets title of the bacheca.

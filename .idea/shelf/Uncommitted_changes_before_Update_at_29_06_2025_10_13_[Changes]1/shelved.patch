@@ -1,0 +1,120 @@
+Index: src/main/java/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\r\n\r\nimport java.util.ArrayList;\r\n\r\n/**\r\n * The data type User.\r\n */\r\npublic class User {\r\n    private ArrayList<Bacheca> bacheche = new ArrayList<>();\r\n    private String username;\r\n    private String password;\r\n    private int num_max_bacheche = 10;\r\n\r\n    /**\r\n     * Instantiates a new User.and creates default bacheche and their description\r\n     *\r\n     * @param username the username of the user\r\n     * @param password the password of the user\r\n     */\r\n    public User(String username, String password) {\r\n        this.username = username;\r\n        this.password = password;\r\n\r\n        this.addBacheca(new Bacheca());\r\n        bacheche.get(0).setTitle(\"Default\");\r\n        bacheche.get(0).setDescription(\"Your default Bachec\");\r\n\r\n        this.addBacheca(new Bacheca());\r\n        bacheche.get(1).setTitle(\"Università\");\r\n        bacheche.get(1).setDescription(\"University's Bachec\");\r\n\r\n        this.addBacheca(new Bacheca());\r\n        bacheche.get(2).setTitle(\"Lavoro\");\r\n        bacheche.get(2).setDescription(\"Lavoro's Bachec\");\r\n\r\n        this.addBacheca(new Bacheca());\r\n        bacheche.get(3).setTitle(\"Tempo libero\");\r\n        bacheche.get(3).setDescription(\"Tempo libero's Bachec\");\r\n    }\r\n\r\n    /**\r\n     * Gets username.\r\n     *\r\n     * @return the username\r\n     */\r\n    public String getUsername() {\r\n        return username;\r\n    }\r\n\r\n    /**\r\n     * Sets username.\r\n     *\r\n     * @param username the username\r\n     */\r\n    public void setUsername(String username) {\r\n        this.username = username;\r\n    }\r\n\r\n    /**\r\n     * Gets password.\r\n     *\r\n     * @return the password\r\n     */\r\n    public String getPassword() {\r\n        return password;\r\n    }\r\n\r\n    /**\r\n     * Sets password.\r\n     *\r\n     * @param password the password\r\n     */\r\n    public void setPassword(String password) {\r\n        this.password = password;\r\n    }\r\n\r\n    /**\r\n     * Given as parameter the index of a user's bacheca, it returns said bacheca as an element\r\n     *\r\n     * @param index the index of the bacheca inside the array list \"bacheche\"\r\n     * @return the desired bacheca object\r\n     */\r\n    public Bacheca getBacheca(int index) {\r\n        return bacheche.get(index);\r\n    }\r\n\r\n\r\n\r\n    /**\r\n     * Gets bacheche.\r\n     *\r\n     * @return the bacheche\r\n     */\r\n    public ArrayList<Bacheca> getBacheche() {\r\n        return bacheche;\r\n    }\r\n\r\n    /**\r\n     * Sets bacheche.\r\n     *\r\n     * @param bacheche the bacheche\r\n     */\r\n    public void setBacheche(ArrayList<Bacheca> bacheche) {\r\n        this.bacheche = bacheche;\r\n    }\r\n\r\n    /**\r\n     * Adds a bacheca if the number of bacheche is less than num_max_bacheche and returns true\r\n     * otherwise it does nothing and returns false\r\n     *\r\n     * @param bacheca the bacheca\r\n     * @return boolean success\r\n     */\r\n    public boolean addBacheca(Bacheca bacheca) {\r\n        if(bacheche.size()<num_max_bacheche ) {\r\n            this.bacheche.add(bacheca);\r\n            return true;\r\n        }\r\n        else return false;\r\n    }\r\n\r\n    /**\r\n     * Takes a bacheca as parameter and deletes it from its array list\r\n     *\r\n     * @param bacheca the bacheca that will be deleted\r\n     */\r\n    public void removeBacheca(Bacheca bacheca) {\r\n        this.bacheche.remove(bacheca);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/model/User.java b/src/main/java/model/User.java
+--- a/src/main/java/model/User.java	(revision 41cfd226dafc6fae72a2b874593b8ee0e80a56ab)
++++ b/src/main/java/model/User.java	(date 1751184802427)
+@@ -20,22 +20,6 @@
+     public User(String username, String password) {
+         this.username = username;
+         this.password = password;
+-
+-        this.addBacheca(new Bacheca());
+-        bacheche.get(0).setTitle("Default");
+-        bacheche.get(0).setDescription("Your default Bachec");
+-
+-        this.addBacheca(new Bacheca());
+-        bacheche.get(1).setTitle("Università");
+-        bacheche.get(1).setDescription("University's Bachec");
+-
+-        this.addBacheca(new Bacheca());
+-        bacheche.get(2).setTitle("Lavoro");
+-        bacheche.get(2).setDescription("Lavoro's Bachec");
+-
+-        this.addBacheca(new Bacheca());
+-        bacheche.get(3).setTitle("Tempo libero");
+-        bacheche.get(3).setDescription("Tempo libero's Bachec");
+     }
+ 
+     /**
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch	(revision 41cfd226dafc6fae72a2b874593b8ee0e80a56ab)
++++ /dev/null	(revision 41cfd226dafc6fae72a2b874593b8ee0e80a56ab)
+@@ -1,68 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"fixed issues, added color selection for bacheche\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/model/Bacheca.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/model/Bacheca.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.form\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/model/Bacheca.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/model/Bacheca.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"package-info\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;customColor&quot;: &quot;&quot;,\n  &quot;associatedIndex&quot;: 8\n}</component>\n  <component name=\"ProjectId\" id=\"2vV5y2XQDuiAmvAJz0qjNceSTjy\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;Application.Login.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,\n    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;416&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"Login\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"gui.Login\" />\n      <module name=\"Applicativo\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"gui.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\n      <option name=\"filePath\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Login\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"\" />\n      <created>1744217652115</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1744217652115</updated>\n      <workItem from=\"1744217653237\" duration=\"220000\" />\n      <workItem from=\"1744703544751\" duration=\"79000\" />\n      <workItem from=\"1744707700843\" duration=\"4509000\" />\n      <workItem from=\"1744713114005\" duration=\"23000\" />\n      <workItem from=\"1744880110758\" duration=\"17000\" />\n      <workItem from=\"1745307102880\" duration=\"301000\" />\n      <workItem from=\"1745315035871\" duration=\"171000\" />\n      <workItem from=\"1745501428999\" duration=\"67000\" />\n      <workItem from=\"1746951675035\" duration=\"6290000\" />\n      <workItem from=\"1747467746077\" duration=\"6306000\" />\n      <workItem from=\"1747489230633\" duration=\"8905000\" />\n      <workItem from=\"1748013034865\" duration=\"828000\" />\n      <workItem from=\"1748095282325\" duration=\"1838000\" />\n      <workItem from=\"1748162445362\" duration=\"266000\" />\n      <workItem from=\"1748162719802\" duration=\"5150000\" />\n      <workItem from=\"1748178938743\" duration=\"2188000\" />\n      <workItem from=\"1748181131922\" duration=\"869000\" />\n      <workItem from=\"1748182671544\" duration=\"3696000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744217810222</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744217810222</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"aggiunte le classi, da finire\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744711975863</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744711975863</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"gui iniziata, enorme fallimento\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1746956787102</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1746956787102</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"fixed ui, reformatted the code. Actually compiles\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747473988378</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747473988378</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"added some windows, creating users and bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747498059421</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747498059421</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"fixed issues, added color selection for bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748167833555</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748167833555</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"aggiunte le classi, da finire\" />\n    <MESSAGE value=\"gui iniziata, enorme fallimento\" />\n    <MESSAGE value=\"fixed ui, reformatted the code. Actually compiles\" />\n    <MESSAGE value=\"added some windows, creating users and bacheche\" />\n    <MESSAGE value=\"fixed issues, added color selection for bacheche\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fixed issues, added color selection for bacheche\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 759f19a470cdcfa0cce8ba3833ff9fb07033090d)
+-+++ b/.idea/workspace.xml	(date 1748186534893)
+-@@ -4,20 +4,7 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed issues, added color selection for bacheche">
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/model/Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Bacheca.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.form" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
+--    </list>
+-+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="add TODO page added, needs fixing ASAP" />
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -126,7 +113,7 @@
+-       <workItem from="1748162719802" duration="5150000" />
+-       <workItem from="1748178938743" duration="2188000" />
+-       <workItem from="1748181131922" duration="869000" />
+--      <workItem from="1748182671544" duration="3696000" />
+-+      <workItem from="1748182671544" duration="3863000" />
+-     </task>
+-     <task id="LOCAL-00001" summary="first commit">
+-       <option name="closed" value="true" />
+-@@ -176,7 +163,15 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1748167833555</updated>
+-     </task>
+--    <option name="localTasksCounter" value="7" />
+-+    <task id="LOCAL-00007" summary="add TODO page added, needs fixing ASAP">
+-+      <option name="closed" value="true" />
+-+      <created>1748186517774</created>
+-+      <option name="number" value="00007" />
+-+      <option name="presentableId" value="LOCAL-00007" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1748186517774</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="8" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -189,6 +184,7 @@
+-     <MESSAGE value="fixed ui, reformatted the code. Actually compiles" />
+-     <MESSAGE value="added some windows, creating users and bacheche" />
+-     <MESSAGE value="fixed issues, added color selection for bacheche" />
+--    <option name="LAST_COMMIT_MESSAGE" value="fixed issues, added color selection for bacheche" />
+-+    <MESSAGE value="add TODO page added, needs fixing ASAP" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="add TODO page added, needs fixing ASAP" />
+-   </component>
+- </project>
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_02_06_25__09_09__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25__09_09__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25__09_09__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25__09_09__Changes_.xml	(revision 41cfd226dafc6fae72a2b874593b8ee0e80a56ab)
++++ /dev/null	(revision 41cfd226dafc6fae72a2b874593b8ee0e80a56ab)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]" date="1748848162982" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 02/06/25, 09:09 [Changes]" />
+-</changelist>
+\ No newline at end of file
