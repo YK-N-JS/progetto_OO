@@ -27,7 +27,7 @@ public class Login {
                 if (controller.login(textField1.getText(), passwordField1.getText()) == 0) {
                     //MAGARI FA QUALCOSA DI PIÙ INTERESSANTE...
                     //JOptionPane.showMessageDialog(frame, "Login Successful");
-                    HomePage homePage = new HomePage(controller.getUser(textField1.getText()), controller);
+                    HomePage homePage = new HomePage(controller.getUser(textField1.getText(), passwordField1.getText()), controller);
                     homePage.frame.setVisible(true);
                     frame.dispose();
 
@@ -64,13 +64,13 @@ public class Login {
         }*/
 
         //FAKE USER FOR DEBUGGING PURPOSES
-        controller.addUser("0", "0");
-        Todo zero = new Todo();
-        User a = controller.getUser("0");
-        Bacheca b = a.getBacheca(0);
-        b.addTodo(zero);
-        zero.setComplete_by_date(LocalDate.now());
-        zero.setTitle("ciao");
+        //controller.addUser("0", "0");
+        //Todo zero = new Todo();
+        //User a = controller.getUser("0");
+        //Bacheca b = a.getBacheca(0);
+        //b.addTodo(zero);
+        //zero.setComplete_by_date(LocalDate.now());
+        //zero.setTitle("ciao");
         //
 
         frame = new JFrame("Login");

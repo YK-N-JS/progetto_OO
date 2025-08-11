@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 public class TodoDAO {
     private Connection connection;
-    private Controller controller;
-    public TodoDAO(Controller controller) {
-        this.controller = controller;
+    public TodoDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().getConnection();
         } catch (SQLException e) {
@@ -29,9 +27,14 @@ public class TodoDAO {
             recuperaTodo.setInt(1, bacheca.getId());
             ResultSet resultSet= recuperaTodo.executeQuery();
             while(resultSet.next()){
-                todoList.add(new Todo(resultSet.getInt("\"ID\""), resultSet.getString("Title"), resultSet.getString("URL"), resultSet.getString("Description"),
-                controller.getUser(resultSet.getString("\"Owner\"")), resultSet.getInt("Icon"), resultSet.getInt("Color"),
-                resultSet.getDate("Complete_By_Date").toLocalDate(), resultSet.getBoolean("Completed")));
+                        todoList.add(new Todo(resultSet.getInt("\"ID\""),
+                        resultSet.getString("Title"),
+                        resultSet.getString("URL"),
+                        resultSet.getString("Description"),
+                        resultSet.getInt("Icon"),
+                        resultSet.getInt("Color"),
+                        resultSet.getDate("Complete_By_Date").toLocalDate(),
+                        resultSet.getBoolean("Completed")));
             }
             connection.close();
             return todoList;
@@ -54,14 +57,14 @@ public class TodoDAO {
         }
     }
 
-    public void addTodo(Bacheca bacheca, Todo todo){
+    public void addTodo(Bacheca bacheca, Todo todo, String user){
         try{
             PreparedStatement aggiungiTodo = connection.prepareStatement("Insert INTO ToDo(Title, URL, Description, \"Owner\", Complete_By_Date)" +
                     "Values(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             aggiungiTodo.setString(1, todo.getTitle());
             aggiungiTodo.setString(2, todo.getUrl_activity());
             aggiungiTodo.setString(3, todo.getDescription());
-            aggiungiTodo.setString(4, todo.getOwner().getUsername());
+            aggiungiTodo.setString(4, user);
             aggiungiTodo.setDate(5, Date.valueOf(todo.getComplete_by_date()));
             aggiungiTodo.executeQuery();
 
@@ -76,4 +79,20 @@ public class TodoDAO {
             e.printStackTrace();
         }
     }
+
+    public void shareTodo(int idTodo, String user){
+        try {
+            PreparedStatement query = connection.prepareStatement("call condividitodo(?, ?)");
+            query.setInt(1, idTodo);
+            query.setString(2, user);
+
+            connection.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

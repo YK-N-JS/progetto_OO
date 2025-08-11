@@ -61,7 +61,7 @@ public class HomePage {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Todo nuovo = new Todo();
-                        AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel);
+                        AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel, controller);
                         todoPage.frame.setVisible(true);
                     }
                 });
@@ -111,7 +111,7 @@ public class HomePage {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Todo nuovo = new Todo();
-                    AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel);
+                    AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel, controller);
                     todoPage.frame.setVisible(true);
                 }
             });
@@ -172,11 +172,22 @@ public class HomePage {
                         editTodoPage.frame.setVisible(true);
                     }
                 });
+
+                JButton condividiTodoButton = new JButton("Condividi");
+                todoPanel.add(condividiTodoButton);
+
+                condividiTodoButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String bersaglioCondivisione;
+                        bersaglioCondivisione = JOptionPane.showInputDialog("Inserirsci nome utente: ");
+                        controller.shareTodo(todo.getID(), bersaglioCondivisione);
+                    }
+                });
             }
         }
     }
 
-    //TODO sharing todos between bachecas and users
-    //TODO change position of todos in bacheca using DB
+    //TODO function for refreshing main page
     //TODO figure out a way to add pics
 }

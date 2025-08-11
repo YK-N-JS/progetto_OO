@@ -1,9 +1,14 @@
 package controller;
 
+import daos.BachecaDAO;
+import daos.TodoDAO;
+import daos.UserDAO;
+import databaseConnection.ConnessioneDatabase;
 import model.Bacheca;
 import model.Todo;
 import model.User;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,8 +16,19 @@ import java.util.ArrayList;
  * The type Controller.
  */
 public class Controller {
-    //temporary userlist waiting for db implementation
-    private ArrayList<User> users = new ArrayList<>();
+    private UserDAO userDAO = new UserDAO();
+    private BachecaDAO bachecaDAO = new BachecaDAO();
+    private TodoDAO todoDAO = new TodoDAO();
+    //TODO LA CONNESSIONE NON VA, CAPISCI PERCHÉ
+    private ConnessioneDatabase connection;
+
+    {
+        try {
+            connection = ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Instantiates a new Controller.
@@ -26,7 +42,8 @@ public class Controller {
      * @param password the password
      */
     public void addUser( String username, String password) {
-       users.add(new User(username, password));
+        User user = new User(username, password);
+       userDAO.insertUser(user);
     }
 
     /**
@@ -36,15 +53,7 @@ public class Controller {
      * @return the boolean
      */
     public boolean checkNewUser(String username) {
-        if (users.isEmpty()) {
-            return true;
-        }
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return false;
-            }
-        }
-        return true;
+        return userDAO.checkUser(username);
     }
 
     /**
@@ -55,51 +64,22 @@ public class Controller {
      * @return the int
      */
     public int login(String username, String password) {
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                if (!user.getUsername().isEmpty()) {
-                    if (user.getPassword().equals(password)) {
-                        return 0; //login success
-                    } else {
-                        return -1; // wrong password
-                    }
-                }
-            }
-        }
-        return -2; //user does not exist
+        return userDAO.login(username, password);
     }
 
     /**
      * Gets user.
      *
      * @param username the username
+     * @param password the password
      * @return the user
      */
-    public User getUser(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
+    public User getUser(String username, String password) {
+        return userDAO.getUser(username, password);
     }
 
-    /**
-     * Checks if user has expired {@link Todo}
-     *
-     * @param user whose todos need to be checked
-     */
-    public void reload_bacheche(User user) {
-        for(Bacheca b: user.getBacheche())
-        {
-            for(Todo todo: b.getTodoInBacheca())
-            {
-                if (LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus().equals("completed"))
-                {
-                    todo.setStatus("expired");
-                }
-            }
-        }
+    public void shareTodo(int todoID, String username) {
+        todoDAO.shareTodo(todoID, username);
     }
 
 }

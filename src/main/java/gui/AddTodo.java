@@ -22,7 +22,7 @@ public class AddTodo extends JDialog {
     private JComboBox dayComboBox;
     public JFrame frame = new JFrame();
 
-    public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel) {
+    public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel, Controller controller) {
         frame.setContentPane(contentPane);
         frame.pack();
         frame.setMinimumSize(new Dimension(900, 600));
@@ -109,6 +109,17 @@ public class AddTodo extends JDialog {
                         public void actionPerformed(ActionEvent e) {
                             EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox);
                             editTodoPage.frame.setVisible(true);
+                        }
+                    });
+
+                    JButton condividiTodoButton = new JButton("Condividi");
+                    todoPanel.add(condividiTodoButton);
+                    condividiTodoButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            String  bersaglioCondivisione;
+                            bersaglioCondivisione = JOptionPane.showInputDialog("Inserirsci nome utente: ");
+                            controller.shareTodo(nuovo.getID(), bersaglioCondivisione);
                         }
                     });
                     frame.dispose();

@@ -15,7 +15,6 @@ public class Todo {
     private boolean completed;
     private int icon;
     private int color;
-    private User owner;
 
     /**
      * Instantiates a new todo. (without parameters)
@@ -28,18 +27,16 @@ public class Todo {
      * @param title the todo's title
      * @param url_activity the url associated with the todo
      * @param description the todo's description
-     * @param owner the todo's creator
      * @param icon the todo's icon index
      * @param color the todo's color index
      * @param complete_by_date the todo's expiration date
      * @param completed a boolean that indicates whether the todo has been completed
      */
-    public Todo(int id, String title, String url_activity, String description, User owner, int icon, int color, LocalDate complete_by_date, boolean completed){
+    public Todo(int id, String title, String url_activity, String description, int icon, int color, LocalDate complete_by_date, boolean completed){
         this.id = id;
         this.title = title;
         this.description = description;
         this.url_activity = url_activity;
-        this.owner = owner;
         this.icon = icon;
         this.color = color;
         this.complete_by_date = complete_by_date;
@@ -152,7 +149,4 @@ public class Todo {
         this.icon = icon;
     }
 
-    public User getOwner (){
-        return owner;
-    }
 }

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Bacheca {
     private int id;
     private String title;
-    private User owner;
     private String description = "- - -";
     private boolean isDefault;
     private ArrayList<Todo> todoInBacheca = new ArrayList<>();
@@ -24,14 +23,12 @@ public class Bacheca {
      * Instantiates a new bacheca (with parameters).
      * @param id The bacheca's identifier
      * @param title The bacheca's title
-     * @param owner The bacheca's owner
      * @param description The bacheca's description
      * @param isDefault A boolean that indicates whether the bacheca is a default
      */
-    public Bacheca(int id, String title, User owner, String description, boolean isDefault) {
+    public Bacheca(int id, String title, String description, boolean isDefault) {
         this.id = id;
         this.title = title;
-        this.owner = owner;
         this.description = description;
         this.isDefault = isDefault;
     }
@@ -60,24 +57,6 @@ public class Bacheca {
      */
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    /**
-     * Gets owner of the bacheca.
-     *
-     * @return the owner
-     */
-    public User getOwner() {
-        return owner;
-    }
-
-    /**
-     * Sets owner of the bacheca.
-     *
-     * @param owner the owner
-     */
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     /**
@@ -150,23 +129,6 @@ public class Bacheca {
      */
     public void setUsersSharingBacheca(ArrayList<User> usersSharingBacheca) {
         this.usersSharingBacheca = usersSharingBacheca;
-    }
-
-    /**
-     * Share bacheca.
-     *
-     * @param user the user
-     */
-    public void shareBacheca(User user){
-        usersSharingBacheca.add(user);
-    }
-
-    /**
-     * Removes the todo in last position
-     */
-    public void removeLastTodo()
-    {
-        todoInBacheca.remove(todoInBacheca.size()-1);
     }
 
     /**

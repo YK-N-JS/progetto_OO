@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 public class BachecaDAO {
     private Connection connection;
-    private Controller controller;
-    public BachecaDAO(Controller controller) {
-        this.controller = controller;
+    public BachecaDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().getConnection();
         } catch (SQLException e) {
@@ -30,8 +28,10 @@ public class BachecaDAO {
             recuperaBacheche.setString(1, user.getUsername());
             ResultSet resultSet = recuperaBacheche.executeQuery();
             while (resultSet.next()) {
-                bacheche.add(new Bacheca(resultSet.getInt("\"ID\""), resultSet.getString("Title"),
-                controller.getUser(resultSet.getString("\"Owner\"")), resultSet.getString("Description"), resultSet.getBoolean("IsDefault")));
+                bacheche.add(new Bacheca(resultSet.getInt("\"ID\""),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getBoolean("IsDefault")));
             }
             connection.close();
             return bacheche;
@@ -43,12 +43,12 @@ public class BachecaDAO {
         }
     }
 
-    public void insertBacheca(Bacheca bacheca) {
+    public void createBacheca(Bacheca bacheca, String username) {
         try{
             PreparedStatement inserisciBacheca = connection.prepareStatement("Insert into Bacheca(Title, Description, \"Owner\") values(?,?,?)");
             inserisciBacheca.setString(1, bacheca.getTitle());
             inserisciBacheca.setString(2, bacheca.getDescription());
-            inserisciBacheca.setString(3, bacheca.getOwner().getUsername());
+            inserisciBacheca.setString(3, username);
 
             connection.close();
         }
