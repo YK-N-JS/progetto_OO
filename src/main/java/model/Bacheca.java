@@ -41,6 +41,10 @@ public class Bacheca {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Gets title of the bacheca.
      *

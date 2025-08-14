@@ -9,7 +9,7 @@ public class Todo {
     private int id;
     private String title;
     private String description;
-    private String status = "to complete";
+    private boolean status = false;
     private String url_activity;
     private LocalDate complete_by_date;
     private boolean completed;
@@ -49,6 +49,10 @@ public class Todo {
      */
     public int getID(){
         return id;
+    }
+
+    public void setID(int id){
+        this.id = id;
     }
 
     /**
@@ -92,7 +96,7 @@ public class Todo {
      *
      * @return the status
      */
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -101,7 +105,7 @@ public class Todo {
      *
      * @param status the status
      */
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -148,5 +152,14 @@ public class Todo {
     public void setIcon(int icon) {
         this.icon = icon;
     }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
 
 }

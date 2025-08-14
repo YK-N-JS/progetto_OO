@@ -20,13 +20,13 @@ public class UserDAO {
     }
 
     public void insertUser(User user) {
+        //funziona ma si arrabbia perché la query non restituisce nulla... bah, java smh...
         try{
            PreparedStatement inserisciUtente = connection.prepareStatement("Insert INTO \"user\"(username, \"Password\") VALUES (?,?)");
             inserisciUtente.setString(1, user.getUsername());
             inserisciUtente.setString(2, user.getPassword());
-            inserisciUtente.executeQuery();
+            inserisciUtente.executeUpdate();
 
-            connection.close();
     }
         catch (SQLException e) {
             e.printStackTrace();
@@ -40,11 +40,10 @@ public class UserDAO {
             prendiUtente.setString(2, password);
             ResultSet rs = prendiUtente.executeQuery();
 
-            connection.close();
-            if(rs == null) {
+            if(rs.next() == false) {
                 return null;
             }
-            else return new User(rs.getString("username"), rs.getString("\"Password\""));
+            else return new User(username, password);
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -54,15 +53,12 @@ public class UserDAO {
 
     public boolean checkUser(String userName) {
         try{
-            PreparedStatement controllaUtente = connection.prepareStatement("Select * from \"user\" where username = ?");
+            PreparedStatement controllaUtente = connection.prepareStatement("Select username from \"user\" where username = ?");
             controllaUtente.setString(1, userName);
             ResultSet rs = controllaUtente.executeQuery();
 
-            connection.close();
-            if(rs == null) {
-                return true;
-            }
-            else return false;
+            return !rs.next();
+            //false se trova qualcuno, true se non trova nessuno
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -76,7 +72,6 @@ public class UserDAO {
             eliminaUtente.setString(1, userName);
             eliminaUtente.executeQuery();
 
-            connection.close();
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -85,7 +80,7 @@ public class UserDAO {
 
     public int login(String username, String password) {
         try{
-            if(!checkUser(username))
+            if(checkUser(username)) //se non trova nessuno
             {
                 return -2; // user does not exist
             }
@@ -94,8 +89,8 @@ public class UserDAO {
              query.setString(1, username);
              query.setString(2, password);
              ResultSet rs = query.executeQuery();
-             connection.close();
-             if(rs == null) {
+
+             if(rs.next() == false) { //se la query è vuota ma c'è qualcuno con quel nome, la password è sbagliata
                  return -1; // wrong password
              }
              return 0; // login successful

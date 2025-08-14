@@ -25,8 +25,6 @@ public class Login {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.login(textField1.getText(), passwordField1.getText()) == 0) {
-                    //MAGARI FA QUALCOSA DI PIÙ INTERESSANTE...
-                    //JOptionPane.showMessageDialog(frame, "Login Successful");
                     HomePage homePage = new HomePage(controller.getUser(textField1.getText(), passwordField1.getText()), controller);
                     homePage.frame.setVisible(true);
                     frame.dispose();

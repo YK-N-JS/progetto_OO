@@ -47,6 +47,7 @@ public class Edit_Bacheca extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 bacheca.setTitle(nome_textfield.getText());
                 bacheca.setDescription(descrizione_textfield.getText());
+                controller.editBacheca(bacheca);
                 descrizione_label.setText(bacheca.getDescription());
                 tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), bacheca.getTitle());
                 setColor(panel);

@@ -3,6 +3,7 @@ package gui;
 import controller.Controller;
 import model.Bacheca;
 import model.Todo;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class AddTodo extends JDialog {
     private JComboBox dayComboBox;
     public JFrame frame = new JFrame();
 
-    public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel, Controller controller) {
+    public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel, Controller controller, String username) {
         frame.setContentPane(contentPane);
         frame.pack();
         frame.setMinimumSize(new Dimension(900, 600));
@@ -57,7 +58,7 @@ public class AddTodo extends JDialog {
                     nuovo.setDescription(descriptionTextField.getText());
                     nuovo.setUrl_activity(urlTextield.getText());
                     nuovo.setComplete_by_date(LocalDate.of(year, month, day));
-                    bacheca.addTodo(nuovo);
+                    controller.addTodo(bacheca, nuovo, username);
 
                     JPanel todoPanel = new JPanel();
                     todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
@@ -73,10 +74,10 @@ public class AddTodo extends JDialog {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             if(todoCompletedBox.isSelected()){
-                                nuovo.setStatus("completed");
+                                nuovo.setStatus(true);
                                 todoPanel.setBackground(Color.GREEN);
                             } else if (!todoCompletedBox.isSelected()) {
-                                nuovo.setStatus("to complete");
+                                nuovo.setStatus(false);
                                 todoPanel.setBackground(Color.WHITE);
                                 if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))
                                 {
@@ -95,7 +96,7 @@ public class AddTodo extends JDialog {
                     removeTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                         bacheca.removeATodo(nuovo);
+                         controller.removeTodo(nuovo, bacheca);
                          bachecaPanel.remove(todoPanel);
                          bachecaPanel.revalidate();
                          bachecaPanel.repaint();
@@ -107,7 +108,7 @@ public class AddTodo extends JDialog {
                     editTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox);
+                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox, controller);
                             editTodoPage.frame.setVisible(true);
                         }
                     });
@@ -129,7 +130,7 @@ public class AddTodo extends JDialog {
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                bacheca.removeATodo(nuovo);
+                controller.removeTodo(nuovo, bacheca);
                 nuovo = null;
                 frame.dispose();
             }

@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import model.Todo;
 
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class EditTodoPage extends JDialog {
     private JPanel todoPanel;
 
 
-    public EditTodoPage(JPanel todoPanel, Todo todo, JCheckBox todoCompletedBox) {
+    public EditTodoPage(JPanel todoPanel, Todo todo, JCheckBox todoCompletedBox, Controller controller) {
         this.todoPanel = todoPanel;
         frame = new JFrame("Edit Todo");
         frame.setContentPane(contentPane);
@@ -79,16 +80,17 @@ public class EditTodoPage extends JDialog {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             if(todoCompletedBox.isSelected()){
-                                todo.setStatus("completed");
+                                todo.setStatus(true);
                                 todoPanel.setBackground(Color.GREEN);
                             } else if (!todoCompletedBox.isSelected()) {
-                                todo.setStatus("to complete");
+                                todo.setStatus(false);
                                 todoPanel.setBackground(Color.WHITE);
                                 if(LocalDate.now().isAfter(todo.getComplete_by_date()))
                                 {
                                     todoPanel.setBackground(Color.RED);
                                 }
                             }
+                            controller.editTodo(todo);
                         }
                     });
                     frame.dispose();

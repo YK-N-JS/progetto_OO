@@ -8,6 +8,7 @@ import model.Bacheca;
 import model.Todo;
 import model.User;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,16 +20,6 @@ public class Controller {
     private UserDAO userDAO = new UserDAO();
     private BachecaDAO bachecaDAO = new BachecaDAO();
     private TodoDAO todoDAO = new TodoDAO();
-    //TODO LA CONNESSIONE NON VA, CAPISCI PERCHÉ
-    private ConnessioneDatabase connection;
-
-    {
-        try {
-            connection = ConnessioneDatabase.getInstance();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Instantiates a new Controller.
@@ -80,6 +71,66 @@ public class Controller {
 
     public void shareTodo(int todoID, String username) {
         todoDAO.shareTodo(todoID, username);
+    }
+
+    public void loadBachecheUser(User user) {
+        ArrayList<Bacheca> bachecheUser = new ArrayList<>();
+        bachecheUser = bachecaDAO.getAllBacheca(user.getUsername());
+        user.setBacheche(bachecheUser);
+    }
+
+    public boolean addBacheca(String username, String password, Bacheca bacheca) {
+        if(getUser(username, password).addBacheca(bacheca))
+        {
+           bachecaDAO.createBacheca(bacheca, username);
+           return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void editBacheca(Bacheca bacheca) {
+        bachecaDAO.editBacheca(bacheca);
+    }
+
+    public boolean deleteBacheca(Bacheca bacheca, User user) {
+        if (bachecaDAO.deleteBacheca(bacheca)){
+            user.removeBacheca(bacheca);
+        return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<Todo> getTodoAlphabetical(Bacheca bacheca) {
+        bacheca.setTodoInBacheca(todoDAO.getTodoInBachecaAlphabetical(bacheca));
+        return todoDAO.getTodoInBachecaAlphabetical(bacheca);
+    }
+
+    public ArrayList<Todo> getTodoByDate(Bacheca bacheca){
+        bacheca.setTodoInBacheca(todoDAO.getTodoInBachecaByDate(bacheca));
+        return todoDAO.getTodoInBachecaByDate(bacheca);
+    }
+
+    public void addTodo(Bacheca bacheca, Todo todo, String username)
+    {
+        todoDAO.addTodo(bacheca, todo, username);
+        bacheca.addTodo(todo);
+    }
+
+    public void removeTodo(Todo todo, Bacheca bacheca)
+    {
+        todoDAO.removeTodo(todo, bacheca);
+        bacheca.removeATodo(todo);
+    }
+
+    public void editTodo(Todo todo){
+        todoDAO.editTodo(todo);
+    }
+
+    public void completeTodo(Todo todo)
+    {
+
     }
 
 }
