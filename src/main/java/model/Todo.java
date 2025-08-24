@@ -11,8 +11,8 @@ public class Todo {
     private String title;
     private String description;
     private boolean status = false;
-    private String url_activity;
-    private LocalDate complete_by_date;
+    private String urlActivity;
+    private LocalDate completeByDate;
     private int iconID;
     private ImageIcon icon;
     private int color;
@@ -26,21 +26,21 @@ public class Todo {
      * Instantiates a new todo. (with parameters)
      * @param id the todo's identifier
      * @param title the todo's title
-     * @param url_activity the url associated with the todo
+     * @param urlActivity the url associated with the todo
      * @param description the todo's description
      * @param icon the todo's icon index
      * @param color the todo's color index
-     * @param complete_by_date the todo's expiration date
+     * @param completeByDate the todo's expiration date
      * @param completed a boolean that indicates whether the todo has been completed
      */
-    public Todo(int id, String title, String url_activity, String description, int icon, int color, LocalDate complete_by_date, boolean completed){
+    public Todo(int id, String title, String urlActivity, String description, int icon, int color, LocalDate completeByDate, boolean completed){
         this.id = id;
         this.title = title;
         this.description = description;
-        this.url_activity = url_activity;
+        this.urlActivity = urlActivity;
         this.iconID = icon;
         this.color = color;
-        this.complete_by_date = complete_by_date;
+        this.completeByDate = completeByDate;
         this.status = completed;
     }
 
@@ -116,16 +116,16 @@ public class Todo {
      * @return the url activity
      */
     public String getUrl_activity() {
-        return url_activity;
+        return urlActivity;
     }
 
     /**
      * Sets url activity.
      *
-     * @param url_activity the url activity
+     * @param urlActivity the url activity
      */
-    public void setUrl_activity(String url_activity) {
-        this.url_activity = url_activity;
+    public void setUrl_activity(String urlActivity) {
+        this.urlActivity = urlActivity;
     }
 
     /**
@@ -134,16 +134,16 @@ public class Todo {
      * @return the complete by date
      */
     public LocalDate getComplete_by_date() {
-        return complete_by_date;
+        return completeByDate;
     }
 
     /**
      * Sets complete by date.
      *
-     * @param complete_by_date the complete by date
+     * @param completeByDate the complete by date
      */
-    public void setComplete_by_date(LocalDate complete_by_date) {
-        this.complete_by_date = complete_by_date;
+    public void setComplete_by_date(LocalDate completeByDate) {
+        this.completeByDate = completeByDate;
     }
 
     public int getIconID() {

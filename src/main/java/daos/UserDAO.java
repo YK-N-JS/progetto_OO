@@ -1,6 +1,5 @@
 package daos;
 
-import controller.Controller;
 import databaseConnection.ConnessioneDatabase;
 import model.User;
 
@@ -66,17 +65,6 @@ public class UserDAO {
         }
     }
 
-    public void dropUser(String userName) {
-        try{
-            PreparedStatement eliminaUtente = connection.prepareStatement("Delete from \"user\" where username = ?");
-            eliminaUtente.setString(1, userName);
-            eliminaUtente.executeQuery();
-
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
 
     public int login(String username, String password) {
         try{

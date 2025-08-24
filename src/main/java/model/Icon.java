@@ -31,7 +31,6 @@ public class Icon {
      * @throws Exception
      */
     public Icon() {
-        String a = File.separator;
         try {
             icon0 = ImageIO.read(new File("/home/davide/Programs/java/progetto_OO/src/main/resources/images/edit.png"));
             icon1 = ImageIO.read(new File("/home/davide/Programs/java/progetto_OO/src/main/resources/images/home.png"));

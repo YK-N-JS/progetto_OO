@@ -1,10 +1,8 @@
 package daos;
 
-import controller.Controller;
 import databaseConnection.ConnessioneDatabase;
 import model.Bacheca;
 import model.Todo;
-import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class TodoDAO {
 
     public ArrayList<Todo> getTodoInBachecaAlphabetical(Bacheca bacheca) {
         try{
-            ArrayList<Todo> todoList = new ArrayList<Todo>();
+            ArrayList<Todo> todoList = new ArrayList<>();
             PreparedStatement recuperaTodo = connection.prepareStatement("select * from sortalphabetical(?)");
             recuperaTodo.setInt(1, bacheca.getId());
             ResultSet resultSet= recuperaTodo.executeQuery();
@@ -45,7 +43,7 @@ public class TodoDAO {
 
     public ArrayList<Todo> getTodoInBachecaByDate(Bacheca bacheca) {
         try{
-            ArrayList<Todo> todoList = new ArrayList<Todo>();
+            ArrayList<Todo> todoList = new ArrayList<>();
             PreparedStatement recuperaTodo = connection.prepareStatement("select * from sortbydate(?)");
             recuperaTodo.setInt(1, bacheca.getId());
             ResultSet resultSet= recuperaTodo.executeQuery();
@@ -135,7 +133,7 @@ public class TodoDAO {
         editTodo.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

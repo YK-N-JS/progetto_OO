@@ -3,17 +3,12 @@ package controller;
 import daos.BachecaDAO;
 import daos.TodoDAO;
 import daos.UserDAO;
-import databaseConnection.ConnessioneDatabase;
 import model.Bacheca;
 import model.Icon;
 import model.Todo;
 import model.User;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -30,7 +25,9 @@ public class Controller {
     /**
      * Instantiates a new Controller.
      */
-    public Controller() {}
+    public Controller() {
+        // default constructor
+    }
 
     /**
      * Add user to the list of users.
@@ -80,8 +77,7 @@ public class Controller {
     }
 
     public void loadBachecheUser(User user) {
-        ArrayList<Bacheca> bachecheUser = new ArrayList<>();
-        bachecheUser = bachecaDAO.getAllBacheca(user.getUsername());
+        ArrayList<Bacheca> bachecheUser = bachecaDAO.getAllBacheca(user.getUsername());
         user.setBacheche(bachecheUser);
     }
 

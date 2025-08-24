@@ -3,13 +3,11 @@ package gui;
 import controller.Controller;
 import model.Bacheca;
 import model.Todo;
-import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class AddTodo extends JDialog {
     private JPanel contentPane;
@@ -23,7 +21,7 @@ public class AddTodo extends JDialog {
     private JComboBox monthComboBox;
     private JComboBox dayComboBox;
     public JFrame frame = new JFrame();
-    public JLabel todoImage = new JLabel();
+    private JLabel todoImage = new JLabel();
 
     public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel, Controller controller, String username) {
         frame.setContentPane(contentPane);
@@ -143,6 +141,7 @@ public class AddTodo extends JDialog {
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
             }

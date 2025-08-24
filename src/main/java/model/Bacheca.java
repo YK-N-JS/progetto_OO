@@ -11,7 +11,6 @@ public class Bacheca {
     private String description = "- - -";
     private boolean isDefault;
     private ArrayList<Todo> todoInBacheca = new ArrayList<>();
-    private ArrayList<User> usersSharingBacheca = new ArrayList<>();
 
 
     /**
@@ -81,14 +80,6 @@ public class Bacheca {
         this.description = description;
     }
 
-    /**
-     * Gets todo in bacheca.
-     *
-     * @return the todo in bacheca
-     */
-    public ArrayList<Todo> getTodoInBacheca() {
-        return todoInBacheca;
-    }
 
     /**
      * Sets todo in bacheca.
@@ -108,32 +99,6 @@ public class Bacheca {
         this.todoInBacheca.add(todo);
     }
 
-    /**
-     * Remove todo.
-     *
-     * @param index the index of the todo to remove in the list
-     */
-    public void removeTodo(int index){
-        todoInBacheca.remove(index);
-    }
-
-    /**
-     * Gets users sharing bacheca.
-     *
-     * @return the users sharing bacheca
-     */
-    public ArrayList<User> getUsersSharingBacheca() {
-        return usersSharingBacheca;
-    }
-
-    /**
-     * Sets users sharing bacheca.
-     *
-     * @param usersSharingBacheca the users sharing bacheca
-     */
-    public void setUsersSharingBacheca(ArrayList<User> usersSharingBacheca) {
-        this.usersSharingBacheca = usersSharingBacheca;
-    }
 
     /**
      *Removes the todo passed as parameter

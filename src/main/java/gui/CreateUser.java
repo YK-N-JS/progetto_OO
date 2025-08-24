@@ -34,6 +34,7 @@ public class CreateUser extends JDialog {
         // call onCancel() when cross is clicked
         childFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -50,7 +51,6 @@ public class CreateUser extends JDialog {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            //TODO create and add user to userlist
                 if (!passwordField1.getText().equals(passwordField2.getText())) {
                     JOptionPane.showMessageDialog(null, "Passwords do not match");
                 } else if (passwordField1.getText().isEmpty()) {

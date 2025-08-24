@@ -1,15 +1,11 @@
 package gui;
 
 import controller.Controller;
-import model.Bacheca;
-import model.Todo;
-import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 
 public class Login {
     private JPanel panel1;
@@ -48,28 +44,6 @@ public class Login {
     }
 
     public static void main(String[] args) {
-        //handles the look and feel of the application, set it to GTK+, looks better
-       /* try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
-        }*/
-
-        //FAKE USER FOR DEBUGGING PURPOSES
-        //controller.addUser("0", "0");
-        //Todo zero = new Todo();
-        //User a = controller.getUser("0");
-        //Bacheca b = a.getBacheca(0);
-        //b.addTodo(zero);
-        //zero.setComplete_by_date(LocalDate.now());
-        //zero.setTitle("ciao");
-        //
 
         frame = new JFrame("Login");
         frame.setContentPane(new Login().panel1);

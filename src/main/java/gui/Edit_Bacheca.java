@@ -14,8 +14,8 @@ public class Edit_Bacheca extends JDialog {
     private JButton buttonCancel;
     private JLabel nome;
     private JLabel descrizione;
-    private JTextField nome_textfield;
-    private JTextField descrizione_textfield;
+    private JTextField nomeTextfield;
+    private JTextField descrizioneTextfield;
     private JRadioButton pinkRadioButton;
     private JRadioButton redRadioButton;
     private JRadioButton whiteRadioButton;
@@ -24,15 +24,15 @@ public class Edit_Bacheca extends JDialog {
     private JRadioButton blueRadioButton;
     private ButtonGroup buttonGroup;
 
-    public Edit_Bacheca(Controller controller, Bacheca bacheca, JLabel descrizione_label, JTabbedPane tabbedPane, JPanel panel) {
+    public Edit_Bacheca(Controller controller, Bacheca bacheca, JLabel descrizioneLabel, JTabbedPane tabbedPane, JPanel panel) {
         frame = new JFrame("Edit Bacheca");
         frame.setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         frame.setMinimumSize(new Dimension(450, 200));
 
-        nome_textfield.setText(bacheca.getTitle());
-        descrizione_textfield.setText(bacheca.getDescription());
+        nomeTextfield.setText(bacheca.getTitle());
+        descrizioneTextfield.setText(bacheca.getDescription());
 
         buttonGroup = new ButtonGroup();
         buttonGroup.add(pinkRadioButton);
@@ -44,11 +44,12 @@ public class Edit_Bacheca extends JDialog {
 
 
         buttonOK.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                bacheca.setTitle(nome_textfield.getText());
-                bacheca.setDescription(descrizione_textfield.getText());
+                bacheca.setTitle(nomeTextfield.getText());
+                bacheca.setDescription(descrizioneTextfield.getText());
                 controller.editBacheca(bacheca);
-                descrizione_label.setText(bacheca.getDescription());
+                descrizioneLabel.setText(bacheca.getDescription());
                 tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), bacheca.getTitle());
                 setColor(panel);
                 frame.dispose();
@@ -56,6 +57,7 @@ public class Edit_Bacheca extends JDialog {
         });
 
         buttonCancel.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }
@@ -64,6 +66,7 @@ public class Edit_Bacheca extends JDialog {
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
             }
@@ -71,6 +74,7 @@ public class Edit_Bacheca extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }

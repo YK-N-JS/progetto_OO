@@ -1,9 +1,7 @@
 package daos;
 
-import controller.Controller;
 import databaseConnection.ConnessioneDatabase;
 import model.Bacheca;
-import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class BachecaDAO {
 
     public ArrayList<Bacheca> getAllBacheca(String username) {
         try{
-            ArrayList<Bacheca> bacheche = new ArrayList<Bacheca>();
+            ArrayList<Bacheca> bacheche = new ArrayList<>();
             PreparedStatement recuperaBacheche = connection.prepareStatement("Select * From Bacheca where \"Owner\" = ?");
             recuperaBacheche.setString(1, username);
             ResultSet resultSet = recuperaBacheche.executeQuery();

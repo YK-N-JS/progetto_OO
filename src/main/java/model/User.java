@@ -9,7 +9,7 @@ public class User {
     private ArrayList<Bacheca> bacheche = new ArrayList<>();
     private String username;
     private String password;
-    private int num_max_bacheche = 10;
+    private int numMaxBacheche = 10;
 
     /**
      * Instantiates a new User.and creates default bacheche and their description
@@ -96,7 +96,7 @@ public class User {
      * @return boolean success
      */
     public boolean addBacheca(Bacheca bacheca) {
-        if(bacheche.size()<num_max_bacheche ) {
+        if(bacheche.size()<numMaxBacheche ) {
             this.bacheche.add(bacheca);
             return true;
         }

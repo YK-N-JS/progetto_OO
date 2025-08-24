@@ -5,14 +5,11 @@ import model.Bacheca;
 import model.Todo;
 import model.User;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -405,6 +402,4 @@ public class HomePage {
                 return Color.WHITE;
         }
     }
-
-    //TODO figure out a way to add pics
 }
