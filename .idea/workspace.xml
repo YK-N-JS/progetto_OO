@@ -5,61 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="tried adding connection, failed :(">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/Icon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25__09_38__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/edit.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/edit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/home.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/home.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/like.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/like.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/map.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/map.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/music-player.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/music-player.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/muted.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/muted.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/smartphone.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/smartphone.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/stopwatch.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/stopwatch.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/user.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/user.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/users.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/users.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Applicativo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Applicativo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/controller/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/daos/TodoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/daos/TodoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$16.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/model/Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Bacheca.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/model/Icon.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Icon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/model/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Todo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/daos/TodoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/daos/TodoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/homePage.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/homePage.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/login.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$1$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/AddTodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/AddTodo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CreateUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/EditTodoPage$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/EditTodoPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/EditTodoPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Edit_Bacheca.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$1$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/HomePage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Bacheca.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Icons.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Todo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Icon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Icon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Todo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,22 +95,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "tuttibarbari"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/YK-N-JS/progetto_OO.git",
-    "accountId": "9cf8e1ef-744f-428b-b027-3a805709d7b7"
-  }
-}]]></component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -117,6 +119,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;8&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;416&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -132,12 +135,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Cartella personale\UNIVERSITÀ\Materiale didattico\progetto_OO\src\main\resources\images" />
-      <recent name="E:\Cartella personale\UNIVERSITÀ\Materiale didattico\progetto_OO\src\main\java" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.Login" />
@@ -211,6 +208,7 @@
       <workItem from="1754901362320" duration="6752000" />
       <workItem from="1755084995782" duration="10312000" />
       <workItem from="1755157790317" duration="11014000" />
+      <workItem from="1756038711696" duration="2641000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />

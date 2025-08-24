@@ -1,0 +1,1027 @@
+Index: src/main/java/gui/AddTodo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gui;\n\nimport controller.Controller;\nimport model.Bacheca;\nimport model.Todo;\nimport model.User;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.*;\nimport java.time.LocalDate;\n\npublic class AddTodo extends JDialog {\n    private JPanel contentPane;\n    private Todo nuovo;\n    private JButton buttonOK;\n    private JButton buttonCancel;\n    private JTextField titleTextField;\n    private JTextField descriptionTextField;\n    private JTextField urlTextield;\n    private JTextField yearTextfield;\n    private JComboBox monthComboBox;\n    private JComboBox dayComboBox;\n    public JFrame frame = new JFrame();\n\n    public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel, Controller controller, String username) {\n        frame.setContentPane(contentPane);\n        frame.pack();\n        frame.setMinimumSize(new Dimension(900, 600));\n        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);\n        setModal(true);\n        getRootPane().setDefaultButton(buttonOK);\n        nuovo = nuovoTodo;\n\n\n        for(int i = 1; i<= 12; i++)\n            monthComboBox.addItem(i);\n        for(int j = 1; j<= 31; j++)\n            dayComboBox.addItem(j);\n\n        monthComboBox.setSelectedItem(0);\n        dayComboBox.setSelectedItem(0);\n\n\n        buttonOK.addActionListener(new ActionListener() {\n            public void actionPerformed(ActionEvent e) {\n                int year = Integer.parseInt(yearTextfield.getText());\n                int month = monthComboBox.getSelectedIndex()+1;\n                int day = dayComboBox.getSelectedIndex()+1;\n\n                if((day > 30 && (month == 2 || month == 4 || month == 6 || month == 9 || month == 11)) || //giorno selezionato non è nel mese\n                        (month == 2 && day > 28 && year%4 != 0) || //selezionato il 29 feb per anno non bisestile\n                        (month == 2 && day > 29) //selezionato giorno maggiore del 29 per feb\n                ){\n                    JOptionPane.showMessageDialog(null, \"Please select a valid date\");\n                } else {\n                    nuovo.setTitle(titleTextField.getText());\n                    nuovo.setDescription(descriptionTextField.getText());\n                    nuovo.setUrl_activity(urlTextield.getText());\n                    nuovo.setComplete_by_date(LocalDate.of(year, month, day));\n                    controller.addTodo(bacheca, nuovo, username);\n\n                    JPanel todoPanel = new JPanel();\n                    todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));\n                    JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());\n                    bachecaPanel.add(todoPanel);\n                    todoPanel.add(todoCompletedBox);\n\n                    if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))\n                    {\n                        todoPanel.setBackground(Color.red);\n                    }\n                    todoCompletedBox.addActionListener(new ActionListener() {\n                        @Override\n                        public void actionPerformed(ActionEvent e) {\n                            if(todoCompletedBox.isSelected()){\n                                nuovo.setStatus(true);\n                                todoPanel.setBackground(Color.GREEN);\n                            } else if (!todoCompletedBox.isSelected()) {\n                                nuovo.setStatus(false);\n                                todoPanel.setBackground(Color.WHITE);\n                                if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))\n                                {\n                                    todoPanel.setBackground(Color.red);\n                                }\n                            }\n                        }\n                    });\n\n                    bachecaPanel.revalidate();\n                    bachecaPanel.repaint();\n\n                    JButton removeTodoButton = new JButton(\"Remove\");\n                    todoPanel.add(removeTodoButton);\n\n                    removeTodoButton.addActionListener(new ActionListener() {\n                        @Override\n                        public void actionPerformed(ActionEvent e) {\n                         controller.removeTodo(nuovo, bacheca);\n                         bachecaPanel.remove(todoPanel);\n                         bachecaPanel.revalidate();\n                         bachecaPanel.repaint();\n                        }\n                    });\n\n                    JButton editTodoButton = new JButton(\"Edit\");\n                    todoPanel.add(editTodoButton);\n                    editTodoButton.addActionListener(new ActionListener() {\n                        @Override\n                        public void actionPerformed(ActionEvent e) {\n                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox, controller);\n                            editTodoPage.frame.setVisible(true);\n                        }\n                    });\n\n                    JButton condividiTodoButton = new JButton(\"Condividi\");\n                    todoPanel.add(condividiTodoButton);\n                    condividiTodoButton.addActionListener(new ActionListener() {\n                        @Override\n                        public void actionPerformed(ActionEvent e) {\n                            String  bersaglioCondivisione;\n                            bersaglioCondivisione = JOptionPane.showInputDialog(\"Inserirsci nome utente: \");\n                            controller.shareTodo(nuovo.getID(), bersaglioCondivisione);\n                        }\n                    });\n                    frame.dispose();\n                }\n            }\n        });\n\n        buttonCancel.addActionListener(new ActionListener() {\n            public void actionPerformed(ActionEvent e) {\n                controller.removeTodo(nuovo, bacheca);\n                nuovo = null;\n                frame.dispose();\n            }\n        });\n\n        // call onCancel() when cross is clicked\n        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);\n        addWindowListener(new WindowAdapter() {\n            public void windowClosing(WindowEvent e) {\n                frame.dispose();\n            }\n        });\n\n        // call onCancel() on ESCAPE\n        contentPane.registerKeyboardAction(new ActionListener() {\n            public void actionPerformed(ActionEvent e) {\n                frame.dispose();\n            }\n        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/gui/AddTodo.java b/src/main/java/gui/AddTodo.java
+--- a/src/main/java/gui/AddTodo.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/gui/AddTodo.java	(date 1755358512513)
+@@ -9,6 +9,7 @@
+ import java.awt.*;
+ import java.awt.event.*;
+ import java.time.LocalDate;
++import java.util.ArrayList;
+ 
+ public class AddTodo extends JDialog {
+     private JPanel contentPane;
+Index: src/main/java/daos/TodoDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package daos;\n\nimport controller.Controller;\nimport databaseConnection.ConnessioneDatabase;\nimport model.Bacheca;\nimport model.Todo;\nimport model.User;\n\nimport java.sql.*;\nimport java.util.ArrayList;\n\npublic class TodoDAO {\n    private Connection connection;\n    public TodoDAO() {\n        try {\n            connection = ConnessioneDatabase.getInstance().getConnection();\n        } catch (SQLException e) {\n            e.printStackTrace();\n        }\n    }\n\n    public ArrayList<Todo> getTodoInBachecaAlphabetical(Bacheca bacheca) {\n        try{\n            ArrayList<Todo> todoList = new ArrayList<Todo>();\n            PreparedStatement recuperaTodo = connection.prepareStatement(\"select * from sortalphabetical(?)\");\n            recuperaTodo.setInt(1, bacheca.getId());\n            ResultSet resultSet= recuperaTodo.executeQuery();\n            while(resultSet.next()){\n                        todoList.add(new Todo(resultSet.getInt(\"ID\"),\n                        resultSet.getString(\"Title\"),\n                        resultSet.getString(\"URL\"),\n                        resultSet.getString(\"Description\"),\n                        resultSet.getInt(\"Icon\"),\n                        resultSet.getInt(\"Color\"),\n                        resultSet.getDate(\"Complete_By_Date\").toLocalDate(),\n                        resultSet.getBoolean(\"Completed\")));\n            }\n            return todoList;\n        }\n        catch(SQLException e){\n            e.printStackTrace();\n            return null;\n        }\n    }\n\n    public ArrayList<Todo> getTodoInBachecaByDate(Bacheca bacheca) {\n        try{\n            ArrayList<Todo> todoList = new ArrayList<Todo>();\n            PreparedStatement recuperaTodo = connection.prepareStatement(\"select * from sortbydate(?)\");\n            recuperaTodo.setInt(1, bacheca.getId());\n            ResultSet resultSet= recuperaTodo.executeQuery();\n            while(resultSet.next()){\n                todoList.add(new Todo(resultSet.getInt(\"ID\"),\n                        resultSet.getString(\"Title\"),\n                        resultSet.getString(\"URL\"),\n                        resultSet.getString(\"Description\"),\n                        resultSet.getInt(\"Icon\"),\n                        resultSet.getInt(\"Color\"),\n                        resultSet.getDate(\"Complete_By_Date\").toLocalDate(),\n                        resultSet.getBoolean(\"Completed\")));\n            }\n            return todoList;\n        }\n        catch(SQLException e){\n            e.printStackTrace();\n            return null;\n        }\n    }\n\n    public void removeTodo(Todo todo, Bacheca bacheca) {\n        try{\n            PreparedStatement rimuoviTodo = connection.prepareStatement(\"Delete From placement Where idtodo = ? and idbacheca = ?\");\n            rimuoviTodo.setInt(1, todo.getID());\n            rimuoviTodo.setInt(2, bacheca.getId());\n            rimuoviTodo.execute();\n\n        }\n        catch(SQLException e){\n            e.printStackTrace();\n        }\n    }\n\n    public void addTodo(Bacheca bacheca, Todo todo, String user){\n        try{\n            PreparedStatement aggiungiTodo = connection.prepareStatement(\"Insert INTO ToDo(Title, URL, Description, \\\"Owner\\\", Complete_By_Date)\" +\n                    \"Values(?, ?, ?, ?, ?)\", Statement.RETURN_GENERATED_KEYS);\n            aggiungiTodo.setString(1, todo.getTitle());\n            aggiungiTodo.setString(2, todo.getUrl_activity());\n            aggiungiTodo.setString(3, todo.getDescription());\n            aggiungiTodo.setString(4, user);\n            aggiungiTodo.setDate(5, Date.valueOf(todo.getComplete_by_date()));\n            aggiungiTodo.executeUpdate();\n            ResultSet rs = aggiungiTodo.getGeneratedKeys();\n            rs.next();\n            todo.setID(rs.getInt(\"ID\"));\n\n            PreparedStatement aggiungiPlacement = connection.prepareStatement(\"Insert INTO Placement(IDBacheca, IDToDo) Values(?, ?)\");\n            aggiungiPlacement.setInt(1, bacheca.getId());\n            aggiungiPlacement.setInt(2, rs.getInt(\"ID\"));\n            aggiungiPlacement.executeUpdate();\n\n        }\n        catch(SQLException e){\n            e.printStackTrace();\n        }\n    }\n\n    public void shareTodo(int idTodo, String user){\n        try {\n            PreparedStatement query = connection.prepareStatement(\"call condividitodo(?, ?)\");\n            query.setInt(2, idTodo);\n            query.setString(1, user);\n            query.executeUpdate();\n\n        }\n        catch (SQLException e) {\n            e.printStackTrace();\n        }\n    }\n\n    public void editTodo(Todo todo){\n        try {\n        PreparedStatement editTodo = connection.prepareStatement(\"update todo set title = ?,\" +\n                \" description = ?, url = ?, icon = ?, color = ?, complete_by_date = ?, completed = ?\" +\n                \" where \\\"ID\\\" = ?\");\n        editTodo.setString(1, todo.getTitle());\n        editTodo.setString(2, todo.getDescription());\n        editTodo.setString(3, todo.getUrl_activity());\n        editTodo.setInt(4, todo.getIcon());\n        editTodo.setInt(5, todo.getColor());\n        editTodo.setDate(6, Date.valueOf(todo.getComplete_by_date()));\n        editTodo.setBoolean(7, todo.getStatus());\n        editTodo.setInt(8, todo.getID());\n\n        editTodo.executeUpdate();\n\n        } catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/daos/TodoDAO.java b/src/main/java/daos/TodoDAO.java
+--- a/src/main/java/daos/TodoDAO.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/daos/TodoDAO.java	(date 1755591005782)
+@@ -126,7 +126,7 @@
+         editTodo.setString(1, todo.getTitle());
+         editTodo.setString(2, todo.getDescription());
+         editTodo.setString(3, todo.getUrl_activity());
+-        editTodo.setInt(4, todo.getIcon());
++        editTodo.setInt(4, todo.getIconID());
+         editTodo.setInt(5, todo.getColor());
+         editTodo.setDate(6, Date.valueOf(todo.getComplete_by_date()));
+         editTodo.setBoolean(7, todo.getStatus());
+@@ -139,6 +139,20 @@
+         }
+     }
+ 
++    public void spostaTodo(int todoid, int origin, int destination) {
++        try {
++            PreparedStatement spostaTodo = connection.prepareStatement("call movetodo(?, ?, ?)");
++            spostaTodo.setInt(1, todoid);
++            spostaTodo.setInt(2, origin);
++            spostaTodo.setInt(3, destination);
++            spostaTodo.executeUpdate();
++
++        } catch (SQLException e)
++        {
++            e.printStackTrace();
++        }
++    }
++
+ 
+ 
+ }
+Index: src/main/java/model/Todo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\n\nimport java.time.LocalDate;\n\n/**\n * The type Todo.\n */\npublic class Todo {\n    private int id;\n    private String title;\n    private String description;\n    private boolean status = false;\n    private String url_activity;\n    private LocalDate complete_by_date;\n    private boolean completed;\n    private int icon;\n    private int color;\n\n    /**\n     * Instantiates a new todo. (without parameters)\n     */\n    public Todo(){}\n\n    /**\n     * Instantiates a new todo. (with parameters)\n     * @param id the todo's identifier\n     * @param title the todo's title\n     * @param url_activity the url associated with the todo\n     * @param description the todo's description\n     * @param icon the todo's icon index\n     * @param color the todo's color index\n     * @param complete_by_date the todo's expiration date\n     * @param completed a boolean that indicates whether the todo has been completed\n     */\n    public Todo(int id, String title, String url_activity, String description, int icon, int color, LocalDate complete_by_date, boolean completed){\n        this.id = id;\n        this.title = title;\n        this.description = description;\n        this.url_activity = url_activity;\n        this.icon = icon;\n        this.color = color;\n        this.complete_by_date = complete_by_date;\n        this.completed = completed;\n    }\n\n    /**\n     * Returns the todo's identifier\n     * @return int\n     */\n    public int getID(){\n        return id;\n    }\n\n    public void setID(int id){\n        this.id = id;\n    }\n\n    /**\n     * Gets title.\n     *\n     * @return the title\n     */\n    public String getTitle() {\n        return title;\n    }\n\n    /**\n     * Sets title.\n     *\n     * @param title the title\n     */\n    public void setTitle(String title) {\n        this.title = title;\n    }\n\n    /**\n     * Gets description.\n     *\n     * @return the description\n     */\n    public String getDescription() {\n        return description;\n    }\n\n    /**\n     * Sets description.\n     *\n     * @param description the description\n     */\n    public void setDescription(String description) {\n        this.description = description;\n    }\n\n    /**\n     * Gets status.\n     *\n     * @return the status\n     */\n    public boolean getStatus() {\n        return status;\n    }\n\n    /**\n     * Sets status.\n     *\n     * @param status the status\n     */\n    public void setStatus(boolean status) {\n        this.status = status;\n    }\n\n    /**\n     * Gets url activity.\n     *\n     * @return the url activity\n     */\n    public String getUrl_activity() {\n        return url_activity;\n    }\n\n    /**\n     * Sets url activity.\n     *\n     * @param url_activity the url activity\n     */\n    public void setUrl_activity(String url_activity) {\n        this.url_activity = url_activity;\n    }\n\n    /**\n     * Gets complete by date.\n     *\n     * @return the complete by date\n     */\n    public LocalDate getComplete_by_date() {\n        return complete_by_date;\n    }\n\n    /**\n     * Sets complete by date.\n     *\n     * @param complete_by_date the complete by date\n     */\n    public void setComplete_by_date(LocalDate complete_by_date) {\n        this.complete_by_date = complete_by_date;\n    }\n\n    public int getIcon() {\n        return icon;\n    }\n\n    public void setIcon(int icon) {\n        this.icon = icon;\n    }\n\n    public int getColor() {\n        return color;\n    }\n\n    public void setColor(int color) {\n        this.color = color;\n    }\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/model/Todo.java b/src/main/java/model/Todo.java
+--- a/src/main/java/model/Todo.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/model/Todo.java	(date 1755591005790)
+@@ -12,8 +12,8 @@
+     private boolean status = false;
+     private String url_activity;
+     private LocalDate complete_by_date;
+-    private boolean completed;
+-    private int icon;
++    private int iconID;
++    private Icon icon;
+     private int color;
+ 
+     /**
+@@ -37,10 +37,10 @@
+         this.title = title;
+         this.description = description;
+         this.url_activity = url_activity;
+-        this.icon = icon;
++        this.iconID = icon;
+         this.color = color;
+         this.complete_by_date = complete_by_date;
+-        this.completed = completed;
++        this.status = completed;
+     }
+ 
+     /**
+@@ -145,12 +145,12 @@
+         this.complete_by_date = complete_by_date;
+     }
+ 
+-    public int getIcon() {
+-        return icon;
++    public int getIconID() {
++        return iconID;
+     }
+ 
+     public void setIcon(int icon) {
+-        this.icon = icon;
++        this.iconID = icon;
+     }
+ 
+     public int getColor() {
+@@ -161,5 +161,9 @@
+         this.color = color;
+     }
+ 
++    public Icon getIcon(){
++        return icon;
++    }
++
+ 
+ }
+Index: src/main/java/model/Bacheca.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\n\nimport java.util.ArrayList;\n\n/**\n * The type Bacheca.\n */\npublic class Bacheca {\n    private int id;\n    private String title;\n    private String description = \"- - -\";\n    private boolean isDefault;\n    private ArrayList<Todo> todoInBacheca = new ArrayList<>();\n    private ArrayList<User> usersSharingBacheca = new ArrayList<>();\n\n\n    /**\n     * Instantiates a new bacheca (no parameters).\n     */\n    public Bacheca(){}\n\n    /**\n     * Instantiates a new bacheca (with parameters).\n     * @param id The bacheca's identifier\n     * @param title The bacheca's title\n     * @param description The bacheca's description\n     * @param isDefault A boolean that indicates whether the bacheca is a default\n     */\n    public Bacheca(int id, String title, String description, boolean isDefault) {\n        this.id = id;\n        this.title = title;\n        this.description = description;\n        this.isDefault = isDefault;\n    }\n\n    /**\n     * Returns the bacheca's identifier\n     * @return id\n     */\n    public int getId() {\n        return id;\n    }\n\n    public void setId(int id) {\n        this.id = id;\n    }\n\n    /**\n     * Gets title of the bacheca.\n     *\n     * @return the title\n     */\n    public String getTitle() {\n        return title;\n    }\n\n    /**\n     * Sets title of the bacheca.\n     *\n     * @param title the title\n     */\n    public void setTitle(String title) {\n        this.title = title;\n    }\n\n    /**\n     * Gets description of the bacheca.\n     *\n     * @return the description\n     */\n    public String getDescription() {\n        return description;\n    }\n\n    /**\n     * Sets description of the bacheca.\n     *\n     * @param description the description\n     */\n    public void setDescription(String description) {\n        this.description = description;\n    }\n\n    /**\n     * Gets todo in bacheca.\n     *\n     * @return the todo in bacheca\n     */\n    public ArrayList<Todo> getTodoInBacheca() {\n        return todoInBacheca;\n    }\n\n    /**\n     * Sets todo in bacheca.\n     *\n     * @param todoInBacheca the todo in bacheca\n     */\n    public void setTodoInBacheca(ArrayList<Todo> todoInBacheca) {\n        this.todoInBacheca = todoInBacheca;\n    }\n\n    /**\n     * Add todo to the list of todos.\n     *\n     * @param todo the todo\n     */\n    public void addTodo(Todo todo){\n        this.todoInBacheca.add(todo);\n    }\n\n    /**\n     * Remove todo.\n     *\n     * @param index the index of the todo to remove in the list\n     */\n    public void removeTodo(int index){\n        todoInBacheca.remove(index);\n    }\n\n    /**\n     * Gets users sharing bacheca.\n     *\n     * @return the users sharing bacheca\n     */\n    public ArrayList<User> getUsersSharingBacheca() {\n        return usersSharingBacheca;\n    }\n\n    /**\n     * Sets users sharing bacheca.\n     *\n     * @param usersSharingBacheca the users sharing bacheca\n     */\n    public void setUsersSharingBacheca(ArrayList<User> usersSharingBacheca) {\n        this.usersSharingBacheca = usersSharingBacheca;\n    }\n\n    /**\n     *Removes the todo passed as parameter\n     *\n     *@param toremove the todo that will be deleted\n     */\n    public void removeATodo(Todo toremove)\n    {\n        todoInBacheca.remove(toremove);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/model/Bacheca.java b/src/main/java/model/Bacheca.java
+--- a/src/main/java/model/Bacheca.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/model/Bacheca.java	(date 1755354081053)
+@@ -144,4 +144,9 @@
+     {
+         todoInBacheca.remove(toremove);
+     }
++
++    @Override
++    public String toString() {
++        return title;
++    }
+ }
+Index: src/main/java/gui/EditTodoPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gui;\n\nimport controller.Controller;\nimport model.Todo;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.*;\nimport java.time.LocalDate;\n\npublic class EditTodoPage extends JDialog {\n    private JPanel contentPane;\n    private JButton buttonOK;\n    private JButton buttonCancel;\n    private JTextField descriptionTextField;\n    private JTextField urlTextField;\n    private JRadioButton pinkRadioButton;\n    private JRadioButton yellowRadioButton;\n    private JRadioButton whiteRadioButton;\n    private JRadioButton cyanRadioButton;\n    private JRadioButton blueRadioButton;\n    private JTextField titleTextField;\n    private JTextField yearTextfield;\n    private JComboBox monthComboBox;\n    private JComboBox dayComboBox;\n    public  JFrame frame;\n    private JPanel todoPanel;\n\n\n    public EditTodoPage(JPanel todoPanel, Todo todo, JCheckBox todoCompletedBox, Controller controller) {\n        this.todoPanel = todoPanel;\n        frame = new JFrame(\"Edit Todo\");\n        frame.setContentPane(contentPane);\n        setModal(true);\n        getRootPane().setDefaultButton(buttonOK);\n        frame.setMinimumSize(new Dimension(900, 600));\n\n        for(int i = 1; i<= 12; i++)\n            monthComboBox.addItem(i);\n        for(int j = 1; j<= 31; j++)\n            dayComboBox.addItem(j);\n\n\n        descriptionTextField.setText(todo.getDescription());\n        urlTextField.setText(todo.getUrl_activity());\n        titleTextField.setText(todo.getTitle());\n        yearTextfield.setText(String.valueOf(todo.getComplete_by_date().getYear()));\n        monthComboBox.setSelectedItem(todo.getComplete_by_date().getMonthValue());\n        dayComboBox.setSelectedItem(todo.getComplete_by_date().getDayOfMonth());\n\n\n        ButtonGroup colorGroup = new ButtonGroup();\n        colorGroup.add(pinkRadioButton);\n        colorGroup.add(yellowRadioButton);\n        colorGroup.add(whiteRadioButton);\n        colorGroup.add(cyanRadioButton);\n        colorGroup.add(blueRadioButton);\n\n\n        buttonOK.addActionListener(new ActionListener() {\n            public void actionPerformed(ActionEvent e) {\n                int year = Integer.parseInt(yearTextfield.getText());\n                int month = monthComboBox.getSelectedIndex()+1;\n                int day = dayComboBox.getSelectedIndex()+1;\n\n                if((day > 30 && (month == 2 || month == 4 || month == 6 || month == 9 || month == 11)) ||\n                        (month == 2 && day > 28 && year%4 != 0) ||\n                        (month == 2 && day > 29))\n                    JOptionPane.showMessageDialog(null, \"Please select a valid date\");\n                else {\n                    todo.setDescription(descriptionTextField.getText());\n                    todo.setUrl_activity(urlTextField.getText());\n                    todo.setTitle(titleTextField.getText());\n                    todoCompletedBox.setText(todo.getTitle());\n                    selectColor();\n\n                    todo.setComplete_by_date(LocalDate.of(year, month, day));\n\n                    todoCompletedBox.addActionListener(new ActionListener() {\n                        @Override\n                        public void actionPerformed(ActionEvent e) {\n                            if(todoCompletedBox.isSelected()){\n                                todo.setStatus(true);\n                                todoPanel.setBackground(Color.GREEN);\n                            } else if (!todoCompletedBox.isSelected()) {\n                                todo.setStatus(false);\n                                todoPanel.setBackground(Color.WHITE);\n                                if(LocalDate.now().isAfter(todo.getComplete_by_date()))\n                                {\n                                    todoPanel.setBackground(Color.RED);\n                                }\n                            }\n                            controller.editTodo(todo);\n                        }\n                    });\n                    frame.dispose();\n                }\n            }\n        });\n\n\n        buttonCancel.addActionListener(new ActionListener() {\n            public void actionPerformed(ActionEvent e) {\n                frame.dispose();\n            }\n        });\n\n        // call onCancel() when cross is clicked\n        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);\n        addWindowListener(new WindowAdapter() {\n            public void windowClosing(WindowEvent e) {\n                frame.dispose();\n            }\n        });\n\n        // call onCancel() on ESCAPE\n        contentPane.registerKeyboardAction(new ActionListener() {\n            public void actionPerformed(ActionEvent e) {\n                frame.dispose();\n            }\n        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);\n    }\n\n\n    public void selectColor()\n    {\n        if (pinkRadioButton.isSelected()){\n            todoPanel.setBackground(Color.PINK);\n        } else if (yellowRadioButton.isSelected()){\n            todoPanel.setBackground(Color.YELLOW);\n        } else if (whiteRadioButton.isSelected()){\n            todoPanel.setBackground(Color.WHITE);\n        } else if (cyanRadioButton.isSelected()){\n            todoPanel.setBackground(Color.CYAN);\n        } else if (blueRadioButton.isSelected()){\n            todoPanel.setBackground(Color.BLUE);\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/gui/EditTodoPage.java b/src/main/java/gui/EditTodoPage.java
+--- a/src/main/java/gui/EditTodoPage.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/gui/EditTodoPage.java	(date 1755356817894)
+@@ -72,7 +72,7 @@
+                     todo.setUrl_activity(urlTextField.getText());
+                     todo.setTitle(titleTextField.getText());
+                     todoCompletedBox.setText(todo.getTitle());
+-                    selectColor();
++                    todo.setColor(selectColor());
+ 
+                     todo.setComplete_by_date(LocalDate.of(year, month, day));
+ 
+@@ -90,9 +90,9 @@
+                                     todoPanel.setBackground(Color.RED);
+                                 }
+                             }
+-                            controller.editTodo(todo);
+-                        }
+-                    });
++                        }
++                    });
++                    controller.editTodo(todo);
+                     frame.dispose();
+                 }
+             }
+@@ -122,18 +122,24 @@
+     }
+ 
+ 
+-    public void selectColor()
++    public int selectColor()
+     {
+         if (pinkRadioButton.isSelected()){
+             todoPanel.setBackground(Color.PINK);
++            return 1;
+         } else if (yellowRadioButton.isSelected()){
+             todoPanel.setBackground(Color.YELLOW);
++            return 2;
+         } else if (whiteRadioButton.isSelected()){
+             todoPanel.setBackground(Color.WHITE);
++            return 0;
+         } else if (cyanRadioButton.isSelected()){
+             todoPanel.setBackground(Color.CYAN);
++            return 4;
+         } else if (blueRadioButton.isSelected()){
+             todoPanel.setBackground(Color.BLUE);
++            return 3;
+         }
++        return 0;
+     }
+ }
+Index: src/main/java/gui/HomePage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gui;\n\nimport controller.Controller;\nimport model.Bacheca;\nimport model.Todo;\nimport model.User;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\nimport java.time.LocalDate;\n\npublic class HomePage {\n    private User user;\n    private Controller controller;\n    public JFrame frame;\n    private JLabel welcomeLable;\n    private JPanel homePagePanel;\n    private JButton addBachecaButton;\n    private JTabbedPane tabBacheche;\n\n\n    public HomePage(User user, Controller controller) {\n        this.user = user;\n        this.controller = controller;\n        addBachecaButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                Bacheca bacheca = new Bacheca();\n                bacheca.setTitle(JOptionPane.showInputDialog(\"Enter title: \"));\n                controller.addBacheca(user.getUsername(), user.getPassword(), bacheca);\n\n                JPanel bachecaPanel = new JPanel();\n                bachecaPanel.setLayout(new GridLayout(-1, 6));\n                tabBacheche.add(bacheca.getTitle(), bachecaPanel);\n\n                JLabel descrizione = new JLabel(\"Descrizione: \" + bacheca.getDescription());\n                bachecaPanel.add(descrizione);\n\n                JButton editBachecaButton = new JButton(\"Edita Bacheca\");\n                JButton deleteBachecaButton = new JButton(\"Deleta Bacheca\");\n                JButton sortTodoAlphabeticalButton = new JButton(\"Sort ALphabetical\");\n                JButton sortTodoByDateButton = new JButton(\"Sort by date\");\n                JButton addTodoButton = new JButton(\"Add Todo\");\n\n                editBachecaButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tabBacheche.getSelectedIndex()), descrizione, tabBacheche, bachecaPanel);\n                        tab.frame.setVisible(true);\n                    }\n                });\n\n                deleteBachecaButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        if(controller.deleteBacheca(bacheca, user)){\n                            tabBacheche.remove(tabBacheche.getSelectedIndex());\n                        } else {\n                            JOptionPane.showMessageDialog(null, \"Impossibile eliminare la bacheca di default\");\n                        }\n                    }\n                });\n\n                sortTodoAlphabeticalButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        controller.getTodoAlphabetical(bacheca);\n                        bachecaPanel.revalidate();\n                        bachecaPanel.repaint();\n                    }\n                });\n\n                sortTodoByDateButton.addActionListener(new ActionListener() {\n                   @Override\n                   public void actionPerformed(ActionEvent e) {\n                       controller.getTodoByDate(bacheca);\n                       bachecaPanel.revalidate();\n                       bachecaPanel.repaint();\n                   }\n                });\n\n                addTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        Todo nuovo = new Todo();\n                        AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel, controller, user.getUsername());\n                        todoPage.frame.setVisible(true);\n                    }\n                });\n\n                bachecaPanel.add(editBachecaButton);\n                bachecaPanel.add(deleteBachecaButton);\n                bachecaPanel.add(sortTodoAlphabeticalButton);\n                bachecaPanel.add(sortTodoByDateButton);\n                bachecaPanel.add(addTodoButton);\n            }\n        });\n\n\n        frame = new JFrame(\"Kalen Dario di \" + user.getUsername()); // è il nome della mia applicazione non prenderlo in giro\n        frame.setContentPane(this.homePagePanel);\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        frame.pack();\n        frame.setVisible(true);\n        frame.setMinimumSize(new Dimension(1500, 599));\n        welcomeLable.setText(\"Welcome \" + user.getUsername());\n\n        controller.loadBachecheUser(user);\n\n        for(Bacheca bacheca: user.getBacheche()){\n            JPanel bachecaPanel = new JPanel();\n            bachecaPanel.setLayout(new GridLayout(-1, 6));\n            tabBacheche.add(bacheca.getTitle(), bachecaPanel);\n\n            addEverythingToBacheca(bachecaPanel, bacheca);\n\n            for(Todo todo : controller.getTodoByDate(bacheca)) {\n                JPanel todoPanel = new JPanel();\n                todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));\n                JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());\n\n                bachecaPanel.add(todoPanel);\n                todoPanel.add(todoCompletedBox);\n                \n               if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus()){\n                    todoPanel.setBackground(Color.red);\n                } else if (todo.getStatus()) {\n                    todoCompletedBox.setSelected(true);\n                }\n\n                todoCompletedBox.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        if(todoCompletedBox.isSelected()){\n                            todo.setStatus(true);\n                            todoPanel.setBackground(Color.green);\n                        } else if (!todoCompletedBox.isSelected()) {\n                            todo.setStatus(false);\n                            todoPanel.setBackground(Color.white);\n                            if(LocalDate.now().isAfter(todo.getComplete_by_date())){\n                                todoPanel.setBackground(Color.red);\n                            }\n                        }\n                    }\n                });\n\n                JButton removeTodoButton = new JButton(\"Remove\");\n                todoPanel.add(removeTodoButton);\n                removeTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        controller.removeTodo(todo, bacheca);\n                        bachecaPanel.remove(todoPanel);\n                        bachecaPanel.revalidate();\n                        bachecaPanel.repaint();\n                    }\n                });\n\n                JButton editTodoButton = new JButton(\"Edit\");\n                todoPanel.add(editTodoButton);\n\n                editTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);\n                        editTodoPage.frame.setVisible(true);\n                    }\n                });\n\n                JButton condividiTodoButton = new JButton(\"Condividi\");\n                todoPanel.add(condividiTodoButton);\n\n                condividiTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        String bersaglioCondivisione;\n                        bersaglioCondivisione = JOptionPane.showInputDialog(\"Inserirsci nome utente: \");\n                        controller.shareTodo(todo.getID(), bersaglioCondivisione);\n                    }\n                });\n            }\n        }\n    }\n\n\n    public void reloadTodoByDate(Bacheca bacheca, JPanel bachecaPanel) {\n        for(Todo todo : controller.getTodoByDate(bacheca)) {\n            JPanel todoPanel = new JPanel();\n            todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));\n            JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());\n\n            bachecaPanel.add(todoPanel);\n            todoPanel.add(todoCompletedBox);\n            todoPanel.setBackground(checkColor(todo));\n\n            if (todo.getStatus()) {\n                todoCompletedBox.setSelected(true);\n            }\n\n            todoCompletedBox.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    if(todoCompletedBox.isSelected()){\n                        todo.setStatus(true);\n                        todoPanel.setBackground(Color.green);\n                        todo.setColor(5);\n                    } else if (!todoCompletedBox.isSelected()) {\n                        todo.setStatus(false);\n                        todoPanel.setBackground(Color.white);\n                        if(LocalDate.now().isAfter(todo.getComplete_by_date())){\n                            todoPanel.setBackground(Color.red);\n                            todo.setColor(6);\n                        }\n                    }\n                    controller.editTodo(todo);\n                }\n            });\n\n            JButton removeTodoButton = new JButton(\"Remove\");\n            todoPanel.add(removeTodoButton);\n            removeTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    controller.removeTodo(todo, bacheca);\n                    bachecaPanel.remove(todoPanel);\n                    bachecaPanel.revalidate();\n                    bachecaPanel.repaint();\n                }\n            });\n\n            JButton editTodoButton = new JButton(\"Edit\");\n            todoPanel.add(editTodoButton);\n\n            editTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);\n                    editTodoPage.frame.setVisible(true);\n                }\n            });\n\n            JButton condividiTodoButton = new JButton(\"Condividi\");\n            todoPanel.add(condividiTodoButton);\n\n            condividiTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    String bersaglioCondivisione;\n                    bersaglioCondivisione = JOptionPane.showInputDialog(\"Inserirsci nome utente: \");\n                    controller.shareTodo(todo.getID(), bersaglioCondivisione);\n                }\n            });\n        }\n    }\n\n\n\n    public void reloadTodoAlphabetical(Bacheca bacheca, JPanel bachecaPanel) {\n        for(Todo todo : controller.getTodoAlphabetical(bacheca)) {\n            JPanel todoPanel = new JPanel();\n            todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));\n            JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());\n\n            bachecaPanel.add(todoPanel);\n            todoPanel.add(todoCompletedBox);\n            todoPanel.setBackground(checkColor(todo));\n\n            if (todo.getStatus()) {\n                todoCompletedBox.setSelected(true);\n            }\n\n            todoCompletedBox.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    if(todoCompletedBox.isSelected()){\n                        todo.setStatus(true);\n                        todoPanel.setBackground(Color.green);\n                        todo.setColor(5);\n                    } else if (!todoCompletedBox.isSelected()) {\n                        todo.setStatus(false);\n                        todoPanel.setBackground(Color.white);\n                        if(LocalDate.now().isAfter(todo.getComplete_by_date())){\n                            todoPanel.setBackground(Color.red);\n                            todo.setColor(6);\n                        }\n                    }\n                    controller.editTodo(todo);\n                }\n            });\n\n            JButton removeTodoButton = new JButton(\"Remove\");\n            todoPanel.add(removeTodoButton);\n            removeTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    controller.removeTodo(todo, bacheca);\n                    bachecaPanel.remove(todoPanel);\n                    bachecaPanel.revalidate();\n                    bachecaPanel.repaint();\n                }\n            });\n\n            JButton editTodoButton = new JButton(\"Edit\");\n            todoPanel.add(editTodoButton);\n\n            editTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);\n                    editTodoPage.frame.setVisible(true);\n                }\n            });\n\n            JButton condividiTodoButton = new JButton(\"Condividi\");\n            todoPanel.add(condividiTodoButton);\n\n            condividiTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    String bersaglioCondivisione;\n                    bersaglioCondivisione = JOptionPane.showInputDialog(\"Inserirsci nome utente: \");\n                    controller.shareTodo(todo.getID(), bersaglioCondivisione);\n                }\n            });\n        }\n    }\n\n    public void addEverythingToBacheca(JPanel bachecaPanel, Bacheca  bacheca) {\n        JLabel descrizione = new JLabel(bacheca.getDescription());\n        bachecaPanel.add(descrizione);\n        JButton editBachecaButton = new JButton(\"Edit Bacheca\");\n        JButton deleteBachecaButton = new JButton(\"Delete Bacheca\");\n        JButton sortTodoAlphabeticalButton = new JButton(\"Sort alphabetical\");\n        JButton sortTodoByDateButton = new JButton(\"Sort by date\");\n        JButton addTodoButton = new JButton(\"Add Todo\");\n\n        deleteBachecaButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                if(controller.deleteBacheca(bacheca, user)){\n                    tabBacheche.remove(tabBacheche.getSelectedIndex());\n                } else {\n                    JOptionPane.showMessageDialog(null, \"Impossibile eliminare la bacheca di default\");\n                }\n            }\n        });\n\n        editBachecaButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tabBacheche.getSelectedIndex()), descrizione, tabBacheche, bachecaPanel);\n                tab.frame.setVisible(true);\n            }\n        });\n\n        sortTodoAlphabeticalButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                bachecaPanel.removeAll();\n                addEverythingToBacheca(bachecaPanel,bacheca);\n                reloadTodoAlphabetical(bacheca, bachecaPanel);\n                bachecaPanel.revalidate();\n                bachecaPanel.repaint();\n            }\n        });\n\n        sortTodoByDateButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                bachecaPanel.removeAll();\n                addEverythingToBacheca(bachecaPanel, bacheca);\n                reloadTodoByDate(bacheca, bachecaPanel);\n                bachecaPanel.revalidate();\n                bachecaPanel.repaint();\n            }\n        });\n\n        addTodoButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                Todo nuovo = new Todo();\n                AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel, controller, user.getUsername());\n                todoPage.frame.setVisible(true);\n            }\n        });\n\n        bachecaPanel.add(editBachecaButton);\n        bachecaPanel.add(deleteBachecaButton);\n        bachecaPanel.add(sortTodoAlphabeticalButton);\n        bachecaPanel.add(sortTodoByDateButton);\n        bachecaPanel.add(addTodoButton);\n    }\n\n    public Color checkColor(Todo todo)\n    {\n        int color = todo.getColor();\n        switch (color)\n        {\n            case 0:\n                return Color.WHITE;\n            case 1:\n                return Color.PINK;\n            case 2:\n                return Color.YELLOW;\n            case 3:\n                return Color.BLUE;\n            case 4:\n                return Color.CYAN;\n            case 5:\n                return Color.GREEN;\n            case 6:\n                return Color.RED;\n        }\n\n        return Color.WHITE;\n    }\n    //TODO status todo da salvare/modificare\n    //TODO figure out a way to add pics\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/gui/HomePage.java b/src/main/java/gui/HomePage.java
+--- a/src/main/java/gui/HomePage.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/gui/HomePage.java	(date 1755594096199)
+@@ -10,6 +10,7 @@
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import java.time.LocalDate;
++import java.util.ArrayList;
+ 
+ public class HomePage {
+     private User user;
+@@ -29,7 +30,7 @@
+             public void actionPerformed(ActionEvent e) {
+                 Bacheca bacheca = new Bacheca();
+                 bacheca.setTitle(JOptionPane.showInputDialog("Enter title: "));
+-                controller.addBacheca(user.getUsername(), user.getPassword(), bacheca);
++                controller.addBacheca(user, bacheca);
+ 
+                 JPanel bachecaPanel = new JPanel();
+                 bachecaPanel.setLayout(new GridLayout(-1, 6));
+@@ -116,71 +117,7 @@
+ 
+             addEverythingToBacheca(bachecaPanel, bacheca);
+ 
+-            for(Todo todo : controller.getTodoByDate(bacheca)) {
+-                JPanel todoPanel = new JPanel();
+-                todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
+-                JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
+-
+-                bachecaPanel.add(todoPanel);
+-                todoPanel.add(todoCompletedBox);
+-                
+-               if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus()){
+-                    todoPanel.setBackground(Color.red);
+-                } else if (todo.getStatus()) {
+-                    todoCompletedBox.setSelected(true);
+-                }
+-
+-                todoCompletedBox.addActionListener(new ActionListener() {
+-                    @Override
+-                    public void actionPerformed(ActionEvent e) {
+-                        if(todoCompletedBox.isSelected()){
+-                            todo.setStatus(true);
+-                            todoPanel.setBackground(Color.green);
+-                        } else if (!todoCompletedBox.isSelected()) {
+-                            todo.setStatus(false);
+-                            todoPanel.setBackground(Color.white);
+-                            if(LocalDate.now().isAfter(todo.getComplete_by_date())){
+-                                todoPanel.setBackground(Color.red);
+-                            }
+-                        }
+-                    }
+-                });
+-
+-                JButton removeTodoButton = new JButton("Remove");
+-                todoPanel.add(removeTodoButton);
+-                removeTodoButton.addActionListener(new ActionListener() {
+-                    @Override
+-                    public void actionPerformed(ActionEvent e) {
+-                        controller.removeTodo(todo, bacheca);
+-                        bachecaPanel.remove(todoPanel);
+-                        bachecaPanel.revalidate();
+-                        bachecaPanel.repaint();
+-                    }
+-                });
+-
+-                JButton editTodoButton = new JButton("Edit");
+-                todoPanel.add(editTodoButton);
+-
+-                editTodoButton.addActionListener(new ActionListener() {
+-                    @Override
+-                    public void actionPerformed(ActionEvent e) {
+-                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);
+-                        editTodoPage.frame.setVisible(true);
+-                    }
+-                });
+-
+-                JButton condividiTodoButton = new JButton("Condividi");
+-                todoPanel.add(condividiTodoButton);
+-
+-                condividiTodoButton.addActionListener(new ActionListener() {
+-                    @Override
+-                    public void actionPerformed(ActionEvent e) {
+-                        String bersaglioCondivisione;
+-                        bersaglioCondivisione = JOptionPane.showInputDialog("Inserirsci nome utente: ");
+-                        controller.shareTodo(todo.getID(), bersaglioCondivisione);
+-                    }
+-                });
+-            }
++            reloadTodoByDate(bacheca, bachecaPanel);
+         }
+     }
+ 
+@@ -190,10 +127,12 @@
+             JPanel todoPanel = new JPanel();
+             todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
+             JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
++          //  JLabel todoImage = new JLabel(controller.getIcons().getIcon());
+ 
+             bachecaPanel.add(todoPanel);
+             todoPanel.add(todoCompletedBox);
+             todoPanel.setBackground(checkColor(todo));
++           // todoPanel.add(todoImage);
+ 
+             if (todo.getStatus()) {
+                 todoCompletedBox.setSelected(true);
+@@ -203,18 +142,15 @@
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     if(todoCompletedBox.isSelected()){
+-                        todo.setStatus(true);
+                         todoPanel.setBackground(Color.green);
+-                        todo.setColor(5);
++                        controller.setCompleted(todo, true);
+                     } else if (!todoCompletedBox.isSelected()) {
+-                        todo.setStatus(false);
++                        controller.setCompleted(todo, false);
+                         todoPanel.setBackground(Color.white);
+                         if(LocalDate.now().isAfter(todo.getComplete_by_date())){
+                             todoPanel.setBackground(Color.red);
+-                            todo.setColor(6);
+                         }
+                     }
+-                    controller.editTodo(todo);
+                 }
+             });
+ 
+@@ -252,6 +188,29 @@
+                     controller.shareTodo(todo.getID(), bersaglioCondivisione);
+                 }
+             });
++
++            JButton moveTodoButton = new JButton("Move");
++            todoPanel.add(moveTodoButton);
++            moveTodoButton.addActionListener(new ActionListener() {
++                @Override
++                public void actionPerformed(ActionEvent e) {
++                    ArrayList<Bacheca> options = user.getBacheche();
++                    int selectedBacheca;
++
++                    selectedBacheca =  JOptionPane.showOptionDialog(null, "in quale bacheca lo vuoi spostare?", "Sposta ToDo",
++                            JOptionPane.CANCEL_OPTION, 0, null, options.toArray(), options.get(0));
++
++                    try {
++                        controller.spostaTodo(todo.getID(), user.getBacheca(tabBacheche.getSelectedIndex()).getId(), user.getBacheche().get(selectedBacheca).getId());
++                        bachecaPanel.removeAll();
++                        addEverythingToBacheca(bachecaPanel, bacheca);
++                        reloadTodoByDate(bacheca, bachecaPanel);
++                    } catch (IndexOutOfBoundsException _)
++                    {
++                        JOptionPane.showMessageDialog(null, "spostamento annullato");
++                    }
++                }
++            });
+         }
+     }
+ 
+@@ -262,10 +221,12 @@
+             JPanel todoPanel = new JPanel();
+             todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
+             JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
++            //JLabel todoImage = new JLabel(controller.getIcons().getIcon());
+ 
+             bachecaPanel.add(todoPanel);
+             todoPanel.add(todoCompletedBox);
+             todoPanel.setBackground(checkColor(todo));
++           // todoPanel.add(todoImage);
+ 
+             if (todo.getStatus()) {
+                 todoCompletedBox.setSelected(true);
+@@ -275,18 +236,15 @@
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     if(todoCompletedBox.isSelected()){
+-                        todo.setStatus(true);
+                         todoPanel.setBackground(Color.green);
+-                        todo.setColor(5);
++                        controller.setCompleted(todo, true);
+                     } else if (!todoCompletedBox.isSelected()) {
+-                        todo.setStatus(false);
++                        controller.setCompleted(todo, false);
+                         todoPanel.setBackground(Color.white);
+                         if(LocalDate.now().isAfter(todo.getComplete_by_date())){
+                             todoPanel.setBackground(Color.red);
+-                            todo.setColor(6);
+                         }
+                     }
+-                    controller.editTodo(todo);
+                 }
+             });
+ 
+@@ -324,6 +282,29 @@
+                     controller.shareTodo(todo.getID(), bersaglioCondivisione);
+                 }
+             });
++
++            JButton moveTodoButton = new JButton("Move");
++            todoPanel.add(moveTodoButton);
++            moveTodoButton.addActionListener(new ActionListener() {
++                @Override
++                public void actionPerformed(ActionEvent e) {
++                    ArrayList<Bacheca> options = user.getBacheche();
++                    int selectedBacheca;
++
++                    selectedBacheca =  JOptionPane.showOptionDialog(null, "in quale bacheca lo vuoi spostare?", "Sposta ToDo",
++                                JOptionPane.CANCEL_OPTION, 0, null, options.toArray(), options.get(0));
++
++                    try {
++                        controller.spostaTodo(todo.getID(), user.getBacheca(tabBacheche.getSelectedIndex()).getId(), user.getBacheche().get(selectedBacheca).getId());
++                        bachecaPanel.removeAll();
++                        addEverythingToBacheca(bachecaPanel, bacheca);
++                        reloadTodoByDate(bacheca, bachecaPanel);
++                    } catch (IndexOutOfBoundsException _)
++                    {
++                        JOptionPane.showMessageDialog(null, "spostamento annullato");
++                    }
++                }
++            });
+         }
+     }
+ 
+@@ -412,10 +393,10 @@
+                 return Color.GREEN;
+             case 6:
+                 return Color.RED;
+-        }
+-
+-        return Color.WHITE;
++            default:
++                return Color.WHITE;
++        }
+     }
+-    //TODO status todo da salvare/modificare
++
+     //TODO figure out a way to add pics
+ }
+Index: src/main/java/controller/Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controller;\n\nimport daos.BachecaDAO;\nimport daos.TodoDAO;\nimport daos.UserDAO;\nimport databaseConnection.ConnessioneDatabase;\nimport model.Bacheca;\nimport model.Todo;\nimport model.User;\n\nimport java.sql.Connection;\nimport java.sql.SQLException;\nimport java.time.LocalDate;\nimport java.util.ArrayList;\n\n/**\n * The type Controller.\n */\npublic class Controller {\n    private UserDAO userDAO = new UserDAO();\n    private BachecaDAO bachecaDAO = new BachecaDAO();\n    private TodoDAO todoDAO = new TodoDAO();\n\n    /**\n     * Instantiates a new Controller.\n     */\n    public Controller() {}\n\n    /**\n     * Add user to the list of users.\n     *\n     * @param username the username\n     * @param password the password\n     */\n    public void addUser( String username, String password) {\n        User user = new User(username, password);\n       userDAO.insertUser(user);\n    }\n\n    /**\n     * Checks if username already exists in user list.\n     *\n     * @param username the username\n     * @return the boolean\n     */\n    public boolean checkNewUser(String username) {\n        return userDAO.checkUser(username);\n    }\n\n    /**\n     * Returns an int based on the status of the login (0 for success, -1 for wrong password, -2 for username not in Users).\n     *\n     * @param username the username\n     * @param password the password\n     * @return the int\n     */\n    public int login(String username, String password) {\n        return userDAO.login(username, password);\n    }\n\n    /**\n     * Gets user.\n     *\n     * @param username the username\n     * @param password the password\n     * @return the user\n     */\n    public User getUser(String username, String password) {\n        return userDAO.getUser(username, password);\n    }\n\n    public void shareTodo(int todoID, String username) {\n        todoDAO.shareTodo(todoID, username);\n    }\n\n    public void loadBachecheUser(User user) {\n        ArrayList<Bacheca> bachecheUser = new ArrayList<>();\n        bachecheUser = bachecaDAO.getAllBacheca(user.getUsername());\n        user.setBacheche(bachecheUser);\n    }\n\n    public boolean addBacheca(String username, String password, Bacheca bacheca) {\n        if(getUser(username, password).addBacheca(bacheca))\n        {\n           bachecaDAO.createBacheca(bacheca, username);\n           return true;\n        } else {\n            return false;\n        }\n    }\n\n    public void editBacheca(Bacheca bacheca) {\n        bachecaDAO.editBacheca(bacheca);\n    }\n\n    public boolean deleteBacheca(Bacheca bacheca, User user) {\n        if (bachecaDAO.deleteBacheca(bacheca)){\n            user.removeBacheca(bacheca);\n        return true;\n        } else {\n            return false;\n        }\n    }\n\n    public ArrayList<Todo> getTodoAlphabetical(Bacheca bacheca) {\n        bacheca.setTodoInBacheca(todoDAO.getTodoInBachecaAlphabetical(bacheca));\n        return todoDAO.getTodoInBachecaAlphabetical(bacheca);\n    }\n\n    public ArrayList<Todo> getTodoByDate(Bacheca bacheca){\n        bacheca.setTodoInBacheca(todoDAO.getTodoInBachecaByDate(bacheca));\n        return todoDAO.getTodoInBachecaByDate(bacheca);\n    }\n\n    public void addTodo(Bacheca bacheca, Todo todo, String username)\n    {\n        todoDAO.addTodo(bacheca, todo, username);\n        bacheca.addTodo(todo);\n    }\n\n    public void removeTodo(Todo todo, Bacheca bacheca)\n    {\n        todoDAO.removeTodo(todo, bacheca);\n        bacheca.removeATodo(todo);\n    }\n\n    public void editTodo(Todo todo){\n        todoDAO.editTodo(todo);\n    }\n\n    public void completeTodo(Todo todo)\n    {\n\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/controller/Controller.java b/src/main/java/controller/Controller.java
+--- a/src/main/java/controller/Controller.java	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/src/main/java/controller/Controller.java	(date 1755594083017)
+@@ -5,10 +5,13 @@
+ import daos.UserDAO;
+ import databaseConnection.ConnessioneDatabase;
+ import model.Bacheca;
++import model.Icon;
+ import model.Todo;
+ import model.User;
+ 
++import java.io.IOException;
+ import java.sql.Connection;
++import java.sql.PreparedStatement;
+ import java.sql.SQLException;
+ import java.time.LocalDate;
+ import java.util.ArrayList;
+@@ -21,6 +24,7 @@
+     private BachecaDAO bachecaDAO = new BachecaDAO();
+     private TodoDAO todoDAO = new TodoDAO();
+ 
++
+     /**
+      * Instantiates a new Controller.
+      */
+@@ -79,10 +83,10 @@
+         user.setBacheche(bachecheUser);
+     }
+ 
+-    public boolean addBacheca(String username, String password, Bacheca bacheca) {
+-        if(getUser(username, password).addBacheca(bacheca))
++    public boolean addBacheca(User user, Bacheca bacheca) {
++        if(user.addBacheca(bacheca))
+         {
+-           bachecaDAO.createBacheca(bacheca, username);
++           bachecaDAO.createBacheca(bacheca, user.getUsername());
+            return true;
+         } else {
+             return false;
+@@ -128,9 +132,26 @@
+         todoDAO.editTodo(todo);
+     }
+ 
+-    public void completeTodo(Todo todo)
++    public void setCompleted(Todo todo, boolean status)
+     {
++            todo.setStatus(status);
++            if(status){
++                todo.setColor(5); //verde
++            } else {
++                if(todo.getComplete_by_date().isBefore(LocalDate.now())) {
++                    todo.setColor(6);
++                } else {
++                    todo.setColor(0);
++                }
++            }
++            todoDAO.editTodo(todo);
++    }
+ 
++    public void spostaTodo(int todoid, int origin, int destination)
++    {
++        todoDAO.spostaTodo(todoid, origin, destination);
+     }
++
++
+ 
+ }
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ /dev/null	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
+@@ -1,248 +0,0 @@
+-Index: src/main/java/gui/HomePage.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package gui;\n\nimport controller.Controller;\nimport model.Bacheca;\nimport model.Todo;\nimport model.User;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\nimport java.time.LocalDate;\n\npublic class HomePage {\n    private User user;\n    private Controller controller;\n    public JFrame frame;\n    private JLabel welcomeLable;\n    private JPanel homePagePanel;\n    private JButton addBachecaButton;\n    private JTabbedPane tabBacheche;\n\n\n    public HomePage(User user, Controller controller) {\n        this.user = user;\n        this.controller = controller;\n        addBachecaButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                Bacheca bacheca = new Bacheca();\n                user.addBacheca(bacheca);\n                bacheca.setTitle(JOptionPane.showInputDialog(\"Enter title: \"));\n                JPanel bachecaPanel = new JPanel();\n                bachecaPanel.setLayout(new GridLayout(-1, 4));\n                tabBacheche.add(bacheca.getTitle(), bachecaPanel);\n\n                JLabel descrizione = new JLabel(\"Descrizione: \" + bacheca.getDescription());\n                bachecaPanel.add(descrizione);\n\n                JButton editBachecaButton = new JButton(\"Edita Bacheca\");\n                JButton deleteBachecaButton = new JButton(\"Deleta Bacheca\");\n                JButton addTodoButton = new JButton(\"Add Todo\");\n\n                editBachecaButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tabBacheche.getSelectedIndex()), descrizione, tabBacheche, bachecaPanel);\n                        tab.frame.setVisible(true);\n                    }\n                });\n\n                deleteBachecaButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        tabBacheche.remove(tabBacheche.getSelectedIndex());\n                        user.removeBacheca(user.getBacheca(tabBacheche.getSelectedIndex()));\n                    }\n                });\n\n                addTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        Todo nuovo = new Todo();\n                        AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel);\n                        todoPage.frame.setVisible(true);\n                    }\n                });\n\n                bachecaPanel.add(editBachecaButton);\n                bachecaPanel.add(deleteBachecaButton);\n                bachecaPanel.add(addTodoButton);\n            }\n        });\n\n\n        frame = new JFrame(\"Kalen Dario di \" + user.getUsername()); // è il nome della mia applicazione non prenderlo in giro\n        frame.setContentPane(this.homePagePanel);\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        frame.pack();\n        frame.setVisible(true);\n        frame.setMinimumSize(new Dimension(1500, 599));\n        welcomeLable.setText(\"Welcome \" + user.getUsername());\n\n        for(Bacheca bacheca: user.getBacheche()){\n            JPanel bachecaPanel = new JPanel();\n            bachecaPanel.setLayout(new GridLayout(-1, 4));\n            tabBacheche.add(bacheca.getTitle(), bachecaPanel);\n            JLabel descrizione = new JLabel(bacheca.getDescription());\n            bachecaPanel.add(descrizione);\n            JButton editBachecaButton = new JButton(\"Edit Bacheca\");\n            JButton deleteBachecaButton = new JButton(\"Delete Bacheca\");\n            JButton addTodoButton = new JButton(\"Add Todo\");\n\n            deleteBachecaButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    tabBacheche.remove(tabBacheche.getSelectedIndex());\n                    user.removeBacheca(user.getBacheca(tabBacheche.getSelectedIndex()));\n                }\n            });\n\n            editBachecaButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    Edit_Bacheca tab = new Edit_Bacheca(controller, user.getBacheca(tabBacheche.getSelectedIndex()), descrizione, tabBacheche, bachecaPanel);\n                    tab.frame.setVisible(true);\n                }\n            });\n\n            addTodoButton.addActionListener(new ActionListener() {\n                @Override\n                public void actionPerformed(ActionEvent e) {\n                    Todo nuovo = new Todo();\n                    AddTodo todoPage = new AddTodo(user.getBacheca(tabBacheche.getSelectedIndex()), nuovo, bachecaPanel);\n                    todoPage.frame.setVisible(true);\n                }\n            });\n\n            bachecaPanel.add(editBachecaButton);\n            bachecaPanel.add(deleteBachecaButton);\n            bachecaPanel.add(addTodoButton);\n\n            for(Todo todo : bacheca.getTodoInBacheca()) {\n                JPanel todoPanel = new JPanel();\n                todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));\n                JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());\n\n                bachecaPanel.add(todoPanel);\n                todoPanel.add(todoCompletedBox);\n                \n               if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus().equals(\"completed\")){\n                    todoPanel.setBackground(Color.red);\n                } else if (todo.getStatus().equals(\"completed\")) {\n                    todoCompletedBox.setSelected(true);\n                }\n\n                todoCompletedBox.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        if(todoCompletedBox.isSelected()){\n                            todo.setStatus(\"completed\");\n                            todoPanel.setBackground(Color.green);\n                        } else if (!todoCompletedBox.isSelected()) {\n                            todo.setStatus(\"to complete\");\n                            todoPanel.setBackground(Color.white);\n                            if(LocalDate.now().isAfter(todo.getComplete_by_date())){\n                                todoPanel.setBackground(Color.red);\n                            }\n                        }\n                    }\n                });\n\n                JButton removeTodoButton = new JButton(\"Remove\");\n                todoPanel.add(removeTodoButton);\n                removeTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        bacheca.removeATodo(todo);\n                        bachecaPanel.remove(todoPanel);\n                        bachecaPanel.revalidate();\n                        bachecaPanel.repaint();\n                    }\n                });\n\n                JButton editTodoButton = new JButton(\"Edit\");\n                todoPanel.add(editTodoButton);\n\n                editTodoButton.addActionListener(new ActionListener() {\n                    @Override\n                    public void actionPerformed(ActionEvent e) {\n                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox);\n                        editTodoPage.frame.setVisible(true);\n                    }\n                });\n            }\n        }\n    }\n\n    //TODO sharing todos between bachecas and users\n    //TODO change position of todos in bacheca using DB\n    //TODO figure out a way to add pics\n}\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/main/java/gui/HomePage.java b/src/main/java/gui/HomePage.java
+---- a/src/main/java/gui/HomePage.java	(revision 4ea87632539d1804d27abccba6007b8bc2471fee)
+-+++ b/src/main/java/gui/HomePage.java	(date 1749891358328)
+-@@ -179,4 +179,5 @@
+-     //TODO sharing todos between bachecas and users
+-     //TODO change position of todos in bacheca using DB
+-     //TODO figure out a way to add pics
+-+    //todo make default bacheca non removable
+- }
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_07_06_25__11_01__Changes_.xml
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25__11_01__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25__11_01__Changes_.xml
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25__11_01__Changes_.xml	(revision 4ea87632539d1804d27abccba6007b8bc2471fee)
+-+++ /dev/null	(revision 4ea87632539d1804d27abccba6007b8bc2471fee)
+-@@ -1,4 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]" date="1749286895833" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 07/06/25, 11:01 [Changes]" />
+--</changelist>
+-\ No newline at end of file
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]/shelved.patch	(revision 4ea87632539d1804d27abccba6007b8bc2471fee)
+-+++ /dev/null	(revision 4ea87632539d1804d27abccba6007b8bc2471fee)
+-@@ -1,115 +0,0 @@
+--Index: src/main/java/gui/Login.java
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package gui;\n\nimport controller.Controller;\nimport model.Bacheca;\nimport model.Todo;\nimport model.User;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\nimport java.time.LocalDate;\nimport java.util.Date;\n\npublic class Login {\n    private JPanel panel1;\n    private JTextField textField1;\n    private JPasswordField passwordField1;\n    private JButton loginButton;\n    private JButton createOneButton;\n    protected static JFrame frame;\n    private static Controller controller = new Controller();\n\n    public Login() {\n        loginButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                if (controller.login(textField1.getText(), passwordField1.getText()) == 0) {\n                    //MAGARI FA QUALCOSA DI PIÙ INTERESSANTE...\n                    //JOptionPane.showMessageDialog(frame, \"Login Successful\");\n                    HomePage homePage = new HomePage(controller.getUser(textField1.getText()), controller);\n                    homePage.frame.setVisible(true);\n                    frame.dispose();\n\n                } else if (controller.login(textField1.getText(), passwordField1.getText()) == -1) {\n                    JOptionPane.showMessageDialog(frame, \"wrong password\");\n                } else if (controller.login(textField1.getText(), passwordField1.getText()) == -2) {\n                    JOptionPane.showMessageDialog(frame, \"invalid user\");\n                }\n            }\n        });\n        createOneButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n            CreateUser createUser = new CreateUser(frame, controller);\n            frame.setVisible(false);\n            createUser.frame1.setVisible(true);\n            }\n        });\n    }\n\n    public static void main(String[] args) {\n        //handles the look and feel of the application, set it to GTK+, looks better\n       /* try {\n            UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.gtk.GTKLookAndFeel\");\n        } catch (ClassNotFoundException e) {\n            throw new RuntimeException(e);\n        } catch (InstantiationException e) {\n            throw new RuntimeException(e);\n        } catch (IllegalAccessException e) {\n            throw new RuntimeException(e);\n        } catch (UnsupportedLookAndFeelException e) {\n            throw new RuntimeException(e);\n        }*/\n        //FAKE USER FOR DEBUGGING PURPOSES\n        controller.addUser(\"0\", \"0\");\n        Todo zero = new Todo();\n        User a = controller.getUser(\"0\");\n        Bacheca b = a.getBacheca(0);\n        b.addTodo(zero);\n        zero.setComplete_by_date(LocalDate.now());\n        zero.setTitle(\"ciao\");\n        zero.setIcon(10);\n\n        frame = new JFrame(\"Login\");\n\n        frame.setContentPane(new Login().panel1);\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        frame.setMinimumSize(new Dimension(400, 350));\n        frame.pack();\n        frame.setVisible(true);\n\n    }\n}\n
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/src/main/java/gui/Login.java b/src/main/java/gui/Login.java
+----- a/src/main/java/gui/Login.java	(revision 4cb88519b4a9c7e4b54d6c9f93026a636676b57e)
+--+++ b/src/main/java/gui/Login.java	(date 1749285143318)
+--@@ -10,7 +10,6 @@
+-- import java.awt.event.ActionEvent;
+-- import java.awt.event.ActionListener;
+-- import java.time.LocalDate;
+---import java.util.Date;
+-- 
+-- public class Login {
+--     private JPanel panel1;
+--Index: .idea/workspace.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"fixed some issues, added edittodos\">\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/model/Icons.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/controller/Controller.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/controller/Controller.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$5.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$5.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$6.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$6.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/model/Todo.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/model/Todo.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/controller/Controller.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/controller/Controller.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/Login.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/Login.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/model/Bacheca.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/model/Bacheca.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/model/Todo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/model/Todo.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"package-info\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;customColor&quot;: &quot;&quot;,\n  &quot;associatedIndex&quot;: 8\n}</component>\n  <component name=\"ProjectId\" id=\"2vV5y2XQDuiAmvAJz0qjNceSTjy\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;Application.Login.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,\n    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;416&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"Login\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"gui.Login\" />\n      <module name=\"Applicativo\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"gui.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\n      <option name=\"filePath\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Login\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"\" />\n      <created>1744217652115</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1744217652115</updated>\n      <workItem from=\"1744217653237\" duration=\"220000\" />\n      <workItem from=\"1744703544751\" duration=\"79000\" />\n      <workItem from=\"1744707700843\" duration=\"4509000\" />\n      <workItem from=\"1744713114005\" duration=\"23000\" />\n      <workItem from=\"1744880110758\" duration=\"17000\" />\n      <workItem from=\"1745307102880\" duration=\"301000\" />\n      <workItem from=\"1745315035871\" duration=\"171000\" />\n      <workItem from=\"1745501428999\" duration=\"67000\" />\n      <workItem from=\"1746951675035\" duration=\"6290000\" />\n      <workItem from=\"1747467746077\" duration=\"6306000\" />\n      <workItem from=\"1747489230633\" duration=\"8905000\" />\n      <workItem from=\"1748013034865\" duration=\"828000\" />\n      <workItem from=\"1748095282325\" duration=\"1838000\" />\n      <workItem from=\"1748162445362\" duration=\"266000\" />\n      <workItem from=\"1748162719802\" duration=\"5150000\" />\n      <workItem from=\"1748178938743\" duration=\"2188000\" />\n      <workItem from=\"1748181131922\" duration=\"869000\" />\n      <workItem from=\"1748182671544\" duration=\"3696000\" />\n      <workItem from=\"1748936101321\" duration=\"9395000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744217810222</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744217810222</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"aggiunte le classi, da finire\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744711975863</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744711975863</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"gui iniziata, enorme fallimento\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1746956787102</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1746956787102</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"fixed ui, reformatted the code. Actually compiles\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747473988378</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747473988378</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"added some windows, creating users and bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747498059421</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747498059421</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"fixed issues, added color selection for bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748167833555</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748167833555</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"fixed some issues, added edittodos\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748858129837</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748858129837</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"8\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"aggiunte le classi, da finire\" />\n    <MESSAGE value=\"gui iniziata, enorme fallimento\" />\n    <MESSAGE value=\"fixed ui, reformatted the code. Actually compiles\" />\n    <MESSAGE value=\"added some windows, creating users and bacheche\" />\n    <MESSAGE value=\"fixed issues, added color selection for bacheche\" />\n    <MESSAGE value=\"fixed some issues, added edittodos\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fixed some issues, added edittodos\" />\n  </component>\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+----- a/.idea/workspace.xml	(revision 4cb88519b4a9c7e4b54d6c9f93026a636676b57e)
+--+++ b/.idea/workspace.xml	(date 1749285143542)
+--@@ -4,47 +4,9 @@
+--     <option name="autoReloadType" value="SELECTIVE" />
+--   </component>
+--   <component name="ChangeListManager">
+---    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed some issues, added edittodos">
+---      <change afterPath="$PROJECT_DIR$/src/main/java/model/Icons.java" afterDir="false" />
+--+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="fixed some issues, needs fixing for image path">
+--       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/controller/Controller.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$5.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$1.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$2.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/outputs/model/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Todo.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.form" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.form" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+--       <change beforePath="$PROJECT_DIR$/src/main/java/gui/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Login.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/main/java/model/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Todo.java" afterDir="false" />
+--     </list>
+--     <option name="SHOW_DIALOG" value="false" />
+--     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+--@@ -155,7 +117,9 @@
+--       <workItem from="1748178938743" duration="2188000" />
+--       <workItem from="1748181131922" duration="869000" />
+--       <workItem from="1748182671544" duration="3696000" />
+---      <workItem from="1748936101321" duration="9395000" />
+--+      <workItem from="1748936101321" duration="9509000" />
+--+      <workItem from="1749284939742" duration="54000" />
+--+      <workItem from="1749285002077" duration="142000" />
+--     </task>
+--     <task id="LOCAL-00001" summary="first commit">
+--       <option name="closed" value="true" />
+--@@ -213,7 +177,15 @@
+--       <option name="project" value="LOCAL" />
+--       <updated>1748858129837</updated>
+--     </task>
+---    <option name="localTasksCounter" value="8" />
+--+    <task id="LOCAL-00008" summary="fixed some issues, needs fixing for image path">
+--+      <option name="closed" value="true" />
+--+      <created>1748945586367</created>
+--+      <option name="number" value="00008" />
+--+      <option name="presentableId" value="LOCAL-00008" />
+--+      <option name="project" value="LOCAL" />
+--+      <updated>1748945586367</updated>
+--+    </task>
+--+    <option name="localTasksCounter" value="9" />
+--     <servers />
+--   </component>
+--   <component name="TypeScriptGeneratedFilesManager">
+--@@ -238,6 +210,7 @@
+--     <MESSAGE value="added some windows, creating users and bacheche" />
+--     <MESSAGE value="fixed issues, added color selection for bacheche" />
+--     <MESSAGE value="fixed some issues, added edittodos" />
+---    <option name="LAST_COMMIT_MESSAGE" value="fixed some issues, added edittodos" />
+--+    <MESSAGE value="fixed some issues, needs fixing for image path" />
+--+    <option name="LAST_COMMIT_MESSAGE" value="fixed some issues, needs fixing for image path" />
+--   </component>
+-- </project>
+--\ No newline at end of file
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"added daos, still waiting connection...\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25__09_09__Changes_.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/CreateUser$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/CreateUser$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/CreateUser$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/CreateUser$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/CreateUser$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/CreateUser$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/CreateUser$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/CreateUser$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/CreateUser.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/CreateUser.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$5.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$5.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$6.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$6.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$7.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$7.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/model/Icons.class\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/homePage.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/homePage.form\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/model/Icon.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/model/Icon.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"package-info\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;customColor&quot;: &quot;&quot;,\n  &quot;associatedIndex&quot;: 8\n}</component>\n  <component name=\"ProjectId\" id=\"2vV5y2XQDuiAmvAJz0qjNceSTjy\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;Application.Login.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,\n    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,\n    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;416&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"Login\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"gui.Login\" />\n      <module name=\"Applicativo\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"gui.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\n      <option name=\"filePath\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Login\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"\" />\n      <created>1744217652115</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1744217652115</updated>\n      <workItem from=\"1744217653237\" duration=\"220000\" />\n      <workItem from=\"1744703544751\" duration=\"79000\" />\n      <workItem from=\"1744707700843\" duration=\"4509000\" />\n      <workItem from=\"1744713114005\" duration=\"23000\" />\n      <workItem from=\"1744880110758\" duration=\"17000\" />\n      <workItem from=\"1745307102880\" duration=\"301000\" />\n      <workItem from=\"1745315035871\" duration=\"171000\" />\n      <workItem from=\"1745501428999\" duration=\"67000\" />\n      <workItem from=\"1746951675035\" duration=\"6290000\" />\n      <workItem from=\"1747467746077\" duration=\"6306000\" />\n      <workItem from=\"1747489230633\" duration=\"8905000\" />\n      <workItem from=\"1748013034865\" duration=\"828000\" />\n      <workItem from=\"1748095282325\" duration=\"1838000\" />\n      <workItem from=\"1748162445362\" duration=\"266000\" />\n      <workItem from=\"1748162719802\" duration=\"5150000\" />\n      <workItem from=\"1748178938743\" duration=\"2188000\" />\n      <workItem from=\"1748181131922\" duration=\"869000\" />\n      <workItem from=\"1748182671544\" duration=\"3696000\" />\n      <workItem from=\"1748936101321\" duration=\"9395000\" />\n      <workItem from=\"1749292437308\" duration=\"19000\" />\n      <workItem from=\"1749376868937\" duration=\"11000\" />\n      <workItem from=\"1749629226034\" duration=\"86000\" />\n      <workItem from=\"1749629699074\" duration=\"16000\" />\n      <workItem from=\"1749630344844\" duration=\"1390000\" />\n      <workItem from=\"1749632742454\" duration=\"1588000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744217810222</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744217810222</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"aggiunte le classi, da finire\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744711975863</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744711975863</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"gui iniziata, enorme fallimento\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1746956787102</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1746956787102</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"fixed ui, reformatted the code. Actually compiles\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747473988378</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747473988378</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"added some windows, creating users and bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747498059421</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747498059421</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"fixed issues, added color selection for bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748167833555</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748167833555</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"fixed some issues, added edittodos\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748858129837</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748858129837</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"added daos, still waiting connection...\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1749290385598</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1749290385598</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"9\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"aggiunte le classi, da finire\" />\n    <MESSAGE value=\"gui iniziata, enorme fallimento\" />\n    <MESSAGE value=\"fixed ui, reformatted the code. Actually compiles\" />\n    <MESSAGE value=\"added some windows, creating users and bacheche\" />\n    <MESSAGE value=\"fixed issues, added color selection for bacheche\" />\n    <MESSAGE value=\"fixed some issues, added edittodos\" />\n    <MESSAGE value=\"added daos, still waiting connection...\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"added daos, still waiting connection...\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 4ea87632539d1804d27abccba6007b8bc2471fee)
+-+++ b/.idea/workspace.xml	(date 1751031366076)
+-@@ -4,30 +4,10 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="added daos, still waiting connection...">
+--      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25,_09_09_[Changes]/shelved.patch" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_25__09_09__Changes_.xml" beforeDir="false" />
+-+    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="minor changes">
+-+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25,_11_01_[Changes]/shelved.patch" beforeDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_06_25__11_01__Changes_.xml" beforeDir="false" />
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$3.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$4.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/CreateUser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/CreateUser$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/CreateUser$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/CreateUser$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/CreateUser$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/CreateUser$3.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/CreateUser$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/CreateUser$4.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/CreateUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/CreateUser.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" afterDir="false" />
+-@@ -39,14 +19,8 @@
+-       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$7.class" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$1.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$2.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/outputs/model/Icons.class" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
+-+      <change beforePath="$PROJECT_DIR$/outputs/model/Icon.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Icon.class" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/homePage.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/homePage.form" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/model/Icon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Icon.java" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -165,6 +139,10 @@
+-       <workItem from="1749629699074" duration="16000" />
+-       <workItem from="1749630344844" duration="1390000" />
+-       <workItem from="1749632742454" duration="1588000" />
+-+      <workItem from="1749634632288" duration="64000" />
+-+      <workItem from="1749889804852" duration="8000" />
+-+      <workItem from="1749889838866" duration="2795000" />
+-+      <workItem from="1751031200749" duration="166000" />
+-     </task>
+-     <task id="LOCAL-00001" summary="first commit">
+-       <option name="closed" value="true" />
+-@@ -230,7 +208,15 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1749290385598</updated>
+-     </task>
+--    <option name="localTasksCounter" value="9" />
+-+    <task id="LOCAL-00009" summary="minor changes">
+-+      <option name="closed" value="true" />
+-+      <created>1749634654737</created>
+-+      <option name="number" value="00009" />
+-+      <option name="presentableId" value="LOCAL-00009" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1749634654737</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="10" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -256,6 +242,7 @@
+-     <MESSAGE value="fixed issues, added color selection for bacheche" />
+-     <MESSAGE value="fixed some issues, added edittodos" />
+-     <MESSAGE value="added daos, still waiting connection..." />
+--    <option name="LAST_COMMIT_MESSAGE" value="added daos, still waiting connection..." />
+-+    <MESSAGE value="minor changes" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+-   </component>
+- </project>
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_11_08_25__09_38__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25__09_38__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25__09_38__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25__09_38__Changes_.xml	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ /dev/null	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
+@@ -1,64 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]" date="1754897923431" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 11/08/25, 09:38 [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$4.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$4.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$4.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$1$3.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$1$3.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$3.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$3.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$3.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$3.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$1$2.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$1$2.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$2.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$1$1.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$1$1.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$1.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$1.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$1.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$2.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$2.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$2.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$7.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$7.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$7.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/model/Icon.class" />
+-    <option name="AFTER_PATH" value="outputs/model/Icon.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/Icon.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$6.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$6.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$6.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value="outputs/gui/HomePage$5.class" />
+-    <option name="AFTER_PATH" value="outputs/gui/HomePage$5.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$5.class" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"tried adding connection, failed :(\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/controller/Controller.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/controller/Controller.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/daos/BachecaDAO.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/daos/BachecaDAO.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/daos/TodoDAO.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/daos/TodoDAO.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/daos/UserDAO.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/daos/UserDAO.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/AddTodo.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/AddTodo.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/EditTodoPage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$3.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$4.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$4.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$5.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$5.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$6.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$6.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$7.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$7.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage$8.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage$8.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/HomePage.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login$1.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login$1.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login$2.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login$2.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/gui/Login.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/gui/Login.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/model/Bacheca.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/model/Bacheca.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/outputs/model/Todo.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/outputs/model/Todo.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/controller/Controller.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/controller/Controller.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/daos/BachecaDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/daos/BachecaDAO.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/daos/TodoDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/daos/TodoDAO.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/daos/UserDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/daos/UserDAO.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/AddTodo.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/HomePage.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/Login.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/Login.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/model/Bacheca.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/model/Bacheca.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/model/Todo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/model/Todo.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"package-info\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;customColor&quot;: &quot;&quot;,\n  &quot;associatedIndex&quot;: 8\n}</component>\n  <component name=\"ProjectId\" id=\"2vV5y2XQDuiAmvAJz0qjNceSTjy\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"Application.Login.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.git.unshallow\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"SONARLINT_PRECOMMIT_ANALYSIS\": \"true\",\n    \"UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW\": \"true\",\n    \"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH\": \"416\",\n    \"git-widget-placeholder\": \"main\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"project.structure.last.edited\": \"Modules\",\n    \"project.structure.proportion\": \"0.15\",\n    \"project.structure.side.proportion\": \"0.2\",\n    \"settings.editor.selected.configurable\": \"inlay.hints\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RunManager\">\n    <configuration name=\"Login\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"gui.Login\" />\n      <module name=\"Applicativo\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"gui.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\n      <option name=\"filePath\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Login\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.27812.49\" />\n        <option value=\"bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.27812.49\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"5d811cfb-6ca8-4137-9d6b-45ae18e6a805\" name=\"Changes\" comment=\"\" />\n      <created>1744217652115</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1744217652115</updated>\n      <workItem from=\"1744217653237\" duration=\"220000\" />\n      <workItem from=\"1744703544751\" duration=\"79000\" />\n      <workItem from=\"1744707700843\" duration=\"4509000\" />\n      <workItem from=\"1744713114005\" duration=\"23000\" />\n      <workItem from=\"1744880110758\" duration=\"17000\" />\n      <workItem from=\"1745307102880\" duration=\"301000\" />\n      <workItem from=\"1745315035871\" duration=\"171000\" />\n      <workItem from=\"1745501428999\" duration=\"67000\" />\n      <workItem from=\"1746951675035\" duration=\"6290000\" />\n      <workItem from=\"1747467746077\" duration=\"6306000\" />\n      <workItem from=\"1747489230633\" duration=\"8905000\" />\n      <workItem from=\"1748013034865\" duration=\"828000\" />\n      <workItem from=\"1748095282325\" duration=\"1838000\" />\n      <workItem from=\"1748162445362\" duration=\"266000\" />\n      <workItem from=\"1748162719802\" duration=\"5150000\" />\n      <workItem from=\"1748178938743\" duration=\"2188000\" />\n      <workItem from=\"1748181131922\" duration=\"869000\" />\n      <workItem from=\"1748182671544\" duration=\"3696000\" />\n      <workItem from=\"1748936101321\" duration=\"9395000\" />\n      <workItem from=\"1749292437308\" duration=\"19000\" />\n      <workItem from=\"1749376868937\" duration=\"11000\" />\n      <workItem from=\"1749629226034\" duration=\"86000\" />\n      <workItem from=\"1749629699074\" duration=\"16000\" />\n      <workItem from=\"1749630344844\" duration=\"1390000\" />\n      <workItem from=\"1749632742454\" duration=\"1588000\" />\n      <workItem from=\"1754901362320\" duration=\"6752000\" />\n      <workItem from=\"1755084995782\" duration=\"10312000\" />\n      <workItem from=\"1755157790317\" duration=\"11014000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744217810222</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744217810222</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"aggiunte le classi, da finire\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744711975863</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744711975863</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"gui iniziata, enorme fallimento\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1746956787102</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1746956787102</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"fixed ui, reformatted the code. Actually compiles\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747473988378</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747473988378</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"added some windows, creating users and bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1747498059421</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1747498059421</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"fixed issues, added color selection for bacheche\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748167833555</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748167833555</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"fixed some issues, added edittodos\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748858129837</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748858129837</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"added daos, still waiting connection...\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1749290385598</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1749290385598</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"tried adding connection, failed :(\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1754908096398</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1754908096398</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"10\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"aggiunte le classi, da finire\" />\n    <MESSAGE value=\"gui iniziata, enorme fallimento\" />\n    <MESSAGE value=\"fixed ui, reformatted the code. Actually compiles\" />\n    <MESSAGE value=\"added some windows, creating users and bacheche\" />\n    <MESSAGE value=\"fixed issues, added color selection for bacheche\" />\n    <MESSAGE value=\"fixed some issues, added edittodos\" />\n    <MESSAGE value=\"added daos, still waiting connection...\" />\n    <MESSAGE value=\"tried adding connection, failed :(\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"tried adding connection, failed :(\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 11fc588184fc685330e465cdb8dfc53e4bdaae90)
++++ b/.idea/workspace.xml	(date 1755594353120)
+@@ -4,12 +4,24 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="tried adding connection, failed :(">
++    <list default="true" id="5d811cfb-6ca8-4137-9d6b-45ae18e6a805" name="Changes" comment="yay it works! more stuff to do">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$1.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$2.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1$3.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$1.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$2.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$3.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$4.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$5.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$6.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage$7.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/HomePage.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/Icon.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25,_09_38_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_08_25__09_38__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/controller/Controller.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/daos/BachecaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/daos/BachecaDAO.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/daos/TodoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/daos/TodoDAO.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/daos/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/daos/UserDAO.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$1.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$2.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo$1$3.class" afterDir="false" />
+@@ -21,19 +33,22 @@
+       <change beforePath="$PROJECT_DIR$/outputs/gui/AddTodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/AddTodo.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1$1.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$1.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$2.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$3.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage$4.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/EditTodoPage.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$1.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$2.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$3.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca$4.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Edit_Bacheca.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$1.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$2.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$3.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$4.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1$5.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$1.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$10.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$11.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$12.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$13.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$14.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$15.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$16.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$17.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$18.class" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$2.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$3.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$4.class" afterDir="false" />
+@@ -41,22 +56,18 @@
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$6.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$7.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$8.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage$9.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/gui/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/HomePage.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$1.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Login$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login$2.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/outputs/gui/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/gui/Login.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/model/Bacheca.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Bacheca.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/outputs/model/Icon.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Icon.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/outputs/model/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/model/Todo.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Controller.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/daos/BachecaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/daos/BachecaDAO.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/daos/TodoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/daos/TodoDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/daos/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/daos/UserDAO.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AddTodo.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/EditTodoPage.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Edit_Bacheca.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HomePage.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/Login.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Bacheca.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/model/Icon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Icon.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/model/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Todo.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -90,30 +101,30 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "Application.Login.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
+-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "416",
+-    "git-widget-placeholder": "main",
+-    "kotlin-language-version-configured": "true",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "inlay.hints",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;Application.Login.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
++    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
++    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;416&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="gui.Login" />
+@@ -186,7 +197,9 @@
+       <workItem from="1749632742454" duration="1588000" />
+       <workItem from="1754901362320" duration="6752000" />
+       <workItem from="1755084995782" duration="10312000" />
+-      <workItem from="1755157790317" duration="11014000" />
++      <workItem from="1755157790317" duration="11099000" />
++      <workItem from="1755349482888" duration="9030000" />
++      <workItem from="1755589541339" duration="4811000" />
+     </task>
+     <task id="LOCAL-00001" summary="first commit">
+       <option name="closed" value="true" />
+@@ -260,7 +273,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1754908096398</updated>
+     </task>
+-    <option name="localTasksCounter" value="10" />
++    <task id="LOCAL-00010" summary="yay it works! more stuff to do">
++      <option name="closed" value="true" />
++      <created>1755168875222</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1755168875222</updated>
++    </task>
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -287,6 +308,7 @@
+     <MESSAGE value="fixed some issues, added edittodos" />
+     <MESSAGE value="added daos, still waiting connection..." />
+     <MESSAGE value="tried adding connection, failed :(" />
+-    <option name="LAST_COMMIT_MESSAGE" value="tried adding connection, failed :(" />
++    <MESSAGE value="yay it works! more stuff to do" />
++    <option name="LAST_COMMIT_MESSAGE" value="yay it works! more stuff to do" />
+   </component>
+ </project>
+\ No newline at end of file

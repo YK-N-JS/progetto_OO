@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class AddTodo extends JDialog {
     private JPanel contentPane;
@@ -22,6 +23,7 @@ public class AddTodo extends JDialog {
     private JComboBox monthComboBox;
     private JComboBox dayComboBox;
     public JFrame frame = new JFrame();
+    public JLabel todoImage = new JLabel();
 
     public AddTodo(Bacheca bacheca, Todo nuovoTodo, JPanel bachecaPanel, Controller controller, String username) {
         frame.setContentPane(contentPane);
@@ -31,6 +33,7 @@ public class AddTodo extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         nuovo = nuovoTodo;
+        todoImage.setIcon(controller.getIconByNumber(0));
 
 
         for(int i = 1; i<= 12; i++)
@@ -65,6 +68,7 @@ public class AddTodo extends JDialog {
                     JCheckBox todoCompletedBox = new JCheckBox(nuovo.getTitle());
                     bachecaPanel.add(todoPanel);
                     todoPanel.add(todoCompletedBox);
+                    todoPanel.add(todoImage);
 
                     if(LocalDate.now().isAfter(nuovo.getComplete_by_date()))
                     {
@@ -108,7 +112,7 @@ public class AddTodo extends JDialog {
                     editTodoButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox, controller);
+                            EditTodoPage editTodoPage = new EditTodoPage(todoPanel,nuovoTodo, todoCompletedBox, controller, todoImage);
                             editTodoPage.frame.setVisible(true);
                         }
                     });

@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.time.LocalDate;
 
 /**
@@ -12,8 +13,8 @@ public class Todo {
     private boolean status = false;
     private String url_activity;
     private LocalDate complete_by_date;
-    private boolean completed;
-    private int icon;
+    private int iconID;
+    private ImageIcon icon;
     private int color;
 
     /**
@@ -37,10 +38,10 @@ public class Todo {
         this.title = title;
         this.description = description;
         this.url_activity = url_activity;
-        this.icon = icon;
+        this.iconID = icon;
         this.color = color;
         this.complete_by_date = complete_by_date;
-        this.completed = completed;
+        this.status = completed;
     }
 
     /**
@@ -145,12 +146,12 @@ public class Todo {
         this.complete_by_date = complete_by_date;
     }
 
-    public int getIcon() {
-        return icon;
+    public int getIconID() {
+        return iconID;
     }
 
     public void setIcon(int icon) {
-        this.icon = icon;
+        this.iconID = icon;
     }
 
     public int getColor() {
@@ -159,6 +160,10 @@ public class Todo {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public ImageIcon getIcon(){
+        return icon;
     }
 
 

@@ -126,7 +126,7 @@ public class TodoDAO {
         editTodo.setString(1, todo.getTitle());
         editTodo.setString(2, todo.getDescription());
         editTodo.setString(3, todo.getUrl_activity());
-        editTodo.setInt(4, todo.getIcon());
+        editTodo.setInt(4, todo.getIconID());
         editTodo.setInt(5, todo.getColor());
         editTodo.setDate(6, Date.valueOf(todo.getComplete_by_date()));
         editTodo.setBoolean(7, todo.getStatus());
@@ -136,6 +136,20 @@ public class TodoDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void spostaTodo(int todoid, int origin, int destination) {
+        try {
+            PreparedStatement spostaTodo = connection.prepareStatement("call movetodo(?, ?, ?)");
+            spostaTodo.setInt(1, todoid);
+            spostaTodo.setInt(2, origin);
+            spostaTodo.setInt(3, destination);
+            spostaTodo.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
         }
     }
 

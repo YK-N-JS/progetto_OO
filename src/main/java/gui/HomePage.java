@@ -5,11 +5,16 @@ import model.Bacheca;
 import model.Todo;
 import model.User;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class HomePage {
     private User user;
@@ -29,7 +34,7 @@ public class HomePage {
             public void actionPerformed(ActionEvent e) {
                 Bacheca bacheca = new Bacheca();
                 bacheca.setTitle(JOptionPane.showInputDialog("Enter title: "));
-                controller.addBacheca(user.getUsername(), user.getPassword(), bacheca);
+                controller.addBacheca(user, bacheca);
 
                 JPanel bachecaPanel = new JPanel();
                 bachecaPanel.setLayout(new GridLayout(-1, 6));
@@ -116,71 +121,7 @@ public class HomePage {
 
             addEverythingToBacheca(bachecaPanel, bacheca);
 
-            for(Todo todo : controller.getTodoByDate(bacheca)) {
-                JPanel todoPanel = new JPanel();
-                todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
-                JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
-
-                bachecaPanel.add(todoPanel);
-                todoPanel.add(todoCompletedBox);
-                
-               if(LocalDate.now().isAfter(todo.getComplete_by_date()) && !todo.getStatus()){
-                    todoPanel.setBackground(Color.red);
-                } else if (todo.getStatus()) {
-                    todoCompletedBox.setSelected(true);
-                }
-
-                todoCompletedBox.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(todoCompletedBox.isSelected()){
-                            todo.setStatus(true);
-                            todoPanel.setBackground(Color.green);
-                        } else if (!todoCompletedBox.isSelected()) {
-                            todo.setStatus(false);
-                            todoPanel.setBackground(Color.white);
-                            if(LocalDate.now().isAfter(todo.getComplete_by_date())){
-                                todoPanel.setBackground(Color.red);
-                            }
-                        }
-                    }
-                });
-
-                JButton removeTodoButton = new JButton("Remove");
-                todoPanel.add(removeTodoButton);
-                removeTodoButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.removeTodo(todo, bacheca);
-                        bachecaPanel.remove(todoPanel);
-                        bachecaPanel.revalidate();
-                        bachecaPanel.repaint();
-                    }
-                });
-
-                JButton editTodoButton = new JButton("Edit");
-                todoPanel.add(editTodoButton);
-
-                editTodoButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);
-                        editTodoPage.frame.setVisible(true);
-                    }
-                });
-
-                JButton condividiTodoButton = new JButton("Condividi");
-                todoPanel.add(condividiTodoButton);
-
-                condividiTodoButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String bersaglioCondivisione;
-                        bersaglioCondivisione = JOptionPane.showInputDialog("Inserirsci nome utente: ");
-                        controller.shareTodo(todo.getID(), bersaglioCondivisione);
-                    }
-                });
-            }
+            reloadTodoByDate(bacheca, bachecaPanel);
         }
     }
 
@@ -190,10 +131,14 @@ public class HomePage {
             JPanel todoPanel = new JPanel();
             todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
             JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
+            JLabel todoImage = new JLabel();
 
             bachecaPanel.add(todoPanel);
             todoPanel.add(todoCompletedBox);
             todoPanel.setBackground(checkColor(todo));
+            todoPanel.add(todoImage);
+            todoImage.setIcon(null);
+            todoImage.setIcon(controller.getIcon(todo));
 
             if (todo.getStatus()) {
                 todoCompletedBox.setSelected(true);
@@ -203,18 +148,15 @@ public class HomePage {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(todoCompletedBox.isSelected()){
-                        todo.setStatus(true);
                         todoPanel.setBackground(Color.green);
-                        todo.setColor(5);
+                        controller.setCompleted(todo, true);
                     } else if (!todoCompletedBox.isSelected()) {
-                        todo.setStatus(false);
+                        controller.setCompleted(todo, false);
                         todoPanel.setBackground(Color.white);
                         if(LocalDate.now().isAfter(todo.getComplete_by_date())){
                             todoPanel.setBackground(Color.red);
-                            todo.setColor(6);
                         }
                     }
-                    controller.editTodo(todo);
                 }
             });
 
@@ -236,7 +178,7 @@ public class HomePage {
             editTodoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);
+                    EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller, todoImage);
                     editTodoPage.frame.setVisible(true);
                 }
             });
@@ -250,6 +192,29 @@ public class HomePage {
                     String bersaglioCondivisione;
                     bersaglioCondivisione = JOptionPane.showInputDialog("Inserirsci nome utente: ");
                     controller.shareTodo(todo.getID(), bersaglioCondivisione);
+                }
+            });
+
+            JButton moveTodoButton = new JButton("Move");
+            todoPanel.add(moveTodoButton);
+            moveTodoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ArrayList<Bacheca> options = user.getBacheche();
+                    int selectedBacheca;
+
+                    selectedBacheca =  JOptionPane.showOptionDialog(null, "in quale bacheca lo vuoi spostare?", "Sposta ToDo",
+                            JOptionPane.CANCEL_OPTION, 0, null, options.toArray(), options.get(0));
+
+                    try {
+                        controller.spostaTodo(todo.getID(), user.getBacheca(tabBacheche.getSelectedIndex()).getId(), user.getBacheche().get(selectedBacheca).getId());
+                        bachecaPanel.removeAll();
+                        addEverythingToBacheca(bachecaPanel, bacheca);
+                        reloadTodoByDate(bacheca, bachecaPanel);
+                    } catch (IndexOutOfBoundsException _)
+                    {
+                        JOptionPane.showMessageDialog(null, "spostamento annullato");
+                    }
                 }
             });
         }
@@ -262,10 +227,14 @@ public class HomePage {
             JPanel todoPanel = new JPanel();
             todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.Y_AXIS));
             JCheckBox todoCompletedBox = new JCheckBox(todo.getTitle());
+            JLabel todoImage = new JLabel();
 
             bachecaPanel.add(todoPanel);
             todoPanel.add(todoCompletedBox);
             todoPanel.setBackground(checkColor(todo));
+            todoPanel.add(todoImage);
+            todoImage.setIcon(null);
+            todoImage.setIcon(controller.getIcon(todo));
 
             if (todo.getStatus()) {
                 todoCompletedBox.setSelected(true);
@@ -275,18 +244,15 @@ public class HomePage {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(todoCompletedBox.isSelected()){
-                        todo.setStatus(true);
                         todoPanel.setBackground(Color.green);
-                        todo.setColor(5);
+                        controller.setCompleted(todo, true);
                     } else if (!todoCompletedBox.isSelected()) {
-                        todo.setStatus(false);
+                        controller.setCompleted(todo, false);
                         todoPanel.setBackground(Color.white);
                         if(LocalDate.now().isAfter(todo.getComplete_by_date())){
                             todoPanel.setBackground(Color.red);
-                            todo.setColor(6);
                         }
                     }
-                    controller.editTodo(todo);
                 }
             });
 
@@ -308,7 +274,7 @@ public class HomePage {
             editTodoButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller);
+                    EditTodoPage editTodoPage = new EditTodoPage(todoPanel, todo, todoCompletedBox, controller, todoImage);
                     editTodoPage.frame.setVisible(true);
                 }
             });
@@ -322,6 +288,29 @@ public class HomePage {
                     String bersaglioCondivisione;
                     bersaglioCondivisione = JOptionPane.showInputDialog("Inserirsci nome utente: ");
                     controller.shareTodo(todo.getID(), bersaglioCondivisione);
+                }
+            });
+
+            JButton moveTodoButton = new JButton("Move");
+            todoPanel.add(moveTodoButton);
+            moveTodoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ArrayList<Bacheca> options = user.getBacheche();
+                    int selectedBacheca;
+
+                    selectedBacheca =  JOptionPane.showOptionDialog(null, "in quale bacheca lo vuoi spostare?", "Sposta ToDo",
+                                JOptionPane.CANCEL_OPTION, 0, null, options.toArray(), options.get(0));
+
+                    try {
+                        controller.spostaTodo(todo.getID(), user.getBacheca(tabBacheche.getSelectedIndex()).getId(), user.getBacheche().get(selectedBacheca).getId());
+                        bachecaPanel.removeAll();
+                        addEverythingToBacheca(bachecaPanel, bacheca);
+                        reloadTodoByDate(bacheca, bachecaPanel);
+                    } catch (IndexOutOfBoundsException _)
+                    {
+                        JOptionPane.showMessageDialog(null, "spostamento annullato");
+                    }
                 }
             });
         }
@@ -412,10 +401,10 @@ public class HomePage {
                 return Color.GREEN;
             case 6:
                 return Color.RED;
+            default:
+                return Color.WHITE;
         }
-
-        return Color.WHITE;
     }
-    //TODO status todo da salvare/modificare
+
     //TODO figure out a way to add pics
 }

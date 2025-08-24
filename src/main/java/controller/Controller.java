@@ -5,10 +5,14 @@ import daos.TodoDAO;
 import daos.UserDAO;
 import databaseConnection.ConnessioneDatabase;
 import model.Bacheca;
+import model.Icon;
 import model.Todo;
 import model.User;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +24,8 @@ public class Controller {
     private UserDAO userDAO = new UserDAO();
     private BachecaDAO bachecaDAO = new BachecaDAO();
     private TodoDAO todoDAO = new TodoDAO();
+    private Icon icone = new Icon();
+
 
     /**
      * Instantiates a new Controller.
@@ -79,10 +85,10 @@ public class Controller {
         user.setBacheche(bachecheUser);
     }
 
-    public boolean addBacheca(String username, String password, Bacheca bacheca) {
-        if(getUser(username, password).addBacheca(bacheca))
+    public boolean addBacheca(User user, Bacheca bacheca) {
+        if(user.addBacheca(bacheca))
         {
-           bachecaDAO.createBacheca(bacheca, username);
+           bachecaDAO.createBacheca(bacheca, user.getUsername());
            return true;
         } else {
             return false;
@@ -128,9 +134,36 @@ public class Controller {
         todoDAO.editTodo(todo);
     }
 
-    public void completeTodo(Todo todo)
+    public void setCompleted(Todo todo, boolean status)
     {
-
+            todo.setStatus(status);
+            if(status){
+                todo.setColor(5); //verde
+            } else {
+                if(todo.getComplete_by_date().isBefore(LocalDate.now())) {
+                    todo.setColor(6);
+                } else {
+                    todo.setColor(0);
+                }
+            }
+            todoDAO.editTodo(todo);
     }
+
+    public void spostaTodo(int todoid, int origin, int destination)
+    {
+        todoDAO.spostaTodo(todoid, origin, destination);
+    }
+
+    public ImageIcon getIcon(Todo todo)
+    {
+        return icone.getIcon(todo);
+    }
+
+    public ImageIcon getIconByNumber(int iconId)
+    {
+        return icone.getIconBYNumber(iconId);
+    }
+
+
 
 }

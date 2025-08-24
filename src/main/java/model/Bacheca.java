@@ -144,4 +144,9 @@ public class Bacheca {
     {
         todoInBacheca.remove(toremove);
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
