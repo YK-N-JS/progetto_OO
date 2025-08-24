@@ -1,10 +1,8 @@
 package model;
-
-import javax.swing.*;
 import java.time.LocalDate;
 
 /**
- * The type Todo.
+ * The class type Todo.
  */
 public class Todo {
     private int id;
@@ -14,16 +12,18 @@ public class Todo {
     private String urlActivity;
     private LocalDate completeByDate;
     private int iconID;
-    private ImageIcon icon;
     private int color;
+
 
     /**
      * Instantiates a new todo. (without parameters)
      */
     public Todo(){}
 
+
     /**
      * Instantiates a new todo. (with parameters)
+     *
      * @param id the todo's identifier
      * @param title the todo's title
      * @param urlActivity the url associated with the todo
@@ -44,6 +44,7 @@ public class Todo {
         this.status = completed;
     }
 
+
     /**
      * Returns the todo's identifier
      * @return int
@@ -56,6 +57,7 @@ public class Todo {
         this.id = id;
     }
 
+
     /**
      * Gets title.
      *
@@ -64,6 +66,7 @@ public class Todo {
     public String getTitle() {
         return title;
     }
+
 
     /**
      * Sets title.
@@ -74,6 +77,7 @@ public class Todo {
         this.title = title;
     }
 
+
     /**
      * Gets description.
      *
@@ -82,6 +86,7 @@ public class Todo {
     public String getDescription() {
         return description;
     }
+
 
     /**
      * Sets description.
@@ -92,8 +97,9 @@ public class Todo {
         this.description = description;
     }
 
+
     /**
-     * Gets status.
+     * Gets completion status.
      *
      * @return the status
      */
@@ -101,14 +107,16 @@ public class Todo {
         return status;
     }
 
+
     /**
-     * Sets status.
+     * Sets completion status.
      *
      * @param status the status
      */
     public void setStatus(boolean status) {
         this.status = status;
     }
+
 
     /**
      * Gets url activity.
@@ -119,6 +127,7 @@ public class Todo {
         return urlActivity;
     }
 
+
     /**
      * Sets url activity.
      *
@@ -128,17 +137,19 @@ public class Todo {
         this.urlActivity = urlActivity;
     }
 
+
     /**
-     * Gets complete by date.
+     * Gets complete_by_date value.
      *
-     * @return the complete by date
+     * @return the completeByDate
      */
     public LocalDate getComplete_by_date() {
         return completeByDate;
     }
 
+
     /**
-     * Sets complete by date.
+     * Sets complete_by_date value.
      *
      * @param completeByDate the complete by date
      */
@@ -146,25 +157,43 @@ public class Todo {
         this.completeByDate = completeByDate;
     }
 
+
+    /**
+     * Gets the icon's identifying number.
+     *
+     * @return the icon's ID
+     */
     public int getIconID() {
         return iconID;
     }
 
+
+    /**
+     * Sets the icon's identifying number.
+     *
+     * @param icon The identifying number
+     */
     public void setIcon(int icon) {
         this.iconID = icon;
     }
 
+
+    /**
+     * Gets the color's identifying number.
+     *
+     * @return the color's identifying number
+     */
     public int getColor() {
         return color;
     }
 
+
+    /**
+     * Sets the color's identifying number.
+     *
+     * @param color The identifying number
+     */
     public void setColor(int color) {
         this.color = color;
     }
-
-    public ImageIcon getIcon(){
-        return icon;
-    }
-
-
 }

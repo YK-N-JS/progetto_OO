@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * The class ConnessioneDatabase
+ */
 public class ConnessioneDatabase {
     private static ConnessioneDatabase instance;
     private Connection connection =  null;
@@ -12,6 +15,12 @@ public class ConnessioneDatabase {
     private String url = "jdbc:postgresql://localhost:5432/kalendario";
     private String driver = "org.postgresql.Driver";
 
+
+    /**
+     * The class's constructor.
+     *
+     * @throws SQLException
+     */
     private ConnessioneDatabase() throws SQLException {
         try{
             Class.forName(driver);
@@ -22,6 +31,13 @@ public class ConnessioneDatabase {
         }
     }
 
+
+    /**
+     * Returns an instance of the class ConnessioneDataBase. If no instance is available, it creates a new one and returns it as output.
+     *
+     * @return The instance of ConnessioneDatabase
+     * @throws SQLException
+     */
     public static ConnessioneDatabase getInstance() throws SQLException {
         if(instance == null || instance.connection.isClosed()){
             instance = new ConnessioneDatabase();
@@ -30,6 +46,12 @@ public class ConnessioneDatabase {
         return instance;
     }
 
+
+    /**
+     * Returns an  already open connection
+     *
+     * @return The connection
+     */
     public Connection getConnection() {
         return connection;
     }

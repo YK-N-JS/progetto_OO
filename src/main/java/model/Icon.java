@@ -8,25 +8,25 @@ import java.io.IOException;
 
 
 /**
- * The class Icon
+ * The class Icon.
  *
  */
 public class Icon {
     private BufferedImage icon0 = null;
-    private BufferedImage icon1 =  null;
-    private BufferedImage icon2 =  null;
-    private BufferedImage icon3 =   null;
-    private BufferedImage icon4 =   null;
-    private BufferedImage icon5 =   null;
-    private BufferedImage icon6  =   null;
-    private BufferedImage icon7 =   null;
-    private BufferedImage icon8  =   null;
-    private BufferedImage icon9 =   null;
+    private BufferedImage icon1 = null;
+    private BufferedImage icon2 = null;
+    private BufferedImage icon3 = null;
+    private BufferedImage icon4 = null;
+    private BufferedImage icon5 = null;
+    private BufferedImage icon6 = null;
+    private BufferedImage icon7 = null;
+    private BufferedImage icon8 = null;
+    private BufferedImage icon9 = null;
 
 
     /**
-     * The constructor for the Icon class
-     * Throws a generic Exception if it fails to locate the image files
+     * The constructor for the Icon class.
+     * Throws a generic Exception if it fails to locate the image files.
      *
      * @throws Exception
      */
@@ -49,10 +49,11 @@ public class Icon {
         }
     }
 
+
     /**
-     * Takes a T0do as input, gets its Icon value and returns its corresponding image as an ImageIcon
+     * Takes a Todo as input, gets its Icon value and returns its corresponding image as an ImageIcon.
      *
-     * @param todo
+     * @param todo the todo object
      * @return ImageIcon
      */
     public ImageIcon getIcon(Todo todo){
@@ -82,8 +83,14 @@ public class Icon {
         }
     }
 
-    public ImageIcon getIconBYNumber(int iconId)
-    {
+
+    /**
+     * Takes an integer for input and returns its corresponding image as an ImageIcon.
+     *
+     * @param iconId the integer
+     * @return ImageIcon
+     */
+    public ImageIcon getIconBYNumber(int iconId){
         switch(iconId){
             case 0:
                 return new ImageIcon(icon0);

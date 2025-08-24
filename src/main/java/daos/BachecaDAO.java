@@ -6,6 +6,9 @@ import model.Bacheca;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The class BachecaDAO
+ */
 public class BachecaDAO {
     private Connection connection;
     public BachecaDAO() {
@@ -16,6 +19,13 @@ public class BachecaDAO {
         }
     }
 
+
+    /**
+     * Takes as input a username and returns all the bacheca's of the given user.
+     *
+     * @param username The username of the user
+     * @return an array list of this user's bacheche
+     */
     public ArrayList<Bacheca> getAllBacheca(String username) {
         try{
             ArrayList<Bacheca> bacheche = new ArrayList<>();
@@ -29,7 +39,6 @@ public class BachecaDAO {
                         resultSet.getBoolean("IsDefault")));
             }
             return bacheche;
-
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -37,6 +46,13 @@ public class BachecaDAO {
         }
     }
 
+
+    /**
+     * Takes as input a new bacheca and its owner's username and adds it to  the database.
+     *
+     * @param bacheca The bacheca to be added
+     * @param username The bacheca's owner's username
+     */
     public void createBacheca(Bacheca bacheca, String username) {
         try{
             PreparedStatement inserisciBacheca = connection.prepareStatement("Insert into Bacheca(Title, Description, \"Owner\") values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -47,13 +63,19 @@ public class BachecaDAO {
             ResultSet rs = inserisciBacheca.getGeneratedKeys();
             rs.next();
             bacheca.setId(rs.getInt("ID"));
-
         }
         catch(SQLException e){
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Takes a bacheca as input, checks if it's a default, and if it's not, removes it from the database.
+     *
+     * @param bacheca
+     * @return  Returns true if the elimination was successful, otherwise returns false
+     */
     public boolean deleteBacheca(Bacheca bacheca) {
         try{
             PreparedStatement checkdefault = connection.prepareStatement("Select * from Bacheca where \"ID\" =?");
@@ -74,6 +96,12 @@ public class BachecaDAO {
         }
     }
 
+
+    /**
+     * Takes an updated bacheca as input and applies the changes made to the database.
+     *
+     * @param bacheca The modified bacheca
+     */
     public void editBacheca(Bacheca bacheca) {
         try {
             PreparedStatement editBacheca = connection.prepareStatement("update bacheca set title = ?," +

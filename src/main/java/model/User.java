@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+
 /**
  * The data type User.
  */
@@ -9,10 +10,11 @@ public class User {
     private ArrayList<Bacheca> bacheche = new ArrayList<>();
     private String username;
     private String password;
-    private int numMaxBacheche = 10;
+    final int numMaxBacheche = 10;
+
 
     /**
-     * Instantiates a new User.and creates default bacheche and their description
+     * Instantiates a new User.
      *
      * @param username the username of the user
      * @param password the password of the user
@@ -21,6 +23,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
 
     /**
      * Gets username.
@@ -31,6 +34,7 @@ public class User {
         return username;
     }
 
+
     /**
      * Sets username.
      *
@@ -39,6 +43,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     /**
      * Gets password.
@@ -49,6 +54,7 @@ public class User {
         return password;
     }
 
+
     /**
      * Sets password.
      *
@@ -58,8 +64,9 @@ public class User {
         this.password = password;
     }
 
+
     /**
-     * Given as parameter the index of a user's bacheca, it returns said bacheca as an element
+     * Given as parameter the index of a user's bacheca, it returns said bacheca as an element.
      *
      * @param index the index of the bacheca inside the array list "bacheche"
      * @return the desired bacheca object
@@ -67,7 +74,6 @@ public class User {
     public Bacheca getBacheca(int index) {
         return bacheche.get(index);
     }
-
 
 
     /**
@@ -79,8 +85,9 @@ public class User {
         return bacheche;
     }
 
+
     /**
-     * Sets bacheche.
+     * takes an array list of bacheche and inserts it into the user object.
      *
      * @param bacheche the bacheche
      */
@@ -88,12 +95,13 @@ public class User {
         this.bacheche = bacheche;
     }
 
+
     /**
      * Adds a bacheca if the number of bacheche is less than num_max_bacheche and returns true
-     * otherwise it does nothing and returns false
+     * otherwise it does nothing and returns false.
      *
      * @param bacheca the bacheca
-     * @return boolean success
+     * @return boolean success value
      */
     public boolean addBacheca(Bacheca bacheca) {
         if(bacheche.size()<numMaxBacheche ) {
@@ -103,8 +111,9 @@ public class User {
         else return false;
     }
 
+
     /**
-     * Takes a bacheca as parameter and deletes it from its array list
+     * Takes a bacheca as parameter and deletes it from its array list.
      *
      * @param bacheca the bacheca that will be deleted
      */

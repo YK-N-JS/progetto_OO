@@ -7,6 +7,9 @@ import model.Todo;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The class TodoDAO
+ */
 public class TodoDAO {
     private Connection connection;
     public TodoDAO() {
@@ -17,6 +20,13 @@ public class TodoDAO {
         }
     }
 
+
+    /**
+     * Takes all the todos in a bacheca and returns them in alphabetical order.
+     *
+     * @param bacheca The  bacheca
+     * @return The list of todos
+     */
     public ArrayList<Todo> getTodoInBachecaAlphabetical(Bacheca bacheca) {
         try{
             ArrayList<Todo> todoList = new ArrayList<>();
@@ -41,6 +51,13 @@ public class TodoDAO {
         }
     }
 
+
+    /**
+     * Takes all the todos in a bacheca and returns them in expiring date order.
+     *
+     * @param bacheca The  bacheca
+     * @return The list of todos
+     */
     public ArrayList<Todo> getTodoInBachecaByDate(Bacheca bacheca) {
         try{
             ArrayList<Todo> todoList = new ArrayList<>();
@@ -65,19 +82,33 @@ public class TodoDAO {
         }
     }
 
+
+    /**
+     * Takes as input a todo and the bacheca it belongs to. Removes the todo from said bacheca.
+     *
+     * @param todo The todo to be removed
+     * @param bacheca The bacheca
+     */
     public void removeTodo(Todo todo, Bacheca bacheca) {
         try{
             PreparedStatement rimuoviTodo = connection.prepareStatement("Delete From placement Where idtodo = ? and idbacheca = ?");
             rimuoviTodo.setInt(1, todo.getID());
             rimuoviTodo.setInt(2, bacheca.getId());
             rimuoviTodo.execute();
-
         }
         catch(SQLException e){
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Adds a todo  to the database.Takes as input the bacheca the todo belongs to, the todo itself as an object and the owner's username.
+     *
+     * @param bacheca The todo's bacheca
+     * @param todo The todo
+     * @param user The todo's owner's username
+     */
     public void addTodo(Bacheca bacheca, Todo todo, String user){
         try{
             PreparedStatement aggiungiTodo = connection.prepareStatement("Insert INTO ToDo(Title, URL, Description, \"Owner\", Complete_By_Date)" +
@@ -96,26 +127,37 @@ public class TodoDAO {
             aggiungiPlacement.setInt(1, bacheca.getId());
             aggiungiPlacement.setInt(2, rs.getInt("ID"));
             aggiungiPlacement.executeUpdate();
-
         }
         catch(SQLException e){
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Takes as input a todo identifier and a username. Shares the todo with given user.
+     *
+     * @param idTodo The todo's identifier
+     * @param user The user's username
+     */
     public void shareTodo(int idTodo, String user){
         try {
             PreparedStatement query = connection.prepareStatement("call condividitodo(?, ?)");
             query.setInt(2, idTodo);
             query.setString(1, user);
             query.executeUpdate();
-
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Takes an updated todo as input and applies the changes made to the database.
+     *
+     * @param todo The modified todo
+     */
     public void editTodo(Todo todo){
         try {
         PreparedStatement editTodo = connection.prepareStatement("update todo set title = ?," +
@@ -131,12 +173,20 @@ public class TodoDAO {
         editTodo.setInt(8, todo.getID());
 
         editTodo.executeUpdate();
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Takes as input a todo identifying number and two bacheca's identifiers. Moves the todo from the first bacheca to the second.
+     *
+     * @param todoid The todo's identifier
+     * @param origin The starting bacheca's identifier
+     * @param destination The destination bacheca's identifier
+     */
     public void spostaTodo(int todoid, int origin, int destination) {
         try {
             PreparedStatement spostaTodo = connection.prepareStatement("call movetodo(?, ?, ?)");
@@ -144,13 +194,9 @@ public class TodoDAO {
             spostaTodo.setInt(2, origin);
             spostaTodo.setInt(3, destination);
             spostaTodo.executeUpdate();
-
-        } catch (SQLException e)
-        {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-
 }

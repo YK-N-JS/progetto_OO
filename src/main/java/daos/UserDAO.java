@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * The class UserDAO
+ */
 public class UserDAO {
     private Connection connection;
     public UserDAO() {
@@ -18,20 +22,32 @@ public class UserDAO {
         }
     }
 
-    public void insertUser(User user) {
-        //funziona ma si arrabbia perché la query non restituisce nulla... bah, java smh...
+
+    /**
+     * Takes an object User as input and inserts it into the database.
+     *
+     * @param user The user
+     */
+    public void insertUser(User user){
         try{
            PreparedStatement inserisciUtente = connection.prepareStatement("Insert INTO \"user\"(username, \"Password\") VALUES (?,?)");
             inserisciUtente.setString(1, user.getUsername());
             inserisciUtente.setString(2, user.getPassword());
             inserisciUtente.executeUpdate();
-
     }
         catch (SQLException e) {
             e.printStackTrace();
           }
     }
 
+
+    /**
+     * Takes the strings username and password as input and checks whether an user with given data is present in the database.
+     *
+     * @param username The username
+     * @param password The password
+     * @return The user as an object if the process was successful, otherwise returns null
+     */
     public User getUser(String username, String password) {
         try{
             PreparedStatement prendiUtente = connection.prepareStatement("SELECT * FROM \"user\" WHERE username = ? AND \"Password\" = ?");
@@ -50,6 +66,14 @@ public class UserDAO {
         }
     }
 
+
+    /**
+     * Takes the string userName as input and checks whether a user with that userrname is present in the database.
+     * Returns true if no match was found.
+     *
+     * @param userName The username
+     * @return The success value
+     */
     public boolean checkUser(String userName) {
         try{
             PreparedStatement controllaUtente = connection.prepareStatement("Select username from \"user\" where username = ?");
@@ -66,6 +90,13 @@ public class UserDAO {
     }
 
 
+    /**
+     * Method used for autentification purposes. Checks whether the credentials taken as input match a user in the database.
+     *
+     * @param username The given username
+     * @param password The given password
+     * @return An integer indicating the login attempt's outcome
+     */
     public int login(String username, String password) {
         try{
             if(checkUser(username)) //se non trova nessuno
@@ -89,5 +120,4 @@ public class UserDAO {
             return -2;
         }
     }
-
 }

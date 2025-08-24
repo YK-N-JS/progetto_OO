@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+
 /**
  * The type Bacheca.
  */
@@ -18,8 +19,10 @@ public class Bacheca {
      */
     public Bacheca(){}
 
+
     /**
      * Instantiates a new bacheca (with parameters).
+     *
      * @param id The bacheca's identifier
      * @param title The bacheca's title
      * @param description The bacheca's description
@@ -32,49 +35,61 @@ public class Bacheca {
         this.isDefault = isDefault;
     }
 
+
     /**
-     * Returns the bacheca's identifier
-     * @return id
+     * Returns the bacheca's identifier.
+     *
+     * @return The identifier
      */
     public int getId() {
         return id;
     }
 
+
+    /**
+     * takes an integer as input and sets it as the bacheca's identifier.
+     *
+     * @param id The integer
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+
     /**
-     * Gets title of the bacheca.
+     * Gets the title of the bacheca.
      *
-     * @return the title
+     * @return The title
      */
     public String getTitle() {
         return title;
     }
 
+
     /**
-     * Sets title of the bacheca.
+     * Sets the title of the bacheca.
      *
-     * @param title the title
+     * @param title The title
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
+
     /**
-     * Gets description of the bacheca.
+     * Gets the description of the bacheca.
      *
-     * @return the description
+     * @return The description
      */
     public String getDescription() {
         return description;
     }
 
+
     /**
-     * Sets description of the bacheca.
+     * Sets the description of the bacheca.
      *
-     * @param description the description
+     * @param description The description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -82,18 +97,19 @@ public class Bacheca {
 
 
     /**
-     * Sets todo in bacheca.
+     * Take as array list of ToDo's and sets it as the todo in bacheca.
      *
-     * @param todoInBacheca the todo in bacheca
+     * @param todoInBacheca The todo in bacheca
      */
     public void setTodoInBacheca(ArrayList<Todo> todoInBacheca) {
         this.todoInBacheca = todoInBacheca;
     }
 
+
     /**
-     * Add todo to the list of todos.
+     * Adds a todo to the list of todos.
      *
-     * @param todo the todo
+     * @param todo The todo
      */
     public void addTodo(Todo todo){
         this.todoInBacheca.add(todo);
@@ -101,15 +117,20 @@ public class Bacheca {
 
 
     /**
-     *Removes the todo passed as parameter
+     * Removes the todo passed as parameter from its assigned todoInBacheca array list.
      *
-     *@param toremove the todo that will be deleted
+     * @param toRemove The todo that will be deleted
      */
-    public void removeATodo(Todo toremove)
-    {
-        todoInBacheca.remove(toremove);
+    public void removeATodo(Todo toRemove){
+        todoInBacheca.remove(toRemove);
     }
 
+
+    /**
+     * Overrides the default toString method in java.lang.Object.
+     *
+     * @return the title
+     */
     @Override
     public String toString() {
         return title;
