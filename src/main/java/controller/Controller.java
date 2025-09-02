@@ -91,7 +91,7 @@ public class Controller {
     /**
      * Takes a user as input and loads its bacheche into its corresponding array list.
      *
-     * @param user
+     * @param user the user
      */
     public void loadBachecheUser(User user) {
         ArrayList<Bacheca> bachecheUser = bachecaDAO.getAllBacheca(user.getUsername());

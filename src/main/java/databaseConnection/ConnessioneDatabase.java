@@ -36,7 +36,7 @@ public class ConnessioneDatabase {
      * Returns an instance of the class ConnessioneDataBase. If no instance is available, it creates a new one and returns it as output.
      *
      * @return The instance of ConnessioneDatabase
-     * @throws SQLException
+     * @throws SQLException an SQL exception
      */
     public static ConnessioneDatabase getInstance() throws SQLException {
         if(instance == null || instance.connection.isClosed()){

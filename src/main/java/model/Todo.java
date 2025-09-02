@@ -53,6 +53,10 @@ public class Todo {
         return id;
     }
 
+    /**
+     * sets the ID for the todo
+     * @param id the id
+     */
     public void setID(int id){
         this.id = id;
     }

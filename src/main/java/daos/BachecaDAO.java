@@ -11,6 +11,11 @@ import java.util.ArrayList;
  */
 public class BachecaDAO {
     private Connection connection;
+
+
+    /**
+     * The constructor for BachecaDAO
+     */
     public BachecaDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().getConnection();
@@ -73,7 +78,7 @@ public class BachecaDAO {
     /**
      * Takes a bacheca as input, checks if it's a default, and if it's not, removes it from the database.
      *
-     * @param bacheca
+     * @param bacheca the bacheca
      * @return  Returns true if the elimination was successful, otherwise returns false
      */
     public boolean deleteBacheca(Bacheca bacheca) {

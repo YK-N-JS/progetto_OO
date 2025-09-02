@@ -14,6 +14,10 @@ import java.sql.SQLException;
  */
 public class UserDAO {
     private Connection connection;
+
+    /**
+     * the constructor for UserDAO
+     */
     public UserDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().getConnection();

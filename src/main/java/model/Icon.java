@@ -26,9 +26,6 @@ public class Icon {
 
     /**
      * The constructor for the Icon class.
-     * Throws a generic Exception if it fails to locate the image files.
-     *
-     * @throws Exception
      */
     public Icon() {
         try {

@@ -12,6 +12,10 @@ import java.util.ArrayList;
  */
 public class TodoDAO {
     private Connection connection;
+
+    /**
+     * the constructor for TodoDAO
+     */
     public TodoDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().getConnection();
